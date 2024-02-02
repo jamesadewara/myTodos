@@ -1,0 +1,75 @@
+name: mytodo
+description: "Welcome to MyTodo's, the perfect solution for managing your tasks effortlessly! Whether you're a busy professional, a student, or just someone with a hectic schedule, our app is designed to simplify your life and boost productivity."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  flutter_localization: ^0.2.0
+  firebase_core: ^2.25.0
+  cached_network_image: ^3.3.1
+  flutter_list_view: ^1.1.22
+  rive: ^0.12.4
+  google_fonts: ^6.1.0
+  auto_size_text: ^3.0.0
+  hexcolor: ^3.0.1
+  intl: ^0.19.0
+  responsive_framework: ^1.1.1
+  url_launcher: ^6.2.4
+  flutter_redux: ^0.10.0
+  aitheme:
+    git:
+      url: git@github.com:jamesadewara/AiTheme.git
+  redux: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+
+flutter:
+  generate: true 
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/
+    - assets/images/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+
+# homepage: https://example.com
+# repository: https://github.com/your_username/your_repo
+# documentation: https://docs.example.com
+
+# Specify any additional license information
+# license: MIT
