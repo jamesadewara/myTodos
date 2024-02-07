@@ -1,6 +1,11 @@
 // isLoading action: Increment
+import 'package:mytodo/control/store.dart';
+
 enum LoadingActions { logic }
 
-bool loadingReducer(bool state, dynamic action) {
-  return action == LoadingActions.logic ? !state : state;
+AppState loadingReducer(AppState state, action) {
+  if (action == LoadingActions.logic) {
+    return AppState(!state.isLoading);
+  }
+  return state;
 }

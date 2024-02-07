@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:mytodo/control/page_list.dart';
+import 'package:mytodo/index.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -82,16 +81,6 @@ class _BaseAppState extends State<BaseApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      StoreConnector<bool, bool>(
-        converter: (store) => store.state,
-        builder: (context, value) {
-          return Visibility(
-              visible: value,
-              child: LinearProgressIndicator(value: value ? null : 0));
-        },
-      ),
-      Expanded(child: widget.child)
-    ]);
+    return Scaffold(body: widget.child);
   }
 }
