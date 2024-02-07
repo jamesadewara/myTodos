@@ -1,1 +1,5 @@
-{ "hello": "Hello, How are you?" }
+{ 
+    "introTitle":"Task Management & To-Do List",
+    "introDescription":"This efficient tool is crafted to assist you in organizing your tasks in a project-oriented manner, ensuring convienience and maintaining your focus throughout your work",
+    "exitIntroText":"Let's Start"
+}

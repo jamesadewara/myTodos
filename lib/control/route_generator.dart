@@ -3,6 +3,7 @@ import 'package:mytodo/index.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
+  static const String intro = '/intro';
   static const String home = '/';
   static const String login = '/login';
   static const String signup = '/signup';
@@ -21,6 +22,12 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: LoginScreen(),
+                ));
+
+      case AppRoutes.intro:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: IntroScreen(),
                 ));
 
       default:
