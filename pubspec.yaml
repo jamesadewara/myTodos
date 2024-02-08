@@ -27,19 +27,21 @@ dependencies:
   aitheme:
     git:
       url: git@github.com:jamesadewara/AiTheme.git
-      ref: main
+      ref: HEAD
    
   aiauth_sdk:
     git:
       url: git@github.com:jamesadewara/AiAuth.git
-      ref: main
+      ref: HEAD
       
   redux: ^5.0.0
+  flutter_native_splash: ^2.3.10
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.13.1"
   flutter_lints: ^3.0.1
 
 flutter:
@@ -81,3 +83,45 @@ flutter:
 
 # Specify any additional license information
 # license: MIT
+
+# flutter_native_splash-development.yaml
+flutter_native_splash:
+  # This package generates native code to customize Flutter's default white native splash screen
+  # with background color and splash image.
+  # Customize the parameters below, and run the following command in the terminal:
+  # dart run flutter_native_splash:create
+  # To restore Flutter's default white splash screen, run the following command in the terminal:
+  # dart run flutter_native_splash:remove
+
+  color: "#ffffff"
+  image: assets/icon.png
+  branding: assets/icon.png
+  color_dark: "#121212"
+  image_dark: assets/icon.png
+  branding_dark: assets/icon.png
+
+  android_12:
+    image: assets/icon.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/icon.png
+    icon_background_color_dark: "#121212"
+
+  web: false
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/icon.png"

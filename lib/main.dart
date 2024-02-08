@@ -1,5 +1,7 @@
+import 'package:aitheme/deserializer.dart';
 import 'package:aitheme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -11,7 +13,8 @@ import 'package:responsive_framework/breakpoint.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   final store = Store<AppState>(
     rootReducer,
     initialState: AppState(false), // Initial state
@@ -21,25 +24,38 @@ void main() async {
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
   runApp(StoreProvider(store: store, child: const MainApp()));
+  FlutterNativeSplash.remove();
 }
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
-  // This widget is the root of your application.
+// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: "MyTodo's",
-        debugShowCheckedModeBanner: false,
-        theme: AiThemes().dayLight(context),
-        darkTheme: AiThemes().charcoal(context),
-        themeMode: ThemeMode.system,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        initialRoute: AppRoutes.splash,
-        onGenerateRoute: RouteGenerator.generateRoute,
-        builder: (context, child) => ResponsiveBreakpoints.builder(
+    return FutureBuilder<List<ThemeData>>(
+      future: Future.wait([
+        AiThemes(name: ThemeIdentifier.daylight).currentTheme(),
+        AiThemes(name: ThemeIdentifier.nightfall).currentTheme(),
+      ]),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator(); // Show a loading indicator while fetching the theme data
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (snapshot.hasData) {
+          final List<ThemeData> themes = snapshot.data!;
+          return MaterialApp(
+            title: "MyTodo's",
+            debugShowCheckedModeBanner: false,
+            theme: themes[0], // Theme for daylight
+            darkTheme: themes[1], // Theme for nightfall
+            themeMode: ThemeMode.system,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            initialRoute: AppRoutes.splash,
+            onGenerateRoute: RouteGenerator.generateRoute,
+            builder: (context, child) => ResponsiveBreakpoints.builder(
               child: child!,
               breakpoints: [
                 const Breakpoint(start: 0, end: 450, name: MOBILE),
@@ -47,6 +63,12 @@ class MainApp extends StatelessWidget {
                 const Breakpoint(start: 801, end: 1920, name: DESKTOP),
                 const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
               ],
-            ));
+            ),
+          );
+        } else {
+          return const Text('No data available');
+        }
+      },
+    );
   }
 }
