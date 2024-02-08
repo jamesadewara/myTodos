@@ -32,9 +32,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         title: "MyTodo's",
         debugShowCheckedModeBanner: false,
-        // theme: AiThemes().dayLight(context),
-        // darkTheme: AiThemes().charcoal(context),
-        // themeMode: ThemeMode.system,
+        theme: AiThemes().dayLight(context),
+        darkTheme: AiThemes().charcoal(context),
+        themeMode: ThemeMode.system,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         initialRoute: AppRoutes.splash,

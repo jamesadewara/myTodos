@@ -28,6 +28,7 @@ dependencies:
     git:
       url: git@github.com:jamesadewara/AiTheme.git
       ref: main
+   
   aiauth_sdk:
     git:
       url: git@github.com:jamesadewara/AiAuth.git
