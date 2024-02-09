@@ -1,17 +1,17 @@
 import 'package:aiauth_sdk/main.dart';
 import 'package:flutter/material.dart';
+import 'package:mytodo/control/config.dart';
 import 'package:mytodo/index.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
   static const String intro = '/intro';
   static const String home = '/';
+  static const String task = '/task';
 }
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    var isLogged = false;
-
     if (!isLogged) {
       return MaterialPageRoute(
           builder: (_) => authSdkInit(image: "assets/icon.png"));
@@ -28,6 +28,18 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: IntroScreen(),
+                ));
+
+      case AppRoutes.home:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: HomeScreen(),
+                ));
+
+      case AppRoutes.task:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: TaskScreen(),
                 ));
 
       default:

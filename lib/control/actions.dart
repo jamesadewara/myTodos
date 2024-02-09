@@ -5,7 +5,16 @@ enum LoadingActions { logic }
 
 AppState loadingReducer(AppState state, action) {
   if (action == LoadingActions.logic) {
-    return AppState(!state.isLoading);
+    return AppState(isLoading: !state.isLoading!);
+  }
+  return state;
+}
+
+enum IntroActions { logic }
+
+AppState introReducer(AppState state, action) {
+  if (action == IntroActions.logic) {
+    return AppState(isIntro: !state.isLoading!);
   }
   return state;
 }

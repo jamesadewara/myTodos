@@ -17,7 +17,7 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   final store = Store<AppState>(
     rootReducer,
-    initialState: AppState(false), // Initial state
+    initialState: AppState(isIntro: true, isLoading: false), // Initial state
   );
 
   // await Firebase.initializeApp(
@@ -53,7 +53,7 @@ class MainApp extends StatelessWidget {
             themeMode: ThemeMode.system,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            initialRoute: AppRoutes.splash,
+            initialRoute: AppRoutes.intro,
             onGenerateRoute: RouteGenerator.generateRoute,
             builder: (context, child) => ResponsiveBreakpoints.builder(
               child: child!,
