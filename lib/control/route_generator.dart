@@ -7,9 +7,14 @@ class AppRoutes {
   static const String splash = '/splash';
   static const String intro = '/intro';
   static const String home = '/';
+  static const String notifications = '/notifications';
   static const String task = '/task';
+  static const String taskGroup = '/task/group';
   static const String addTask = '/task/add';
+  static const String distractions = '/distractions';
   static const String settings = '/settings';
+  static const String appLanguages = '/settings/app_languages';
+  static const String appAppearances = '/settings/app_appearances';
 }
 
 class RouteGenerator {
@@ -37,22 +42,46 @@ class RouteGenerator {
             builder: (_) => const BaseApp(
                   child: HomeScreen(),
                 ));
+      case AppRoutes.notifications:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: NotificationScreen(),
+                ));
 
       case AppRoutes.task:
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: TaskScreen(),
                 ));
+      case AppRoutes.taskGroup:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: TaskGroupScreen(),
+                ));
       case AppRoutes.addTask:
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: AddTaskScreen(),
                 ));
-
+      case AppRoutes.distractions:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: DistractionScreen(),
+                ));
       case AppRoutes.settings:
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: SettingsScreen(),
+                ));
+      case AppRoutes.appLanguages:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: LanguageScreen(),
+                ));
+      case AppRoutes.appAppearances:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: AppearanceScreen(),
                 ));
 
       default:

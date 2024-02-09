@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
@@ -42,8 +43,11 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   final _scrollController = ScrollController();
 
+  bool hideAppBar = true;
+
   @override
   void initState() {
+    hideAppBar = true;
     super.initState();
   }
 
@@ -52,17 +56,27 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
+            title: hideAppBar ? null : const Text("Adewara James"),
             actions: const [NotificatorButton()]),
         body: Scrollbar(
             controller: _scrollController,
             notificationPredicate: (ScrollNotification notification) {
+              if (_scrollController.offset > 48) {
+                setState(() {
+                  hideAppBar = false;
+                });
+              } else {
+                setState(() {
+                  hideAppBar = true;
+                });
+              }
               return notification.depth == 0;
             },
             child: SingleChildScrollView(
                 controller: _scrollController,
                 child: Center(
                     child: Padding(
-                         padding: EdgeInsets.only(
+                        padding: EdgeInsets.only(
                             left: ResponsiveBreakpoints.of(context)
                                     .between(MOBILE, TABLET)
                                 ? 8
@@ -229,7 +243,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .pushNamed(AppRoutes.appAppearances);
+                                    },
                                     leading: const Card(
                                       child: Icon(Icons.palette),
                                     ),
@@ -247,7 +264,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .pushNamed(AppRoutes.appLanguages);
+                                    },
                                     leading: const Card(
                                       child: Icon(Icons.language),
                                     ),

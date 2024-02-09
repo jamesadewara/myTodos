@@ -32,7 +32,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
       "icon": Icons.notifications_off_outlined,
       "selectedIcon": Icons.notifications_off,
       "label": "Distractions",
-      "route": AppRoutes.home
+      "route": AppRoutes.distractions
     },
     {
       "icon": Icons.group_outlined,

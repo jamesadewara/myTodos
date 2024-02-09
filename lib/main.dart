@@ -33,42 +33,26 @@ class MainApp extends StatelessWidget {
 // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ThemeData>>(
-      future: Future.wait([
-        AiThemes(name: ThemeIdentifier.daylight).currentTheme(),
-        AiThemes(name: ThemeIdentifier.nightfall).currentTheme(),
-      ]),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(); // Show a loading indicator while fetching the theme data
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else if (snapshot.hasData) {
-          final List<ThemeData> themes = snapshot.data!;
-          return MaterialApp(
-            title: "MyTodo's",
-            debugShowCheckedModeBanner: false,
-            theme: themes[0], // Theme for daylight
-            darkTheme: ThemeData.dark(), // Theme for nightfall
-            themeMode: ThemeMode.system,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            initialRoute: AppRoutes.intro,
-            onGenerateRoute: RouteGenerator.generateRoute,
-            builder: (context, child) => ResponsiveBreakpoints.builder(
-              child: child!,
-              breakpoints: [
-                const Breakpoint(start: 0, end: 450, name: MOBILE),
-                const Breakpoint(start: 451, end: 800, name: TABLET),
-                const Breakpoint(start: 801, end: 1920, name: DESKTOP),
-                const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-              ],
-            ),
-          );
-        } else {
-          return const Text('No data available');
-        }
-      },
+    return MaterialApp(
+      title: "MyTodo's",
+
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(), // Theme for daylight
+      // darkTheme: ThemeData.dark(), // Theme for nightfall
+      // themeMode: ThemeMode.system,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      initialRoute: AppRoutes.intro,
+      onGenerateRoute: RouteGenerator.generateRoute,
+      builder: (context, child) => ResponsiveBreakpoints.builder(
+        child: child!,
+        breakpoints: [
+          const Breakpoint(start: 0, end: 450, name: MOBILE),
+          const Breakpoint(start: 451, end: 800, name: TABLET),
+          const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+          const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+        ],
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
@@ -42,17 +43,49 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _scrollController = ScrollController();
 
+  bool hideAppBar = true;
+
   @override
   void initState() {
+    hideAppBar = true;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: hideAppBar
+            ? null
+            : AppBar(
+                automaticallyImplyLeading: false,
+                // leading: CachedNetworkImage(
+                //   height: 180,
+                //   imageUrl: "https://www.com",
+                //   progressIndicatorBuilder: (context, url,
+                //           downloadProgress) =>
+                //       Center(
+                //           child: CircularProgressIndicator(
+                //               value:
+                //                   downloadProgress.progress)),
+                //   errorWidget: (context, url, error) =>
+                //       const Card(child: Icon(Icons.person)),
+                // ),
+                title: const Text("Adewara James"),
+                actions: const <Widget>[NotificatorButton()],
+              ),
         body: Scrollbar(
             controller: _scrollController,
             notificationPredicate: (ScrollNotification notification) {
+              if (_scrollController.offset > 48) {
+                setState(() {
+                  hideAppBar = false;
+                });
+              } else {
+                setState(() {
+                  hideAppBar = true;
+                });
+              }
+
               return notification.depth == 0;
             },
             child: SingleChildScrollView(
@@ -72,6 +105,7 @@ class _HomePageState extends State<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
+                              const SizedBox(height: 16),
                               ListTile(
                                   // leading: CachedNetworkImage(
                                   //   height: 180,
@@ -357,7 +391,7 @@ class _HomePageState extends State<HomePage> {
                                           height: 120,
                                           width: 220,
                                           decoration: BoxDecoration(
-                                              color: Color(0xFFF8D19D),
+                                              color: const Color(0xFFF8D19D),
                                               borderRadius:
                                                   BorderRadius.circular(8)),
                                           child: Padding(
@@ -460,6 +494,12 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Card(
                                   child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(AppRoutes.taskGroup);
+                                },
                                 leading: const Card(
                                   child: Icon(Icons.badge),
                                 ),

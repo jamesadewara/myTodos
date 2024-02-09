@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mytodo/control/route_generator.dart';
 
 class NotificatorButton extends StatefulWidget {
   const NotificatorButton({
@@ -19,7 +20,9 @@ class _NotificatorButtonState extends State<NotificatorButton> {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(AppRoutes.notifications);
+      },
       child: Padding(
           padding: const EdgeInsets.all(8),
           child: SizedBox(
