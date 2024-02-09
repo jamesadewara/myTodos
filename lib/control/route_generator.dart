@@ -15,6 +15,8 @@ class AppRoutes {
   static const String settings = '/settings';
   static const String appLanguages = '/settings/app_languages';
   static const String appAppearances = '/settings/app_appearances';
+  static const String appNotification = '/settings/app_notification';
+  static const String accountManagement = '/settings/account_management';
 }
 
 class RouteGenerator {
@@ -82,6 +84,16 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: AppearanceScreen(),
+                ));
+      case AppRoutes.appNotification:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: NotificationSettingsScreen(),
+                ));
+      case AppRoutes.accountManagement:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: AccountManagementScreen(),
                 ));
 
       default:

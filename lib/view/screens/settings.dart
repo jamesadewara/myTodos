@@ -179,12 +179,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                          AppRoutes.accountManagement);
+                                    },
                                     leading: const Card(
                                       child: Icon(Icons.delete_outline),
                                     ),
-                                    title:
-                                        const Text("Deactivation and deletion"),
+                                    title: const Text("Account management"),
                                     titleTextStyle: Theme.of(context)
                                         .textTheme
                                         .labelLarge
@@ -225,7 +227,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .pushNamed(AppRoutes.appNotification);
+                                    },
                                     leading: const Card(
                                       child: Icon(Icons.notifications_none),
                                     ),

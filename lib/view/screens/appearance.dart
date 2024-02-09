@@ -77,6 +77,7 @@ class _AppearancePageState extends State<AppearancePage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
+                                        
                                     title: const Text("System Theme"),
                                     trailing: Radio(
                                         value: true,
@@ -87,6 +88,7 @@ class _AppearancePageState extends State<AppearancePage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
+                                        
                                     title: const Text("Light Mode Theme"),
                                     trailing: Radio(
                                         value: true,
@@ -97,6 +99,7 @@ class _AppearancePageState extends State<AppearancePage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
+                                        
                                     title: const Text("Dark Mode Theme"),
                                     trailing: Radio(
                                         value: true,
