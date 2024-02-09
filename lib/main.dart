@@ -49,7 +49,7 @@ class MainApp extends StatelessWidget {
             title: "MyTodo's",
             debugShowCheckedModeBanner: false,
             theme: themes[0], // Theme for daylight
-            darkTheme: themes[1], // Theme for nightfall
+            darkTheme: ThemeData.dark(), // Theme for nightfall
             themeMode: ThemeMode.system,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

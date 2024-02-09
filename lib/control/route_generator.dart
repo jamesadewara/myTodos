@@ -8,6 +8,8 @@ class AppRoutes {
   static const String intro = '/intro';
   static const String home = '/';
   static const String task = '/task';
+  static const String addTask = '/task/add';
+  static const String settings = '/settings';
 }
 
 class RouteGenerator {
@@ -40,6 +42,17 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: TaskScreen(),
+                ));
+      case AppRoutes.addTask:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: AddTaskScreen(),
+                ));
+
+      case AppRoutes.settings:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: SettingsScreen(),
                 ));
 
       default:

@@ -37,8 +37,8 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     {
       "icon": Icons.group_outlined,
       "selectedIcon": Icons.group,
-      "label": "Profile",
-      "route": AppRoutes.home
+      "label": "Settings",
+      "route": AppRoutes.settings
     },
   ];
 
@@ -60,7 +60,10 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                   margin: const EdgeInsets.only(top: 16, bottom: 16),
                   width: 72,
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: MediaQuery.of(context).platformBrightness ==
+                              Brightness.light
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(16),
                           bottomRight: Radius.circular(16))),
@@ -79,7 +82,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                                     size: 24,
                                     color: Theme.of(context)
                                         .colorScheme
-                                        .background),
+                                        .onSurface),
                                 tooltip: index["label"],
                                 onPressed: () => setState(
                                       () {
@@ -109,7 +112,9 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
           tooltip: "Add a new task",
           shape: const CircleBorder(),
           child: const Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed(AppRoutes.addTask);
+          },
         ),
         floatingActionButtonLocation:
             ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
@@ -118,7 +123,10 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
         bottomNavigationBar: Visibility(
           visible: ResponsiveBreakpoints.of(context).between(MOBILE, TABLET),
           child: AnimatedBottomNavigationBar.builder(
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor:
+                MediaQuery.of(context).platformBrightness == Brightness.light
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.surface,
             itemCount: iconList.length,
             tabBuilder: (int index, bool isActive) {
               return Icon(
@@ -126,7 +134,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                       ? iconList[index]["selectedIcon"]
                       : iconList[index]["icon"],
                   size: 24,
-                  color: Theme.of(context).colorScheme.background);
+                  color: Theme.of(context).colorScheme.onSurface);
             },
             activeIndex: _appNavIndex,
             gapLocation: GapLocation.center,

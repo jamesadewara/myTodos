@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
+import 'package:responsive_framework/responsive_breakpoints.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({
@@ -49,6 +50,7 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text("Todays' Tasks"),
           actions: const <Widget>[
             NotificatorButton(),
@@ -63,483 +65,520 @@ class _TaskPageState extends State<TaskPage> {
                 controller: _scrollController,
                 child: Center(
                     child: Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        padding:    EdgeInsets.only(
+                            left: ResponsiveBreakpoints.of(context)
+                                    .between(MOBILE, TABLET)
+                                ? 8
+                                : 72,
+                            right: ResponsiveBreakpoints.of(context)
+                                    .between(MOBILE, TABLET)
+                                ? 8
+                                : 72),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              ListTile(
-                                  // leading: CachedNetworkImage(
-                                  //     height: 180,
-                                  //     imageUrl: "https://www.com",
-                                  //     progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                  //         Center(
-                                  //             child: CircularProgressIndicator(
-                                  //                 value: downloadProgress.progress)),
-                                  //     errorWidget: (context, url, error) =>
-                                  //         const Icon(Icons.person)),
-                                  title: Text(
-                                    "Hello!",
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall,
-                                  ),
-                                  subtitle: Text(
-                                    "Adewara James",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                  ),
-                                  trailing: SizedBox(
-                                      width: 32,
-                                      height: 32,
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: IconButton(
-                                                icon: const Icon(
-                                                    Icons.notifications),
-                                                onPressed: () {}),
-                                          ),
-                                          Positioned(
-                                              right: 2,
-                                              top: 12,
-                                              child: Icon(
-                                                Icons.circle,
-                                                size: 8,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                              ))
-                                        ],
-                                      ))),
-                              Container(
-                                  height: 140,
-                                  decoration: BoxDecoration(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8,
-                                          right: 8,
-                                          top: 8,
-                                          bottom: 24),
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  AutoSizeText(
-                                                    "Your today's task\n almost done!",
-                                                    softWrap: true,
-                                                    wrapWords: true,
-                                                    textAlign: TextAlign.start,
-                                                    maxLines: 2,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyLarge
-                                                        ?.copyWith(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .onPrimary),
-                                                  ),
-                                                  ElevatedButton(
-                                                      onPressed: () {},
-                                                      child: const Text(
-                                                          "Continue"))
-                                                ]),
-                                            SizedBox(
-                                              width: 84,
-                                              height: 84,
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeAlign: 8,
-                                                      strokeWidth: 4,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primaryContainer,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "85%",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyMedium
-                                                          ?.copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .onPrimary),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: <Widget>[
-                                                  IconButton(
-                                                    icon: Icon(
-                                                      Icons.more_horiz,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimary,
-                                                    ),
-                                                    onPressed: () {},
-                                                  )
-                                                ]),
-                                          ]))),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  AutoSizeText("In Progress",
-                                      maxLines: 1,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.bold)),
-                                  IconButton(
-                                      iconSize: 16,
-                                      splashColor: Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                      onPressed: () {},
-                                      icon: AutoSizeText("6",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary)))
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
                               SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Container(
-                                          height: 120,
-                                          width: 220,
-                                          decoration: BoxDecoration(
-                                              color: const Color(0xFFBBE4E7),
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8,
-                                                  right: 8,
-                                                  top: 8,
-                                                  bottom: 12),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        "Office Project",
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall,
-                                                      ),
-                                                      const Card(
-                                                          child: Padding(
-                                                        padding:
-                                                            EdgeInsets.all(4),
-                                                        child: Icon(
-                                                          Icons.badge,
-                                                          size: 16,
-                                                        ),
-                                                      )),
-                                                    ],
-                                                  ),
-                                                  Text(
-                                                      "Grocery shopping app design",
-                                                      textAlign: TextAlign.left,
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge
-                                                          ?.copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)),
-                                                  LinearProgressIndicator(
-                                                    value: 0.75,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  )
-                                                ],
-                                              ))),
+                                      Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
+                                        child: InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            onTap: () {},
+                                            child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 16,
+                                                    right: 16,
+                                                    top: 8,
+                                                    bottom: 8),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    AutoSizeText(
+                                                      "May",
+                                                      style: ResponsiveBreakpoints
+                                                                  .of(context)
+                                                              .between(MOBILE,
+                                                                  TABLET)
+                                                          ? Theme.of(context)
+                                                              .textTheme
+                                                              .labelSmall
+                                                          : Theme.of(context)
+                                                              .textTheme
+                                                              .displaySmall,
+                                                    ),
+                                                    AutoSizeText("23",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(
+                                                                    MOBILE, TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displayLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)),
+                                                    AutoSizeText("Fri",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(MOBILE,
+                                                                    TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .labelSmall
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displaySmall)
+                                                  ],
+                                                ))),
+                                      ),
                                       const SizedBox(
                                         width: 16,
                                       ),
-                                      Container(
-                                          height: 120,
-                                          width: 220,
-                                          decoration: BoxDecoration(
-                                              color: const Color(0xFFBBE4E7),
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 8,
-                                                  right: 8,
-                                                  top: 8,
-                                                  bottom: 12),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        "Office Project",
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .bodySmall,
-                                                      ),
-                                                      const Card(
-                                                          child: Padding(
-                                                        padding:
-                                                            EdgeInsets.all(4),
-                                                        child: Icon(
-                                                          Icons.badge,
-                                                          size: 16,
-                                                        ),
-                                                      )),
-                                                    ],
-                                                  ),
-                                                  Text(
-                                                      "Grocery shopping app design",
-                                                      textAlign: TextAlign.left,
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge
-                                                          ?.copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)),
-                                                  LinearProgressIndicator(
-                                                    value: 0.75,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  )
-                                                ],
-                                              )))
+                                      Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
+                                        child: InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            onTap: () {},
+                                            child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 16,
+                                                    right: 16,
+                                                    top: 8,
+                                                    bottom: 8),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    AutoSizeText(
+                                                      "May",
+                                                      style: ResponsiveBreakpoints
+                                                                  .of(context)
+                                                              .between(MOBILE,
+                                                                  TABLET)
+                                                          ? Theme.of(context)
+                                                              .textTheme
+                                                              .labelSmall
+                                                          : Theme.of(context)
+                                                              .textTheme
+                                                              .displaySmall,
+                                                    ),
+                                                    AutoSizeText("24",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(
+                                                                    MOBILE, TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displayLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)),
+                                                    Text("Sat",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(MOBILE,
+                                                                    TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .labelSmall
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displaySmall)
+                                                  ],
+                                                ))),
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        child: InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            onTap: () {},
+                                            child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 16,
+                                                    right: 16,
+                                                    top: 8,
+                                                    bottom: 8),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    AutoSizeText(
+                                                      "May",
+                                                      style: ResponsiveBreakpoints
+                                                                  .of(context)
+                                                              .between(MOBILE,
+                                                                  TABLET)
+                                                          ? Theme.of(context)
+                                                              .textTheme
+                                                              .labelSmall
+                                                              ?.copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .background)
+                                                          : Theme.of(context)
+                                                              .textTheme
+                                                              .displaySmall
+                                                              ?.copyWith(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .background,
+                                                              ),
+                                                    ),
+                                                    AutoSizeText("25",
+                                                        style: ResponsiveBreakpoints.of(context)
+                                                                .between(
+                                                                    MOBILE, TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Theme.of(context)
+                                                                        .colorScheme
+                                                                        .background)
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displayLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Theme.of(context)
+                                                                        .colorScheme
+                                                                        .background)),
+                                                    Text("Sun",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(MOBILE,
+                                                                    TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .labelSmall
+                                                                ?.copyWith(
+                                                                    color: Theme.of(context)
+                                                                        .colorScheme
+                                                                        .background)
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displaySmall
+                                                                ?.copyWith(
+                                                                    color: Theme.of(context)
+                                                                        .colorScheme
+                                                                        .background))
+                                                  ],
+                                                ))),
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
+                                        child: InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            onTap: () {},
+                                            child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 16,
+                                                    right: 16,
+                                                    top: 8,
+                                                    bottom: 8),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    AutoSizeText(
+                                                      "May",
+                                                      style: ResponsiveBreakpoints
+                                                                  .of(context)
+                                                              .between(MOBILE,
+                                                                  TABLET)
+                                                          ? Theme.of(context)
+                                                              .textTheme
+                                                              .labelSmall
+                                                          : Theme.of(context)
+                                                              .textTheme
+                                                              .displaySmall,
+                                                    ),
+                                                    AutoSizeText("26",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(
+                                                                    MOBILE, TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displayLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)),
+                                                    AutoSizeText("Mon",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(MOBILE,
+                                                                    TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .labelSmall
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displaySmall)
+                                                  ],
+                                                ))),
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Card(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
+                                        child: InkWell(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            onTap: () {},
+                                            child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 16,
+                                                    right: 16,
+                                                    top: 8,
+                                                    bottom: 8),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    AutoSizeText(
+                                                      "May",
+                                                      style: ResponsiveBreakpoints
+                                                                  .of(context)
+                                                              .between(MOBILE,
+                                                                  TABLET)
+                                                          ? Theme.of(context)
+                                                              .textTheme
+                                                              .labelSmall
+                                                          : Theme.of(context)
+                                                              .textTheme
+                                                              .displaySmall,
+                                                    ),
+                                                    AutoSizeText("27",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(
+                                                                    MOBILE, TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .bodyLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displayLarge
+                                                                ?.copyWith(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)),
+                                                    AutoSizeText("Tue",
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
+                                                                .between(MOBILE,
+                                                                    TABLET)
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .labelSmall
+                                                            : Theme.of(context)
+                                                                .textTheme
+                                                                .displaySmall)
+                                                  ],
+                                                ))),
+                                      ),
                                     ],
                                   )),
                               const SizedBox(
                                 height: 16,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  AutoSizeText("Task Groups",
-                                      maxLines: 1,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.bold)),
-                                  IconButton(
-                                      iconSize: 16,
-                                      splashColor: Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                      onPressed: () {},
-                                      icon: AutoSizeText("4",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall
-                                              ?.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary)))
-                                ],
-                              ),
+                              SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        InputChip(
+                                          label: const Text("All"),
+                                          labelStyle: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primaryContainer),
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          onSelected: (bool active) {},
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        InputChip(
+                                          label: const Text("To-do"),
+                                          labelStyle: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary),
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          onSelected: (bool active) {},
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        InputChip(
+                                          label: const Text("In Progress"),
+                                          labelStyle: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary),
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          onSelected: (bool active) {},
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        InputChip(
+                                          label: const Text("Completed"),
+                                          labelStyle: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary),
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          onSelected: (bool active) {},
+                                        )
+                                      ])),
                               const SizedBox(
                                 height: 8,
                               ),
                               Card(
-                                  child: ListTile(
-                                leading: const Card(
-                                  child: Icon(Icons.badge),
+                                  child: Column(children: [
+                                ListTile(
+                                  title:
+                                      const Text("Grocery shopping app design"),
+                                  titleTextStyle:
+                                      Theme.of(context).textTheme.labelLarge,
+                                  subtitle: const Text("Market Research"),
+                                  subtitleTextStyle: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge
+                                      ?.copyWith(fontWeight: FontWeight.bold),
+                                  trailing: const Card(
+                                    child: Icon(Icons.person),
+                                  ),
                                 ),
-                                title: const Text("Personal Project"),
-                                titleTextStyle:
-                                    Theme.of(context).textTheme.labelLarge,
-                                subtitle: const Text("30 Tasks"),
-                                trailing: SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: Stack(
-                                    children: <Widget>[
-                                      const Align(
-                                        alignment: Alignment.center,
-                                        child: CircularProgressIndicator(
-                                          strokeAlign: 4,
-                                          strokeWidth: 4,
-                                          value: .52,
-                                        ),
+                              
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16, right: 16, bottom: 16),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                              Icons.history_toggle_off_outlined,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary),
+                                          Text("10:00 AM",
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary))
+                                        ],
                                       ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "85%",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall
-                                              ?.copyWith(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      )
+                                      ElevatedButton(
+                                          onPressed: () {},
+                                          child: const Text("Done"))
                                     ],
                                   ),
                                 ),
-                              )),
+                              ])),
                               const SizedBox(
                                 height: 12,
-                              ),
-                              Card(
-                                  child: ListTile(
-                                leading: const Card(
-                                  child: Icon(Icons.badge),
-                                ),
-                                title: const Text("Personal Project"),
-                                titleTextStyle:
-                                    Theme.of(context).textTheme.labelLarge,
-                                subtitle: const Text("30 Tasks"),
-                                trailing: SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: Stack(
-                                    children: <Widget>[
-                                      const Align(
-                                        alignment: Alignment.center,
-                                        child: CircularProgressIndicator(
-                                          strokeAlign: 4,
-                                          strokeWidth: 4,
-                                          value: .52,
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "85%",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall
-                                              ?.copyWith(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Card(
-                                  child: ListTile(
-                                leading: const Card(
-                                  child: Icon(Icons.badge),
-                                ),
-                                title: const Text("Personal Project"),
-                                titleTextStyle:
-                                    Theme.of(context).textTheme.labelLarge,
-                                subtitle: const Text("30 Tasks"),
-                                trailing: SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: Stack(
-                                    children: <Widget>[
-                                      const Align(
-                                        alignment: Alignment.center,
-                                        child: CircularProgressIndicator(
-                                          strokeAlign: 4,
-                                          strokeWidth: 4,
-                                          value: .52,
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "85%",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall
-                                              ?.copyWith(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )),
-                              const SizedBox(
-                                height: 48,
                               ),
                             ]))))));
   }

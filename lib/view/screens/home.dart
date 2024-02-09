@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
@@ -58,21 +59,32 @@ class _HomePageState extends State<HomePage> {
                 controller: _scrollController,
                 child: Center(
                     child: Padding(
-                        padding: const EdgeInsets.only(left: 8, right: 8),
+                        padding: EdgeInsets.only(
+                            left: ResponsiveBreakpoints.of(context)
+                                    .between(MOBILE, TABLET)
+                                ? 8
+                                : 72,
+                            right: ResponsiveBreakpoints.of(context)
+                                    .between(MOBILE, TABLET)
+                                ? 8
+                                : 72),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               ListTile(
                                   // leading: CachedNetworkImage(
-                                  //     height: 180,
-                                  //     imageUrl: "https://www.com",
-                                  //     progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                  //         Center(
-                                  //             child: CircularProgressIndicator(
-                                  //                 value: downloadProgress.progress)),
-                                  //     errorWidget: (context, url, error) =>
-                                  //         const Icon(Icons.person)),
+                                  //   height: 180,
+                                  //   imageUrl: "https://www.com",
+                                  //   progressIndicatorBuilder: (context, url,
+                                  //           downloadProgress) =>
+                                  //       Center(
+                                  //           child: CircularProgressIndicator(
+                                  //               value:
+                                  //                   downloadProgress.progress)),
+                                  //   errorWidget: (context, url, error) =>
+                                  //       const Card(child: Icon(Icons.person)),
+                                  // ),
                                   title: Text(
                                     "Hello!",
                                     style:
@@ -345,7 +357,7 @@ class _HomePageState extends State<HomePage> {
                                           height: 120,
                                           width: 220,
                                           decoration: BoxDecoration(
-                                              color: const Color(0xFFBBE4E7),
+                                              color: Color(0xFFF8D19D),
                                               borderRadius:
                                                   BorderRadius.circular(8)),
                                           child: Padding(
@@ -404,6 +416,7 @@ class _HomePageState extends State<HomePage> {
                                                                       .bold)),
                                                   LinearProgressIndicator(
                                                     value: 0.75,
+                                                    color: Colors.orange,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
