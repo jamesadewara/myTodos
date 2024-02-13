@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
+import 'package:mytodo/view/components/circular_prorgess.dart';
 import 'package:mytodo/view/components/notificator.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 
@@ -141,9 +142,7 @@ class _HomePageState extends State<HomePage> {
                                           : const EdgeInsets.only(right: 160),
                                       height: 140,
                                       decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
+                                          color: Theme.of(context).primaryColor,
                                           borderRadius:
                                               BorderRadius.circular(8)),
                                       child: Padding(
@@ -181,24 +180,29 @@ class _HomePageState extends State<HomePage> {
                                                           .textTheme
                                                           .displaySmall
                                                           ?.copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .onPrimary),
+                                                              color:
+                                                                  Colors.white),
                                                     ),
                                                   ),
                                                   IconButton(
-                                                    icon: Icon(
+                                                    icon: const Icon(
                                                       Icons.more_horiz,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .onPrimary,
+                                                      color: Colors.white,
                                                     ),
                                                     onPressed: () {},
                                                   )
                                                 ],
                                               ),
                                               ElevatedButton(
+                                                  style: ButtonStyle(
+                                                    foregroundColor:
+                                                        MaterialStatePropertyAll(
+                                                            Theme.of(context)
+                                                                .primaryColor),
+                                                    backgroundColor:
+                                                        const MaterialStatePropertyAll(
+                                                            Colors.white),
+                                                  ),
                                                   onPressed: () {},
                                                   child: const Text("Continue"))
                                             ]),
@@ -213,64 +217,36 @@ class _HomePageState extends State<HomePage> {
                                         ? 10
                                         : 125,
                                     child: Container(
-                                      width: 84,
-                                      height: 84,
-                                      decoration: BoxDecoration(
+                                        width: 84,
+                                        height: 84,
+                                        decoration: BoxDecoration(
+                                            color: ResponsiveBreakpoints.of(
+                                                        context)
+                                                    .between(MOBILE, TABLET)
+                                                ? null
+                                                : Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                            borderRadius:
+                                                BorderRadius.circular(100)),
+                                        child: CustomCircularProgressIndicator(
                                           color:
-                                              ResponsiveBreakpoints.of(context)
+                                              !ResponsiveBreakpoints.of(context)
                                                       .between(MOBILE, TABLET)
-                                                  ? null
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .background,
-                                          borderRadius:
-                                              BorderRadius.circular(100)),
-                                      child: Stack(
-                                        children: <Widget>[
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: CircularProgressIndicator(
-                                              strokeAlign: 8,
-                                              strokeWidth: 4,
-                                              color: !ResponsiveBreakpoints.of(
-                                                          context)
+                                                  ? Theme.of(context)
+                                                      .primaryColor
+                                                  : Colors.white,
+                                          textColor:
+                                              !ResponsiveBreakpoints.of(context)
                                                       .between(MOBILE, TABLET)
                                                   ? Theme.of(context)
                                                       .colorScheme
-                                                      .primary
+                                                      .onSurface
                                                   : Theme.of(context)
-                                                      .colorScheme
-                                                      .primaryContainer,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              "85%",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.copyWith(
-                                                      color:
-                                                          !ResponsiveBreakpoints
-                                                                      .of(
-                                                                          context)
-                                                                  .between(
-                                                                      MOBILE,
-                                                                      TABLET)
-                                                              ? Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .primary
-                                                              : Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .onPrimary),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                                      .primaryColor,
+                                          strokeAlign: 8,
+                                          strokeWidth: 4,
+                                          value: .55,
+                                        )),
                                   )
                                 ],
                               ),
@@ -319,7 +295,7 @@ class _HomePageState extends State<HomePage> {
                                           height: 120,
                                           width: 220,
                                           decoration: BoxDecoration(
-                                              color: const Color(0xFFBBE4E7),
+                                              color: Colors.blue,
                                               borderRadius:
                                                   BorderRadius.circular(8)),
                                           child: Padding(
@@ -350,17 +326,23 @@ class _HomePageState extends State<HomePage> {
                                                             .ellipsis,
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .bodySmall,
+                                                            .bodySmall
+                                                            ?.copyWith(
+                                                                color: Colors
+                                                                    .white),
                                                       ),
                                                       const Card(
+                                                          color: Colors
+                                                              .lightBlueAccent,
                                                           child: Padding(
-                                                        padding:
-                                                            EdgeInsets.all(4),
-                                                        child: Icon(
-                                                          Icons.badge,
-                                                          size: 16,
-                                                        ),
-                                                      )),
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    4),
+                                                            child: Icon(
+                                                              Icons.wysiwyg,
+                                                              size: 16,
+                                                            ),
+                                                          )),
                                                     ],
                                                   ),
                                                   Text(
@@ -375,9 +357,12 @@ class _HomePageState extends State<HomePage> {
                                                           ?.copyWith(
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold)),
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .white)),
                                                   LinearProgressIndicator(
                                                     value: 0.75,
+                                                    color: Colors.lightBlue,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             8),
@@ -391,7 +376,7 @@ class _HomePageState extends State<HomePage> {
                                           height: 120,
                                           width: 220,
                                           decoration: BoxDecoration(
-                                              color: const Color(0xFFF8D19D),
+                                              color: Colors.deepOrange,
                                               borderRadius:
                                                   BorderRadius.circular(8)),
                                           child: Padding(
@@ -422,17 +407,23 @@ class _HomePageState extends State<HomePage> {
                                                             .ellipsis,
                                                         style: Theme.of(context)
                                                             .textTheme
-                                                            .bodySmall,
+                                                            .bodySmall
+                                                            ?.copyWith(
+                                                                color: Colors
+                                                                    .white),
                                                       ),
                                                       const Card(
+                                                          color: Colors
+                                                              .orangeAccent,
                                                           child: Padding(
-                                                        padding:
-                                                            EdgeInsets.all(4),
-                                                        child: Icon(
-                                                          Icons.badge,
-                                                          size: 16,
-                                                        ),
-                                                      )),
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    4),
+                                                            child: Icon(
+                                                              Icons.person,
+                                                              size: 16,
+                                                            ),
+                                                          )),
                                                     ],
                                                   ),
                                                   Text(
@@ -447,7 +438,9 @@ class _HomePageState extends State<HomePage> {
                                                           ?.copyWith(
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .bold)),
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .white)),
                                                   LinearProgressIndicator(
                                                     value: 0.75,
                                                     color: Colors.orange,
@@ -493,13 +486,21 @@ class _HomePageState extends State<HomePage> {
                                 height: 8,
                               ),
                               ListTile(
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
                                 onTap: () {
                                   Navigator.of(context)
                                       .pushNamed(AppRoutes.taskGroup);
                                 },
                                 leading: const Card(
-                                  child: Icon(Icons.badge),
-                                ),
+                                    color: Colors.orangeAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
+                                      ),
+                                    )),
                                 title: const Text("Personal Project"),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.labelLarge,
@@ -536,11 +537,22 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 12,
                               ),
-                              Card(
-                                  child: ListTile(
+                              ListTile(
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(AppRoutes.taskGroup);
+                                },
                                 leading: const Card(
-                                  child: Icon(Icons.badge),
-                                ),
+                                    color: Colors.orangeAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
+                                      ),
+                                    )),
                                 title: const Text("Personal Project"),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.labelLarge,
@@ -573,15 +585,26 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                 ),
-                              )),
+                              ),
                               const SizedBox(
                                 height: 12,
                               ),
-                              Card(
-                                  child: ListTile(
+                              ListTile(
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(AppRoutes.taskGroup);
+                                },
                                 leading: const Card(
-                                  child: Icon(Icons.badge),
-                                ),
+                                    color: Colors.orangeAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
+                                      ),
+                                    )),
                                 title: const Text("Personal Project"),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.labelLarge,
@@ -614,7 +637,7 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                 ),
-                              )),
+                              ),
                               const SizedBox(
                                 height: 48,
                               ),
