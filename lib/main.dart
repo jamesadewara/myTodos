@@ -35,11 +35,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "MyTodo's",
-
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(), // Theme for daylight
-      // darkTheme: ThemeData.dark(), // Theme for nightfall
-      // themeMode: ThemeMode.system,
+      themeMode: ThemeMode.system,
+      theme: AiThemes(name: ThemeIdentifier.daylight).currentTheme(),
+      darkTheme: AiThemes(name: ThemeIdentifier.nightfall).currentTheme(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       initialRoute: AppRoutes.intro,

@@ -62,7 +62,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                   decoration: BoxDecoration(
                       color: MediaQuery.of(context).platformBrightness ==
                               Brightness.light
-                          ? Theme.of(context).colorScheme.primary
+                          ? Theme.of(context).primaryColor
                           : Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(16),
@@ -80,9 +80,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                                         ? index["selectedIcon"]
                                         : index["icon"],
                                     size: 24,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface),
+                                    color: Colors.white),
                                 tooltip: index["label"],
                                 onPressed: () => setState(
                                       () {
@@ -101,14 +99,15 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
         ),
         floatingActionButton: FloatingActionButton(
           elevation: 0,
+          hoverColor: Colors.transparent,
           backgroundColor:
               ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.background,
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).scaffoldBackgroundColor,
           foregroundColor:
               !ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.background,
+                  ? Theme.of(context).primaryColor
+                  : Colors.white,
           tooltip: "Add a new task",
           shape: const CircleBorder(),
           child: const Icon(Icons.add),
@@ -125,7 +124,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
           child: AnimatedBottomNavigationBar.builder(
             backgroundColor:
                 MediaQuery.of(context).platformBrightness == Brightness.light
-                    ? Theme.of(context).colorScheme.primary
+                    ? Theme.of(context).primaryColor
                     : Theme.of(context).colorScheme.surface,
             itemCount: iconList.length,
             tabBuilder: (int index, bool isActive) {
@@ -134,7 +133,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                       ? iconList[index]["selectedIcon"]
                       : iconList[index]["icon"],
                   size: 24,
-                  color: Theme.of(context).colorScheme.onSurface);
+                  color: Colors.white);
             },
             activeIndex: _appNavIndex,
             gapLocation: GapLocation.center,

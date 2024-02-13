@@ -5,7 +5,7 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
+      ref: main
       resolved-ref: "2b167eb3d79b65d99f16b7047bebbd0eeaf71b92"
       url: "git@github.com:jamesadewara/AiAuth.git"
     source: git
@@ -14,8 +14,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: afc1604091d061bb73fc82477fee4dc361406307
+      ref: main
+      resolved-ref: d1698ecad0805aac309fe233a8589f56f6026b66
       url: "git@github.com:jamesadewara/AiTheme.git"
     source: git
     version: "1.0.0+1"

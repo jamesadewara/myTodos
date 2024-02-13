@@ -492,10 +492,7 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 8,
                               ),
-                              Card(
-                                  child: ListTile(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
+                              ListTile(
                                 onTap: () {
                                   Navigator.of(context)
                                       .pushNamed(AppRoutes.taskGroup);
@@ -535,7 +532,7 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                 ),
-                              )),
+                              ),
                               const SizedBox(
                                 height: 12,
                               ),

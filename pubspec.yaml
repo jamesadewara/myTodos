@@ -27,12 +27,12 @@ dependencies:
   aitheme:
     git:
       url: git@github.com:jamesadewara/AiTheme.git
-      ref: HEAD
+      ref: main
    
   aiauth_sdk:
     git:
       url: git@github.com:jamesadewara/AiAuth.git
-      ref: HEAD
+      ref: main
       
   redux: ^5.0.0
   flutter_native_splash: ^2.3.10

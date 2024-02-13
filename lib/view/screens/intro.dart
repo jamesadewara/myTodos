@@ -94,6 +94,13 @@ class _IntroScreenState extends State<IntroScreen> {
                                   height: 24,
                                 ),
                                 FilledButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                Theme.of(context).primaryColor),
+                                        foregroundColor:
+                                            const MaterialStatePropertyAll(
+                                                Colors.white)),
                                     onPressed: () async {
                                       cancelIntro();
                                     },
