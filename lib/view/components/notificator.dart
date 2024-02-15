@@ -36,7 +36,7 @@ class _NotificatorButtonState extends State<NotificatorButton> {
                       child: Icon(
                         Icons.circle,
                         size: 8,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).primaryColor,
                       ))
                 ],
               ))),

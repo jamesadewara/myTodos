@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mytodo/control/config.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/circular_prorgess.dart';
@@ -59,18 +60,6 @@ class _HomePageState extends State<HomePage> {
             ? null
             : AppBar(
                 automaticallyImplyLeading: false,
-                // leading: CachedNetworkImage(
-                //   height: 180,
-                //   imageUrl: "https://www.com",
-                //   progressIndicatorBuilder: (context, url,
-                //           downloadProgress) =>
-                //       Center(
-                //           child: CircularProgressIndicator(
-                //               value:
-                //                   downloadProgress.progress)),
-                //   errorWidget: (context, url, error) =>
-                //       const Card(child: Icon(Icons.person)),
-                // ),
                 title: const Text("Adewara James"),
                 actions: const <Widget>[NotificatorButton()],
               ),
@@ -108,18 +97,26 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget>[
                               const SizedBox(height: 16),
                               ListTile(
-                                  // leading: CachedNetworkImage(
-                                  //   height: 180,
-                                  //   imageUrl: "https://www.com",
-                                  //   progressIndicatorBuilder: (context, url,
-                                  //           downloadProgress) =>
-                                  //       Center(
-                                  //           child: CircularProgressIndicator(
-                                  //               value:
-                                  //                   downloadProgress.progress)),
-                                  //   errorWidget: (context, url, error) =>
-                                  //       const Card(child: Icon(Icons.person)),
-                                  // ),
+                                  leading: SizedBox(
+                                    child: CachedNetworkImage(
+                                      imageUrl: profileImg,
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
+                                          Center(
+                                              child: CircularProgressIndicator(
+                                                  value: downloadProgress
+                                                      .progress)),
+                                      errorWidget: (context, url, error) =>
+                                          const Card(
+                                              child: Padding(
+                                        padding: EdgeInsets.all(4),
+                                        child: Icon(
+                                          Icons.person,
+                                          size: 16,
+                                        ),
+                                      )),
+                                    ),
+                                  ),
                                   title: Text(
                                     "Hello!",
                                     style:
@@ -140,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                                               .between(MOBILE, TABLET)
                                           ? null
                                           : const EdgeInsets.only(right: 160),
-                                      height: 140,
+                                      height: 160,
                                       decoration: BoxDecoration(
                                           color: Theme.of(context).primaryColor,
                                           borderRadius:
@@ -164,18 +161,12 @@ class _HomePageState extends State<HomePage> {
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  SizedBox(
-                                                    width: ResponsiveBreakpoints
-                                                                .of(context)
-                                                            .between(
-                                                                MOBILE, TABLET)
-                                                        ? 160
-                                                        : null,
-                                                    height: 64,
+                                                  Expanded(
                                                     child: AutoSizeText(
                                                       "Your today's task almost done!",
                                                       wrapWords: true,
                                                       softWrap: true,
+                                                      maxLines: 2,
                                                       style: Theme.of(context)
                                                           .textTheme
                                                           .displaySmall
@@ -210,12 +201,12 @@ class _HomePageState extends State<HomePage> {
                                   Positioned(
                                     top: ResponsiveBreakpoints.of(context)
                                             .between(MOBILE, TABLET)
-                                        ? 35
-                                        : 30,
+                                        ? 50
+                                        : 45,
                                     right: ResponsiveBreakpoints.of(context)
                                             .between(MOBILE, TABLET)
                                         ? 10
-                                        : 125,
+                                        : 130,
                                     child: Container(
                                         width: 84,
                                         height: 84,
@@ -241,8 +232,7 @@ class _HomePageState extends State<HomePage> {
                                                   ? Theme.of(context)
                                                       .colorScheme
                                                       .onSurface
-                                                  : Theme.of(context)
-                                                      .primaryColor,
+                                                  : Colors.white,
                                           strokeAlign: 8,
                                           strokeWidth: 4,
                                           value: .55,
@@ -506,33 +496,17 @@ class _HomePageState extends State<HomePage> {
                                     Theme.of(context).textTheme.labelLarge,
                                 subtitle: const Text("30 Tasks"),
                                 trailing: SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: Stack(
-                                    children: <Widget>[
-                                      const Align(
-                                        alignment: Alignment.center,
-                                        child: CircularProgressIndicator(
-                                          strokeAlign: 4,
-                                          strokeWidth: 4,
-                                          value: .52,
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "85%",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall
-                                              ?.copyWith(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
+                                    width: 24,
+                                    height: 24,
+                                    child: CustomCircularProgressIndicator(
+                                      color: Theme.of(context).primaryColor,
+                                      textColor: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      strokeAlign: 4,
+                                      strokeWidth: 4,
+                                      value: .55,
+                                    )),
                               ),
                               const SizedBox(
                                 height: 12,
@@ -560,29 +534,13 @@ class _HomePageState extends State<HomePage> {
                                 trailing: SizedBox(
                                   width: 24,
                                   height: 24,
-                                  child: Stack(
-                                    children: <Widget>[
-                                      const Align(
-                                        alignment: Alignment.center,
-                                        child: CircularProgressIndicator(
-                                          strokeAlign: 4,
-                                          strokeWidth: 4,
-                                          value: .52,
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "85%",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall
-                                              ?.copyWith(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
+                                  child: CustomCircularProgressIndicator(
+                                    color: Theme.of(context).primaryColor,
+                                    textColor:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    strokeAlign: 4,
+                                    strokeWidth: 4,
+                                    value: .55,
                                   ),
                                 ),
                               ),
@@ -590,54 +548,37 @@ class _HomePageState extends State<HomePage> {
                                 height: 12,
                               ),
                               ListTile(
-                                tileColor:
-                                    Theme.of(context).colorScheme.surface,
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(AppRoutes.taskGroup);
-                                },
-                                leading: const Card(
-                                    color: Colors.orangeAccent,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 16,
-                                      ),
-                                    )),
-                                title: const Text("Personal Project"),
-                                titleTextStyle:
-                                    Theme.of(context).textTheme.labelLarge,
-                                subtitle: const Text("30 Tasks"),
-                                trailing: SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: Stack(
-                                    children: <Widget>[
-                                      const Align(
-                                        alignment: Alignment.center,
-                                        child: CircularProgressIndicator(
-                                          strokeAlign: 4,
-                                          strokeWidth: 4,
-                                          value: .52,
+                                  tileColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .pushNamed(AppRoutes.taskGroup);
+                                  },
+                                  leading: const Card(
+                                      color: Colors.orangeAccent,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(4),
+                                        child: Icon(
+                                          Icons.person,
+                                          size: 16,
                                         ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "85%",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelSmall
-                                              ?.copyWith(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+                                      )),
+                                  title: const Text("Personal Project"),
+                                  titleTextStyle:
+                                      Theme.of(context).textTheme.labelLarge,
+                                  subtitle: const Text("30 Tasks"),
+                                  trailing: SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: CustomCircularProgressIndicator(
+                                        color: Theme.of(context).primaryColor,
+                                        textColor: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                        strokeAlign: 4,
+                                        strokeWidth: 4,
+                                        value: null,
+                                      ))),
                               const SizedBox(
                                 height: 48,
                               ),

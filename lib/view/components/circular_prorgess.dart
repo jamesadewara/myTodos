@@ -5,7 +5,7 @@ class CustomCircularProgressIndicator extends StatefulWidget {
   final Color textColor;
   final double strokeAlign;
   final double strokeWidth;
-  final double value;
+  final double? value;
 
   const CustomCircularProgressIndicator({
     super.key,
@@ -43,7 +43,8 @@ class _CustomCircularProgressIndicatorState
         ),
         Align(
           alignment: Alignment.center,
-          child: Text("${((widget.value * 100).round()).toString()}%",
+          child: Text(
+              "${((widget.value != null ? widget.value! : 0 * 100).round()).toString()}%",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: widget.textColor, fontSize: widget.strokeAlign * 2)),
         )

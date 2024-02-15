@@ -65,7 +65,7 @@ class _TaskPageState extends State<TaskPage> {
                 controller: _scrollController,
                 child: Center(
                     child: Padding(
-                        padding:    EdgeInsets.only(
+                        padding: EdgeInsets.only(
                             left: ResponsiveBreakpoints.of(context)
                                     .between(MOBILE, TABLET)
                                 ? 8
@@ -226,9 +226,7 @@ class _TaskPageState extends State<TaskPage> {
                                         width: 16,
                                       ),
                                       Card(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
+                                        color: Theme.of(context).primaryColor,
                                         child: InkWell(
                                             borderRadius:
                                                 BorderRadius.circular(8),
@@ -256,22 +254,19 @@ class _TaskPageState extends State<TaskPage> {
                                                               .textTheme
                                                               .labelSmall
                                                               ?.copyWith(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .background)
+                                                                  color: Colors
+                                                                      .white)
                                                           : Theme.of(context)
                                                               .textTheme
                                                               .displaySmall
                                                               ?.copyWith(
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .colorScheme
-                                                                    .background,
+                                                                color: Colors
+                                                                    .white,
                                                               ),
                                                     ),
                                                     AutoSizeText("25",
-                                                        style: ResponsiveBreakpoints.of(context)
+                                                        style: ResponsiveBreakpoints
+                                                                    .of(context)
                                                                 .between(
                                                                     MOBILE, TABLET)
                                                             ? Theme.of(context)
@@ -281,9 +276,8 @@ class _TaskPageState extends State<TaskPage> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                    color: Theme.of(context)
-                                                                        .colorScheme
-                                                                        .background)
+                                                                    color: Colors
+                                                                        .white)
                                                             : Theme.of(context)
                                                                 .textTheme
                                                                 .displayLarge
@@ -291,9 +285,7 @@ class _TaskPageState extends State<TaskPage> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
-                                                                    color: Theme.of(context)
-                                                                        .colorScheme
-                                                                        .background)),
+                                                                    color: Colors.white)),
                                                     Text("Sun",
                                                         style: ResponsiveBreakpoints
                                                                     .of(context)
@@ -303,16 +295,14 @@ class _TaskPageState extends State<TaskPage> {
                                                                 .textTheme
                                                                 .labelSmall
                                                                 ?.copyWith(
-                                                                    color: Theme.of(context)
-                                                                        .colorScheme
-                                                                        .background)
+                                                                    color: Colors
+                                                                        .white)
                                                             : Theme.of(context)
                                                                 .textTheme
                                                                 .displaySmall
                                                                 ?.copyWith(
-                                                                    color: Theme.of(context)
-                                                                        .colorScheme
-                                                                        .background))
+                                                                    color: Colors
+                                                                        .white))
                                                   ],
                                                 ))),
                                       ),
@@ -471,13 +461,10 @@ class _TaskPageState extends State<TaskPage> {
                                       children: [
                                         InputChip(
                                           label: const Text("All"),
-                                          labelStyle: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primaryContainer),
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
+                                          labelStyle: const TextStyle(
+                                              color: Colors.white),
+                                          backgroundColor:
+                                              Theme.of(context).primaryColor,
                                           onSelected: (bool active) {},
                                         ),
                                         const SizedBox(
@@ -526,57 +513,73 @@ class _TaskPageState extends State<TaskPage> {
                               const SizedBox(
                                 height: 8,
                               ),
-                              Card(
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color:
+                                          Theme.of(context).colorScheme.surface,
+                                      borderRadius: BorderRadius.circular(8)),
                                   child: Column(children: [
-                                ListTile(
-                                  title:
-                                      const Text("Grocery shopping app design"),
-                                  titleTextStyle:
-                                      Theme.of(context).textTheme.labelLarge,
-                                  subtitle: const Text("Market Research"),
-                                  subtitleTextStyle: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold),
-                                  trailing: const Card(
-                                    child: Icon(Icons.person),
-                                  ),
-                                ),
-                              
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 16, right: 16, bottom: 16),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Row(
+                                    ListTile(
+                                      title: const Text(
+                                          "Grocery shopping app design"),
+                                      titleTextStyle: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge,
+                                      subtitle: const Text("Market Research"),
+                                      subtitleTextStyle: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.bold),
+                                      trailing: Card(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(4),
+                                            child: Icon(
+                                              Icons.person,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              size: 16,
+                                            ),
+                                          )),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 16, right: 16, bottom: 16),
+                                      child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                              Icons.history_toggle_off_outlined,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary),
-                                          Text("10:00 AM",
-                                              style: TextStyle(
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                  Icons
+                                                      .history_toggle_off_outlined,
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .primary))
+                                                      .primary),
+                                              Text("10:00 AM",
+                                                  style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .primary))
+                                            ],
+                                          ),
+                                          ElevatedButton(
+                                              onPressed: () {},
+                                              child: const Text("Done"))
                                         ],
                                       ),
-                                      ElevatedButton(
-                                          onPressed: () {},
-                                          child: const Text("Done"))
-                                    ],
-                                  ),
-                                ),
-                              ])),
+                                    ),
+                                  ])),
                               const SizedBox(
                                 height: 12,
                               ),
