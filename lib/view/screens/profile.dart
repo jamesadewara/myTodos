@@ -305,9 +305,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {
-                                      showAboutDialog(context: context);
-                                    },
+                                    onTap: () {},
                                     title: const Text("App Version"),
                                     titleTextStyle: Theme.of(context)
                                         .textTheme

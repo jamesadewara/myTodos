@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/view/components/notificator.dart';
+import 'package:mytodo/view/screens/dropdown_modal.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -13,6 +16,13 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   final _scrollController = ScrollController();
+
+  List<DropdownModalController> taskDepartments = [
+    const DropdownModalController(
+        title: "Church", subtitle: "This is for church activities"),
+    const DropdownModalController(title: "Work", subtitle: ""),
+    const DropdownModalController(title: "School", subtitle: "")
+  ];
 
   @override
   void initState() {
@@ -53,21 +63,37 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             children: <Widget>[
                               Card(
                                 child: ListTile(
-                                    leading:
-                                        const Card(child: Icon(Icons.person)),
-                                    title: const Text("Task Group"),
-                                    titleTextStyle:
-                                        Theme.of(context).textTheme.bodySmall,
-                                    subtitle: const Text(
-                                      "Work",
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8)),
+                                    onTap: () {},
+                                    leading: Card(
+                                        child: Padding(
+                                      padding: const EdgeInsets.all(4),
+                                      child: CachedNetworkImage(
+                                        width: 24,
+                                        height: 24,
+                                        imageUrl:
+                                            taskDepartments.first.image ?? "",
+                                      ),
+                                    )),
+                                    title: Text(taskDepartments.first.title),
+                                    subtitle: Text(
+                                      taskDepartments.first.subtitle ?? "",
                                     ),
-                                    subtitleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(fontWeight: FontWeight.bold),
                                     trailing: IconButton(
                                       icon: const Icon(Icons.arrow_drop_down),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Dialog(
+                                                child: DropdownModal(
+                                                  onSelected: () {},
+                                                  options: taskDepartments,
+                                                ),
+                                              );
+                                            });
+                                      },
                                     )),
                               ),
                               const SizedBox(

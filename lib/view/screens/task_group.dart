@@ -1,7 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:mytodo/view/components/appnavigatorbar.dart';
-import 'package:mytodo/view/components/notificator.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 
 class TaskGroupScreen extends StatefulWidget {
@@ -51,18 +49,10 @@ class _TaskGroupPageState extends State<TaskGroupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           automaticallyImplyLeading: !isSearchabble,
           title: !isSearchabble
-              ? const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Card(
-                      child: Icon(Icons.badge, color: Colors.pink),
-                    ),
-                    Text("Personal Project")
-                  ],
-                )
+              ? const Text("Personal Project")
               : SearchBar(
                   controller: _searchController,
                   elevation: MaterialStateProperty.all(0),
@@ -71,23 +61,26 @@ class _TaskGroupPageState extends State<TaskGroupPage> {
                       const TextStyle(color: Colors.grey)),
                   leading: const Icon(Icons.search),
                   trailing: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      onPressed: () {
-                        _searchController.clear();
-                      },
-                    ),
+                    Visibility(
+                      visible: _searchController.text.isNotEmpty,
+                      child: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          _searchController.clear();
+                        },
+                      ),
+                    )
                   ],
-                  onChanged: (String value) {},
+                  onChanged: (value) {
+                    setState(() {
+                      _searchController;
+                    });
+                  },
                   shape:
                       MaterialStateProperty.all(const ContinuousRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(0)),
                   ))),
           actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.filter_list_outlined),
-              onPressed: () {},
-            ),
             isSearchabble
                 ? IconButton(
                     icon: const Icon(Icons.close),
@@ -160,6 +153,11 @@ class _TaskGroupPageState extends State<TaskGroupPage> {
                                       hintStyle: MaterialStateProperty.all(
                                           const TextStyle(color: Colors.grey)),
                                       leading: const Icon(Icons.search),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _searchController;
+                                        });
+                                      },
                                       trailing: <Widget>[
                                         IconButton(
                                           icon: const Icon(Icons.close),
@@ -168,7 +166,6 @@ class _TaskGroupPageState extends State<TaskGroupPage> {
                                           },
                                         ),
                                       ],
-                                      onChanged: (String value) {},
                                       shape: MaterialStateProperty.all(
                                           const ContinuousRectangleBorder(
                                         borderRadius: BorderRadius.all(
@@ -189,324 +186,145 @@ class _TaskGroupPageState extends State<TaskGroupPage> {
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                               const SizedBox(height: 32),
-                              Card(
-                                  child: ListTile(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.facebook,
-                                          color: Colors.blue,
-                                        ),
+                              ListTile(
+                                onTap: () {},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                leading: const Card(
+                                    color: Colors.lightBlueAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
                                       ),
-                                      title: const Text("Operation Build App"),
-                                      subtitle: const Text(
-                                          "I want to build my very own app..."),
-                                      trailing: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  const Align(
-                                                    alignment: Alignment.center,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeAlign: 2,
-                                                      strokeWidth: 2,
-                                                      value: .52,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "85%",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelSmall
-                                                          ?.copyWith(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            const Text("7 m")
-                                          ]))),
-                              Card(
-                                  child: ListTile(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.facebook,
-                                          color: Colors.blue,
-                                        ),
+                                    )),
+                                title: const Text("Operation Build App"),
+                                subtitle: const Text(
+                                    "I want to build my very own app..."),
+                              ),
+                              const SizedBox(height: 8),
+                              ListTile(
+                                onTap: () {},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                leading: const Card(
+                                    color: Colors.lightBlueAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
                                       ),
-                                      title: const Text("Operation Build App"),
-                                      subtitle: const Text(
-                                          "I want to build my very own app..."),
-                                      trailing: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  const Align(
-                                                    alignment: Alignment.center,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeAlign: 2,
-                                                      strokeWidth: 2,
-                                                      value: .52,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "85%",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelSmall
-                                                          ?.copyWith(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            const Text("7 m")
-                                          ]))),
-                              Card(
-                                  child: ListTile(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.facebook,
-                                          color: Colors.blue,
-                                        ),
+                                    )),
+                                title: const Text("Operation Build App"),
+                                subtitle: const Text(
+                                    "I want to build my very own app..."),
+                              ),
+                              const SizedBox(height: 8),
+                              ListTile(
+                                onTap: () {},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                leading: const Card(
+                                    color: Colors.lightBlueAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
                                       ),
-                                      title: const Text("Operation Build App"),
-                                      subtitle: const Text(
-                                          "I want to build my very own app..."),
-                                      trailing: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  const Align(
-                                                    alignment: Alignment.center,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeAlign: 2,
-                                                      strokeWidth: 2,
-                                                      value: .52,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "85%",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelSmall
-                                                          ?.copyWith(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            const Text("7 m")
-                                          ]))),
-                              Card(
-                                  child: ListTile(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.facebook,
-                                          color: Colors.blue,
-                                        ),
+                                    )),
+                                title: const Text("Operation Build App"),
+                                subtitle: const Text(
+                                    "I want to build my very own app..."),
+                              ),
+                              const SizedBox(height: 8),
+                              ListTile(
+                                onTap: () {},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                leading: const Card(
+                                    color: Colors.lightBlueAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
                                       ),
-                                      title: const Text("Operation Build App"),
-                                      subtitle: const Text(
-                                          "I want to build my very own app..."),
-                                      trailing: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  const Align(
-                                                    alignment: Alignment.center,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeAlign: 2,
-                                                      strokeWidth: 2,
-                                                      value: .52,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "85%",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelSmall
-                                                          ?.copyWith(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            const Text("7 m")
-                                          ]))),
-                              Card(
-                                  child: ListTile(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.facebook,
-                                          color: Colors.blue,
-                                        ),
+                                    )),
+                                title: const Text("Operation Build App"),
+                                subtitle: const Text(
+                                    "I want to build my very own app..."),
+                              ),
+                              const SizedBox(height: 8),
+                              ListTile(
+                                onTap: () {},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                leading: const Card(
+                                    color: Colors.lightBlueAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
                                       ),
-                                      title: const Text("Operation Build App"),
-                                      subtitle: const Text(
-                                          "I want to build my very own app..."),
-                                      trailing: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  const Align(
-                                                    alignment: Alignment.center,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeAlign: 2,
-                                                      strokeWidth: 2,
-                                                      value: .52,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "85%",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelSmall
-                                                          ?.copyWith(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            const Text("7 m")
-                                          ]))),
-                              Card(
-                                  child: ListTile(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.facebook,
-                                          color: Colors.blue,
-                                        ),
+                                    )),
+                                title: const Text("Operation Build App"),
+                                subtitle: const Text(
+                                    "I want to build my very own app..."),
+                              ),
+                              const SizedBox(height: 8),
+                              ListTile(
+                                onTap: () {},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                leading: const Card(
+                                    color: Colors.lightBlueAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
                                       ),
-                                      title: const Text("Operation Build App"),
-                                      subtitle: const Text(
-                                          "I want to build my very own app..."),
-                                      trailing: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  const Align(
-                                                    alignment: Alignment.center,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeAlign: 2,
-                                                      strokeWidth: 2,
-                                                      value: .52,
-                                                    ),
-                                                  ),
-                                                  Align(
-                                                    alignment: Alignment.center,
-                                                    child: Text(
-                                                      "85%",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .labelSmall
-                                                          ?.copyWith(
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            const Text("7 m")
-                                          ]))),
+                                    )),
+                                title: const Text("Operation Build App"),
+                                subtitle: const Text(
+                                    "I want to build my very own app..."),
+                              ),
+                              const SizedBox(height: 8),
+                              ListTile(
+                                onTap: () {},
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                tileColor:
+                                    Theme.of(context).colorScheme.surface,
+                                leading: const Card(
+                                    color: Colors.lightBlueAccent,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 16,
+                                      ),
+                                    )),
+                                title: const Text("Operation Build App"),
+                                subtitle: const Text(
+                                    "I want to build my very own app..."),
+                              )
                             ]))))));
   }
 }

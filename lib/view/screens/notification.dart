@@ -110,8 +110,6 @@ class _NotificationPageState extends State<NotificationPage> {
                                 }
                               }
                             });
-
-                      print(selectedNotifications);
                     }),
               ),
               IconButton(
@@ -122,9 +120,9 @@ class _NotificationPageState extends State<NotificationPage> {
                       selectedNotifications.isEmpty
                           ? notificationsList.clear()
                           : {
-                              print(selectedNotifications.map((e) {
+                              selectedNotifications.map((e) {
                                 return notificationsList.removeAt(e);
-                              })),
+                              }),
                               selectedNotifications.clear()
                             };
                     } catch (e) {

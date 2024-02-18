@@ -4,16 +4,16 @@ import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 
-class DistractionScreen extends StatefulWidget {
-  const DistractionScreen({
+class BrowseScreen extends StatefulWidget {
+  const BrowseScreen({
     super.key,
   });
 
   @override
-  State<DistractionScreen> createState() => _DistractionScreenState();
+  State<BrowseScreen> createState() => _BrowseScreenState();
 }
 
-class _DistractionScreenState extends State<DistractionScreen> {
+class _BrowseScreenState extends State<BrowseScreen> {
   @override
   void initState() {
     super.initState();
@@ -24,21 +24,21 @@ class _DistractionScreenState extends State<DistractionScreen> {
     return const AppNavigationBar(
         currentState: 2,
         child: SafeArea(
-          child: DistractionPage(),
+          child: BrowsePage(),
         ));
   }
 }
 
-class DistractionPage extends StatefulWidget {
-  const DistractionPage({
+class BrowsePage extends StatefulWidget {
+  const BrowsePage({
     super.key,
   });
 
   @override
-  State<DistractionPage> createState() => _DistractionPageState();
+  State<BrowsePage> createState() => _BrowsePageState();
 }
 
-class _DistractionPageState extends State<DistractionPage> {
+class _BrowsePageState extends State<BrowsePage> {
   final _scrollController = ScrollController();
   bool hideAppBar = true;
   final TextEditingController _searchController = TextEditingController();

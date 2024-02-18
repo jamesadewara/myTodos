@@ -11,7 +11,7 @@ class AppRoutes {
   static const String task = '/task';
   static const String taskGroup = '/task/group';
   static const String addTask = '/task/add';
-  static const String distractions = '/distractions';
+  static const String browse = '/browse';
   static const String settings = '/settings';
   static const String appLanguages = '/settings/app_languages';
   static const String appAppearances = '/settings/app_appearances';
@@ -65,10 +65,10 @@ class RouteGenerator {
             builder: (_) => const BaseApp(
                   child: AddTaskScreen(),
                 ));
-      case AppRoutes.distractions:
+      case AppRoutes.browse:
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
-                  child: DistractionScreen(),
+                  child: BrowseScreen(),
                 ));
       case AppRoutes.settings:
         return MaterialPageRoute(

@@ -98,23 +98,30 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(height: 16),
                               ListTile(
                                   leading: SizedBox(
-                                    child: CachedNetworkImage(
-                                      imageUrl: profileImg,
-                                      progressIndicatorBuilder: (context, url,
-                                              downloadProgress) =>
-                                          Center(
-                                              child: CircularProgressIndicator(
-                                                  value: downloadProgress
-                                                      .progress)),
-                                      errorWidget: (context, url, error) =>
-                                          const Card(
-                                              child: Padding(
-                                        padding: EdgeInsets.all(4),
-                                        child: Icon(
-                                          Icons.person,
-                                          size: 16,
-                                        ),
-                                      )),
+                                    width: 24,
+                                    height: 24,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: CachedNetworkImage(
+                                        imageUrl: profileImg,
+                                        progressIndicatorBuilder: (context, url,
+                                                downloadProgress) =>
+                                            Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        value: downloadProgress
+                                                            .progress)),
+                                        errorWidget: (context, url, error) =>
+                                            const Card(
+                                                child: Padding(
+                                          padding: EdgeInsets.all(4),
+                                          child: Icon(
+                                            Icons.person,
+                                            size: 16,
+                                          ),
+                                        )),
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                   title: Text(
