@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-Future<void> _selectDate(BuildContext context) async {
+Future<void> selectDate(BuildContext context) async {
   final DateTime? picked = await showDatePicker(
     context: context,
     initialDate: DateTime.now(),
@@ -13,7 +13,7 @@ Future<void> _selectDate(BuildContext context) async {
   if (picked != null) print({picked.toString()});
 }
 
-Future<void> _selectTime(BuildContext context) async {
+Future<void> selectTime(BuildContext context) async {
   final TimeOfDay? picked = await showTimePicker(
     context: context,
     initialTime: TimeOfDay.now(),
@@ -23,7 +23,7 @@ Future<void> _selectTime(BuildContext context) async {
     print({picked.hour.toString() + ':' + picked.minute.toString()});
 }
 
-Future<void> _selectDateRange(BuildContext context) async {
+Future<void> selectDateRange(BuildContext context) async {
   final DateTimeRange? picked = await showDateRangePicker(
     context: context,
     initialDateRange: DateTimeRange(

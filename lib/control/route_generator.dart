@@ -13,6 +13,7 @@ class AppRoutes {
   static const String addTask = '/task/add';
   static const String browse = '/browse';
   static const String settings = '/settings';
+  static const String profile = '/settings/profile';
   static const String appLanguages = '/settings/app_languages';
   static const String appAppearances = '/settings/app_appearances';
   static const String appNotification = '/settings/app_notification';
@@ -74,6 +75,11 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: SettingsScreen(),
+                ));
+      case AppRoutes.profile:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: ProfileScreen(),
                 ));
       case AppRoutes.appLanguages:
         return MaterialPageRoute(

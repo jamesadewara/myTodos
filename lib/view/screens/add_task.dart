@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/view/components/notificator.dart';
+import 'package:mytodo/view/components/pickers.dart';
 import 'package:mytodo/view/screens/dropdown_modal.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 
@@ -86,11 +86,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return Dialog(
-                                                child: DropdownModal(
-                                                  onSelected: () {},
-                                                  options: taskDepartments,
-                                                ),
+                                              return DropdownModal(
+                                                onSelected: () {},
+                                                options: taskDepartments,
                                               );
                                             });
                                       },
@@ -153,7 +151,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                         ?.copyWith(fontWeight: FontWeight.bold),
                                     trailing: IconButton(
                                       icon: const Icon(Icons.arrow_drop_down),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        selectDate(context);
+                                      },
                                     )),
                               ),
                               const SizedBox(
@@ -179,7 +179,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                         ?.copyWith(fontWeight: FontWeight.bold),
                                     trailing: IconButton(
                                       icon: const Icon(Icons.arrow_drop_down),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        selectTime(context);
+                                      },
                                     )),
                               ),
                               const SizedBox(

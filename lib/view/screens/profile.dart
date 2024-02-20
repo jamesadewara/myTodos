@@ -1,21 +1,19 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:mytodo/control/route_generator.dart';
+import 'package:mytodo/control/config.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
-import 'package:mytodo/view/components/notificator.dart';
 import 'package:responsive_framework/responsive_breakpoints.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({
     super.key,
   });
 
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
@@ -26,28 +24,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return const AppNavigationBar(
         currentState: 3,
         child: SafeArea(
-          child: SettingsPage(),
+          child: ProfilePage(),
         ));
   }
 }
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({
     super.key,
   });
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _ProfilePageState extends State<ProfilePage> {
   final _scrollController = ScrollController();
-
-  bool hideAppBar = true;
 
   @override
   void initState() {
-    hideAppBar = true;
     super.initState();
   }
 
@@ -55,21 +50,12 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: hideAppBar ? null : const Text("Adewara James"),
-            actions: const [NotificatorButton()]),
+          automaticallyImplyLeading: false,
+          title: const Text("Profile"),
+        ),
         body: Scrollbar(
             controller: _scrollController,
             notificationPredicate: (ScrollNotification notification) {
-              if (_scrollController.offset > 48) {
-                setState(() {
-                  hideAppBar = false;
-                });
-              } else {
-                setState(() {
-                  hideAppBar = true;
-                });
-              }
               return notification.depth == 0;
             },
             child: SingleChildScrollView(
@@ -87,7 +73,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 : 72),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Container(
                                   decoration: BoxDecoration(
@@ -97,221 +83,42 @@ class _SettingsPageState extends State<SettingsPage> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         left: 16, right: 16, top: 8, bottom: 8),
-                                    child: ListTile(
-                                      // leading: CachedNetworkImage(
-                                      //   height: 180,
-                                      //   imageUrl: "https://www.com",
-                                      //   progressIndicatorBuilder: (context, url,
-                                      //           downloadProgress) =>
-                                      //       Center(
-                                      //           child: CircularProgressIndicator(
-                                      //               value:
-                                      //                   downloadProgress.progress)),
-                                      //   errorWidget: (context, url, error) =>
-                                      //       const Card(child: Icon(Icons.person)),
-                                      // ),
-
-                                      title: Text(
-                                        "Adewara James",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: Text(
-                                        "Adewara James",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall,
-                                      ),
+                                    child: CachedNetworkImage(
+                                      height: 180,
+                                      imageUrl: profileImg,
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
+                                          Center(
+                                              child: CircularProgressIndicator(
+                                                  value: downloadProgress
+                                                      .progress)),
+                                      errorWidget: (context, url, error) =>
+                                          const Card(child: Icon(Icons.person)),
                                     ),
                                   )),
                               const SizedBox(
                                 height: 48,
                               ),
-                              AutoSizeText("Account",
-                                  maxLines: 1,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
-                                    leading: const Card(
-                                      child: Icon(Icons.person),
-                                    ),
-                                    title: const Text("My Profile"),
-                                    titleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                    trailing: const Icon(Icons.chevron_right)),
+                              const ListTile(
+                                title: Text('Username:'),
+                                subtitle: Text('Adewara James Ayomide'),
                               ),
                               const SizedBox(
-                                height: 12,
+                                height: 4,
                               ),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
-                                    leading: const Card(
-                                      child: Icon(Icons.refresh),
-                                    ),
-                                    title: const Text("Reset Account"),
-                                    titleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                    trailing: const Icon(Icons.chevron_right)),
+                              const ListTile(
+                                title: Text('Email:'),
+                                subtitle: Text('jamesadewara1@maigl.com'),
                               ),
                               const SizedBox(
-                                height: 12,
+                                height: 4,
                               ),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {
-                                      Navigator.of(context).pushNamed(
-                                          AppRoutes.accountManagement);
-                                    },
-                                    leading: const Card(
-                                      child: Icon(Icons.delete_outline),
-                                    ),
-                                    title: const Text("Account management"),
-                                    titleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                    trailing: const Icon(Icons.chevron_right)),
+                              const ListTile(
+                                title: Text('About:'),
+                                subtitle: Text('I love programming'),
                               ),
                               const SizedBox(
-                                height: 12,
-                              ),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
-                                    leading: const Card(
-                                      child: Icon(Icons.logout),
-                                    ),
-                                    title: const Text("Logout"),
-                                    titleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                    trailing: const Icon(Icons.chevron_right)),
-                              ),
-                              const SizedBox(
-                                height: 32,
-                              ),
-                              AutoSizeText("Preferences",
-                                  maxLines: 1,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold)),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {
-                                      Navigator.of(context)
-                                          .pushNamed(AppRoutes.appNotification);
-                                    },
-                                    leading: const Card(
-                                      child: Icon(Icons.notifications_none),
-                                    ),
-                                    title: const Text("Notifications"),
-                                    titleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                    trailing: const Icon(Icons.chevron_right)),
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {
-                                      Navigator.of(context)
-                                          .pushNamed(AppRoutes.appAppearances);
-                                    },
-                                    leading: const Card(
-                                      child: Icon(Icons.palette),
-                                    ),
-                                    title: const Text("Appearance"),
-                                    titleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                    trailing: const Icon(Icons.chevron_right)),
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {
-                                      Navigator.of(context)
-                                          .pushNamed(AppRoutes.appLanguages);
-                                    },
-                                    leading: const Card(
-                                      child: Icon(Icons.language),
-                                    ),
-                                    title: const Text("Language"),
-                                    titleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                    trailing: const Icon(Icons.chevron_right)),
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Card(
-                                child: ListTile(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onTap: () {},
-                                  title: const Text("Feedback us"),
-                                  titleTextStyle: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
-                                    title: const Text("App Version"),
-                                    titleTextStyle: Theme.of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.bold),
-                                    trailing: const Text("1.0.0")),
+                                height: 4,
                               ),
                               const SizedBox(
                                 height: 12,
