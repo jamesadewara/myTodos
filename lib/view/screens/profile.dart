@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/config.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
-import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -99,10 +99,38 @@ class _ProfilePageState extends State<ProfilePage> {
                               const SizedBox(
                                 height: 48,
                               ),
-                              const ListTile(
-                                title: Text('Username:'),
-                                subtitle: Text('Adewara James Ayomide'),
-                              ),
+                              ListTile(
+                                  title: const Text('Username:'),
+                                  subtitle: const Text('Adewara James Ayomide'),
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text('Input Dialog'),
+                                          content: const TextField(
+                                            decoration: InputDecoration(
+                                                hintText:
+                                                    "Enter your input here"),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: const Text('Cancel'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: const Text('Submit'),
+                                              onPressed: () {
+                                                // Handle the submit action
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }),
                               const SizedBox(
                                 height: 4,
                               ),

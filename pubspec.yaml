@@ -24,14 +24,10 @@ dependencies:
   responsive_framework: ^1.1.1
   url_launcher: ^6.2.4
   flutter_redux: ^0.10.0
+  # image_picker: ^1.0.7
   aitheme:
     git:
       url: git@github.com:jamesadewara/AiTheme.git
-      ref: main
-   
-  aiauth_sdk:
-    git:
-      url: git@github.com:jamesadewara/AiAuth.git
       ref: main
       
   redux: ^5.0.0

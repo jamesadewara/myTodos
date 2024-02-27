@@ -1,3 +1,4 @@
+export 'package:mytodo/view/screens/text_editor.dart';
 export 'package:mytodo/view/screens/profile.dart';
 export 'package:mytodo/view/screens/account_management.dart';
 export 'package:mytodo/view/screens/appearance.dart';

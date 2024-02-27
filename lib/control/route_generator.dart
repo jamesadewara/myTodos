@@ -1,6 +1,4 @@
-import 'package:aiauth_sdk/main.dart';
 import 'package:flutter/material.dart';
-import 'package:mytodo/control/config.dart';
 import 'package:mytodo/index.dart';
 
 class AppRoutes {
@@ -11,6 +9,7 @@ class AppRoutes {
   static const String task = '/task';
   static const String taskGroup = '/task/group';
   static const String addTask = '/task/add';
+  static const String editor = '/note_editor';
   static const String browse = '/browse';
   static const String settings = '/settings';
   static const String profile = '/settings/profile';
@@ -22,10 +21,10 @@ class AppRoutes {
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    if (!isLogged) {
-      return MaterialPageRoute(
-          builder: (_) => authSdkInit(image: "assets/icon.png"));
-    }
+    // if (!isLogged) {
+    //   return MaterialPageRoute(
+    //       builder: (_) => authSdkInit(image: "assets/icon.png"));
+    // }
 
     switch (settings.name) {
       case AppRoutes.splash:
@@ -65,6 +64,11 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
                   child: AddTaskScreen(),
+                ));
+      case AppRoutes.editor:
+        return MaterialPageRoute(
+            builder: (_) => const BaseApp(
+                  child: TextEditor(),
                 ));
       case AppRoutes.browse:
         return MaterialPageRoute(

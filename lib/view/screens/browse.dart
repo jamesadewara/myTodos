@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
-import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class BrowseScreen extends StatefulWidget {
   const BrowseScreen({

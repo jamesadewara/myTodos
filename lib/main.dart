@@ -9,8 +9,7 @@ import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/store.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:responsive_framework/breakpoint.dart';
-import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

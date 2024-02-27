@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_list_view/flutter_list_view.dart';
-import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({

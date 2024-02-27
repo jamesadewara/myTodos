@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
-import 'package:responsive_framework/responsive_breakpoints.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class AppearanceScreen extends StatefulWidget {
   const AppearanceScreen({
@@ -77,7 +77,6 @@ class _AppearancePageState extends State<AppearancePage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                        
                                     title: const Text("System Theme"),
                                     trailing: Radio(
                                         value: true,
@@ -88,7 +87,6 @@ class _AppearancePageState extends State<AppearancePage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                        
                                     title: const Text("Light Mode Theme"),
                                     trailing: Radio(
                                         value: true,
@@ -99,7 +97,6 @@ class _AppearancePageState extends State<AppearancePage> {
                                 child: ListTile(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                        
                                     title: const Text("Dark Mode Theme"),
                                     trailing: Radio(
                                         value: true,

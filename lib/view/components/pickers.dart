@@ -19,8 +19,8 @@ Future<void> selectTime(BuildContext context) async {
     initialTime: TimeOfDay.now(),
   );
 
-  if (picked != null)
-    print({picked.hour.toString() + ':' + picked.minute.toString()});
+  if (picked != null) {}
+  // print({picked.hour.toString() + ':' + picked.minute.toString()});
 }
 
 Future<void> selectDateRange(BuildContext context) async {
@@ -35,6 +35,46 @@ Future<void> selectDateRange(BuildContext context) async {
   );
 
   if (picked != null) {
-    print({picked.start.toString() + ' - ' + picked.end.toString()});
+    // print({picked.start.toString() + ' - ' + picked.end.toString()});
+  }
+}
+
+class DateTimePicker extends StatefulWidget {
+  const DateTimePicker({
+    super.key,
+  });
+
+  @override
+  State<DateTimePicker> createState() => _DateTimePickerState();
+}
+
+class _DateTimePickerState extends State<DateTimePicker> {
+  bool initialState = true;
+
+  @override
+  void initState() {
+    initialState = true;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return initialState
+        ? TimePickerDialog(
+            initialTime: TimeOfDay.now(),
+            onEntryModeChanged: (TimePickerEntryMode picker) {
+              setState(() {
+                initialState = false;
+              });
+            },
+          )
+        : DatePickerDialog(
+            firstDate: DateTime.now(),
+            lastDate: DateTime.now(),
+            onDatePickerModeChange: (DatePickerEntryMode picker) {
+              setState(() {
+                initialState = true;
+              });
+            });
   }
 }
