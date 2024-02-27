@@ -16,7 +16,8 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   final store = Store<AppState>(
     rootReducer,
-    initialState: AppState(isIntro: true, isLoading: false), // Initial state
+    initialState: AppState(
+        isIntro: true, isLoading: false, theme: "system"), // Initial state
   );
 
   // await Firebase.initializeApp(
@@ -32,25 +33,33 @@ class MainApp extends StatelessWidget {
 // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "MyTodo's",
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system,
-      theme: AiThemes(name: ThemeIdentifier.daylight).currentTheme(),
-      darkTheme: AiThemes(name: ThemeIdentifier.nightfall).currentTheme(),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: AppRoutes.intro,
-      onGenerateRoute: RouteGenerator.generateRoute,
-      builder: (context, child) => ResponsiveBreakpoints.builder(
-        child: child!,
-        breakpoints: [
-          const Breakpoint(start: 0, end: 450, name: MOBILE),
-          const Breakpoint(start: 451, end: 800, name: TABLET),
-          const Breakpoint(start: 801, end: 1920, name: DESKTOP),
-          const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-        ],
-      ),
-    );
+    return StoreConnector<AppState, String>(
+        converter: (store) => store.state.theme ?? "system",
+        builder: (context, currentTheme) {
+          return MaterialApp(
+            title: "MyTodo's",
+            debugShowCheckedModeBanner: false,
+            themeMode: currentTheme == "system"
+                ? ThemeMode.system
+                : currentTheme == "light"
+                    ? ThemeMode.light
+                    : ThemeMode.dark,
+            theme: AiThemes(name: ThemeIdentifier.daylight).currentTheme(),
+            darkTheme: AiThemes(name: ThemeIdentifier.nightfall).currentTheme(),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            initialRoute: AppRoutes.intro,
+            onGenerateRoute: RouteGenerator.generateRoute,
+            builder: (context, child) => ResponsiveBreakpoints.builder(
+              child: child!,
+              breakpoints: [
+                const Breakpoint(start: 0, end: 450, name: MOBILE),
+                const Breakpoint(start: 451, end: 800, name: TABLET),
+                const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+                const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+              ],
+            ),
+          );
+        });
   }
 }

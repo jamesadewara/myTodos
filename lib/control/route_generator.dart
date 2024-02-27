@@ -10,7 +10,7 @@ class AppRoutes {
   static const String taskGroup = '/task/group';
   static const String addTask = '/task/add';
   static const String editor = '/note_editor';
-  static const String browse = '/browse';
+  static const String distraction = '/distraction';
   static const String settings = '/settings';
   static const String profile = '/settings/profile';
   static const String appLanguages = '/settings/app_languages';
@@ -70,10 +70,10 @@ class RouteGenerator {
             builder: (_) => const BaseApp(
                   child: TextEditor(),
                 ));
-      case AppRoutes.browse:
+      case AppRoutes.distraction:
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
-                  child: BrowseScreen(),
+                  child: BrowseDistractionsScreen(),
                 ));
       case AppRoutes.settings:
         return MaterialPageRoute(

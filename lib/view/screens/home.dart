@@ -106,6 +106,7 @@ class _HomePageState extends State<HomePage> {
                                       borderRadius: BorderRadius.circular(100),
                                       child: const ProfileImage(
                                         image: "",
+                                        size: 32,
                                       ),
                                     ),
                                   ),

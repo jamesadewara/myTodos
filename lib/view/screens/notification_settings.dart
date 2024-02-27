@@ -84,20 +84,27 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                                       .bodyLarge
                                       ?.copyWith(fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
-                              Card(
-                                  child: ListTile(
-                                      title: const Text("Inbox messages"),
-                                      trailing: Switch(
-                                        value: true,
-                                        onChanged: (bool value) {},
-                                      ))),
-                              Card(
-                                  child: ListTile(
-                                      title: const Text("My account"),
-                                      trailing: Switch(
-                                        value: true,
-                                        onChanged: (bool value) {},
-                                      ))),
+                              ListTile(
+                                  tileColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  title: const Text("Inbox messages"),
+                                  trailing: Switch(
+                                    value: true,
+                                    onChanged: (bool value) {},
+                                  )),
+                              const SizedBox(height: 8),
+                              ListTile(
+                                  tileColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  title: const Text("My account"),
+                                  trailing: Switch(
+                                    value: true,
+                                    onChanged: (bool value) {},
+                                  )),
                               const SizedBox(height: 24),
                               AutoSizeText("Email notifications",
                                   maxLines: 1,
@@ -106,23 +113,25 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                                       .bodyLarge
                                       ?.copyWith(fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
-                              Card(
-                                  child: ListTile(
-                                      title: const Text("Inbox messages"),
-                                      trailing: Switch(
-                                        value: true,
-                                        onChanged: (bool value) {},
-                                      ))),
+                              ListTile(
+                                  tileColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  title: const Text("Inbox messages"),
+                                  trailing: Switch(
+                                    value: true,
+                                    onChanged: (bool value) {},
+                                  )),
                               const SizedBox(height: 32),
-                              Card(
-                                  child: ListTile(
-                                      onTap: () {},
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      title: const Text("Notifications sound"),
-                                      trailing:
-                                          const Icon(Icons.chevron_right))),
+                              ListTile(
+                                  tileColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  onTap: () {},
+                                  title: const Text("Notifications sound"),
+                                  trailing: const Icon(Icons.chevron_right)),
                               const SizedBox(height: 48),
                             ]))))));
   }

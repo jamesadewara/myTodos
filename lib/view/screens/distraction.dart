@@ -4,16 +4,17 @@ import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-class BrowseScreen extends StatefulWidget {
-  const BrowseScreen({
+class BrowseDistractionsScreen extends StatefulWidget {
+  const BrowseDistractionsScreen({
     super.key,
   });
 
   @override
-  State<BrowseScreen> createState() => _BrowseScreenState();
+  State<BrowseDistractionsScreen> createState() =>
+      _BrowseDistractionsScreenState();
 }
 
-class _BrowseScreenState extends State<BrowseScreen> {
+class _BrowseDistractionsScreenState extends State<BrowseDistractionsScreen> {
   @override
   void initState() {
     super.initState();
@@ -24,21 +25,21 @@ class _BrowseScreenState extends State<BrowseScreen> {
     return const AppNavigationBar(
         currentState: 2,
         child: SafeArea(
-          child: BrowsePage(),
+          child: BrowseDistractionsPage(),
         ));
   }
 }
 
-class BrowsePage extends StatefulWidget {
-  const BrowsePage({
+class BrowseDistractionsPage extends StatefulWidget {
+  const BrowseDistractionsPage({
     super.key,
   });
 
   @override
-  State<BrowsePage> createState() => _BrowsePageState();
+  State<BrowseDistractionsPage> createState() => _BrowseDistractionsPageState();
 }
 
-class _BrowsePageState extends State<BrowsePage> {
+class _BrowseDistractionsPageState extends State<BrowseDistractionsPage> {
   final _scrollController = ScrollController();
   bool hideAppBar = true;
   final TextEditingController _searchController = TextEditingController();
@@ -155,45 +156,23 @@ class _BrowsePageState extends State<BrowsePage> {
                                 style: Theme.of(context).textTheme.bodySmall,
                               ),
                               const SizedBox(height: 32),
-                              Card(
-                                  child: ListTile(
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.facebook,
-                                          color: Colors.blue,
-                                        ),
+                              ListTile(
+                                  tileColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  leading: const Card(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4),
+                                      child: Icon(
+                                        Icons.facebook,
+                                        color: Colors.blue,
                                       ),
-                                      title: const Text("Facebook"),
-                                      trailing: Switch(
-                                        value: true,
-                                        onChanged: (bool value) {},
-                                      ))),
-                              Card(
-                                  child: ListTile(
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.whatshot_sharp,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                      title: const Text("Whatshot"),
-                                      trailing: Switch(
-                                        value: true,
-                                        onChanged: (bool value) {},
-                                      ))),
-                              Card(
-                                  child: ListTile(
-                                      leading: const Card(
-                                        child: Icon(
-                                          Icons.snapchat_sharp,
-                                          color: Colors.yellow,
-                                        ),
-                                      ),
-                                      title: const Text("Snapchat"),
-                                      trailing: Switch(
-                                        value: true,
-                                        onChanged: (bool value) {},
-                                      ))),
+                                    ),
+                                  ),
+                                  title: const Text("Facebook"),
+                                  trailing: Switch(
+                                    value: true,
+                                    onChanged: (bool value) {},
+                                  )),
                             ]))))));
   }
 }

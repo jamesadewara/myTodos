@@ -5,12 +5,14 @@ import 'package:redux/redux.dart';
 class AppState {
   final bool? isLoading;
   final bool? isIntro;
+  final String? theme;
 
-  AppState({this.isLoading, this.isIntro});
+  AppState({this.isLoading, this.isIntro, this.theme});
 }
 
 // Combine reducers into a root reducer
 final rootReducer = combineReducers<AppState>([
   TypedReducer<AppState, dynamic>(loadingReducer).call,
   TypedReducer<AppState, dynamic>(introReducer).call,
+  TypedReducer<AppState, dynamic>(themeReducer).call,
 ]);

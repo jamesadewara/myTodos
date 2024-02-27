@@ -73,19 +73,19 @@ class _LanguagePageState extends State<LanguagePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               const SizedBox(height: 16),
-                              Card(
-                                child: ListTile(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8)),
-                                    onTap: () {},
-                                    title: const Text("English"),
-                                    subtitle: const Text("English"),
-                                    trailing: Icon(
-                                      Icons.check,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                    )),
-                              ),
+                              ListTile(
+                                  tileColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  onTap: () {},
+                                  title: const Text("English"),
+                                  subtitle: const Text("English"),
+                                  trailing: Icon(
+                                    Icons.check,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  )),
                               Card(
                                   child: ListTile(
                                 shape: RoundedRectangleBorder(
