@@ -1,12 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:mytodo/control/config.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
 import 'package:mytodo/view/components/profile_img.dart';
-import 'package:mytodo/view/screens/profile.dart';
+import 'package:mytodo/view/screens/settings/profile.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -86,7 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 128,
           ),
           const ProfilePage(

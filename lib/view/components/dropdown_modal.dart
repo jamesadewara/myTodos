@@ -1,11 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:mytodo/view/components/file_field.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-// import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DropdownModalController {
   final Key? key;
@@ -130,72 +129,72 @@ class _DropdownModalState extends State<DropdownModal> {
   }
 }
 
-// class ImageUploadDialog extends StatefulWidget {
-//   const ImageUploadDialog({
-//     super.key,
-//   });
+class ImageUploadDialog extends StatefulWidget {
+  final Function(XFile?) onImageSelected;
 
-//   @override
-//   State<ImageUploadDialog> createState() => _ImageUploadDialogState();
-// }
+  const ImageUploadDialog({
+    Key? key,
+    required this.onImageSelected,
+  }) : super(key: key);
 
-// class _ImageUploadDialogState extends State<ImageUploadDialog> {
-//   XFile? image;
+  @override
+  State<ImageUploadDialog> createState() => _ImageUploadDialogState();
+}
 
-//   final _uploadProfileKey = GlobalKey<FormState>();
-//   final _scrollController = ScrollController();
+class _ImageUploadDialogState extends State<ImageUploadDialog> {
+  XFile? image;
 
-//   final ImagePicker picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
 
-//   // Function to select image from camera or gallery
-//   Future getImage(ImageSource source) async {
-//     var img = await picker.pickImage(source: source);
+  // Function to select image from camera or gallery
+  Future getImage(ImageSource source) async {
+    var img = await picker.pickImage(source: source);
 
-//     setState(() {
-//       image = img;
-//     });
-//   }
+    setState(() {
+      image = img;
+    });
 
-//   File getImage = File(image!.path);
+    // Call the callback function with the selected image
+    widget.onImageSelected(img);
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(8),
-//       ),
-//       title: Text('Please choose media to select',
-//           style: Theme.of(context).textTheme.bodyLarge),
-//       content: Column(
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         children: [
-//           ListTile(
-//             tileColor: Theme.of(context).colorScheme.surface,
-//             onTap: () {
-//               Navigator.pop(context);
-//               getImage(ImageSource.gallery);
-//             },
-//             leading: Icon(Icons.image),
-//             title: Text('From Gallery'),
-//           ),
-//           SizedBox(
-//             height: 8,
-//           ),
-//           ListTile(
-//             tileColor: Theme.of(context).colorScheme.surface,
-//             onTap: () {
-//               Navigator.pop(context);
-//               getImage(ImageSource.camera);
-//             },
-//             leading: Icon(Icons.camera),
-//             title: Text('From Camera'),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      title: const Text('Please choose media to select'),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ListTile(
+            tileColor: Theme.of(context).colorScheme.surface,
+            onTap: () {
+              Navigator.pop(context);
+              getImage(ImageSource.gallery);
+            },
+            leading: const Icon(Icons.image),
+            title: const Text('From Gallery'),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          ListTile(
+            tileColor: Theme.of(context).colorScheme.surface,
+            onTap: () {
+              Navigator.pop(context);
+              getImage(ImageSource.camera);
+            },
+            leading: const Icon(Icons.camera),
+            title: const Text('From Camera'),
+          )
+        ],
+      ),
+    );
+  }
+}
 
 class CreateGroupDropdownModal extends StatefulWidget {
   const CreateGroupDropdownModal({

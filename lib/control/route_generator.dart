@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mytodo/control/config.dart';
 import 'package:mytodo/index.dart';
 
 class AppRoutes {
@@ -19,12 +20,63 @@ class AppRoutes {
   static const String accountManagement = '/settings/account_management';
 }
 
+class AuthRoutes {
+  static const String signup = '/signup';
+  static const String login = '/login';
+  static const String forgotPassword = '/forgot_password';
+  static const String resetAccount = '/reset_account';
+  static const String createPassword = '/create_password';
+  static const String verifyAccount = '/verify_account';
+  static const String addProfilePicture = '/add_profile_picture';
+  static const String updateProfileAccount = '/update_profile_account';
+}
+
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    // if (!isLogged) {
-    //   return MaterialPageRoute(
-    //       builder: (_) => authSdkInit(image: "assets/icon.png"));
-    // }
+    if (!isLogged) {
+      switch (settings.name) {
+        case AuthRoutes.signup:
+          return MaterialPageRoute(
+              builder: (_) => const BaseApp(
+                    child: SignupScreen(),
+                  ));
+        case AuthRoutes.login:
+          return MaterialPageRoute(
+              builder: (_) => const BaseApp(
+                    child: LoginScreen(),
+                  ));
+        case AuthRoutes.forgotPassword:
+          return MaterialPageRoute(
+              builder: (_) => const BaseApp(
+                    child: ForgotPasswordScreen(),
+                  ));
+        case AuthRoutes.resetAccount:
+          return MaterialPageRoute(
+              builder: (_) => const BaseApp(
+                    child: ResetAccountScreen(),
+                  ));
+        case AuthRoutes.createPassword:
+          return MaterialPageRoute(
+              builder: (_) => const BaseApp(
+                    child: CreatePasswordScreen(),
+                  ));
+        case AuthRoutes.verifyAccount:
+          return MaterialPageRoute(
+              builder: (_) => const BaseApp(
+                    child: VerifyAccountScreen(),
+                  ));
+        case AuthRoutes.addProfilePicture:
+          return MaterialPageRoute(
+              builder: (_) => const BaseApp(
+                    child: AddProfilePictureScreen(),
+                  ));
+        case AuthRoutes.updateProfileAccount:
+          return MaterialPageRoute(
+              builder: (_) => const BaseApp(
+                    child: UpdateProfileAccountScreen(),
+                  ));
+      }
+    }
 
     switch (settings.name) {
       case AppRoutes.splash:
