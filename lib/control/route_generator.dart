@@ -3,6 +3,7 @@ import 'package:mytodo/control/config.dart';
 import 'package:mytodo/control/notifier_listener.dart';
 import 'package:mytodo/index.dart';
 import 'package:mytodo/view/components/dropdown_modal.dart';
+import 'package:provider/provider.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -218,11 +219,14 @@ class _BaseAppState extends State<BaseApp> {
 
   @override
   Widget build(BuildContext context) {
-       bool listener = context.watch<NotifyListener>();
-       listener.isLoading?  showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return ProgressModal(message: listener.message);});
+    NotifyListener listener = context.watch<NotifyListener>();
+    listener.isLoading
+    ? showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ProgressModal(message: listener.message);
+        })
+    : null;
     return Scaffold(body: widget.child);
   }
 }

@@ -6,7 +6,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 // import 'firebase_options.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mytodo/control/notifier_listener.dart';
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/store/store.dart';
 import 'package:redux/redux.dart';
@@ -25,12 +25,12 @@ void main() async {
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
-  runApp(StoreProvider(store: store, child: const MainApp()));
-  // runApp(MultiProvider(providers: [
-  //   ListenableProvider<NotifyListener>(
-  //     create: (_) => NotifyListener(),
-  //   ),
-  // ], child: StoreProvider(store: store, child: const MainApp())));
+
+  runApp(MultiProvider(providers: [
+    ListenableProvider<NotifyListener>(
+      create: (_) => NotifyListener(),
+    ),
+  ], child: StoreProvider(store: store, child: const MainApp())));
 
   // FlutterNativeSplash.remove();
 }
