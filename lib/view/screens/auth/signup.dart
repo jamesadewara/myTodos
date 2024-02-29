@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:mytodo/control/notifier_listener.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -18,7 +22,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-        NotifyListener listener = context.watch<NotifyListener>();
+    NotifyListener listener = context.watch<NotifyListener>();
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -81,13 +85,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                 .pushNamed(AuthRoutes.createPassword);
                             // Validate returns true if the form is valid, or false otherwise.
                             if (_signupFormKey.currentState!.validate()) {
-                           
-                              listener.setLoading(true);
-                             
+                              listener.setLoading(value: true);
+
                               Timer(const Duration(seconds: 2), () {
-                                listener.setLoading(false);
+                                listener.setLoading(value: false);
                               });
-                            
                             }
                           },
                           child: const Padding(
@@ -107,7 +109,6 @@ class _SignupScreenState extends State<SignupScreen> {
                             style: Theme.of(context).textTheme.bodyMedium),
                         TextButton(
                           onPressed: () {
-
                             Navigator.of(context)
                                 .pushReplacementNamed(AuthRoutes.login);
                           },
