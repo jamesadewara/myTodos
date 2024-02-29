@@ -5,8 +5,10 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:mytodo/control/notifier_listener.dart';
+// import 'package:provider/provider.dart';
 import 'package:mytodo/control/route_generator.dart';
-import 'package:mytodo/control/store.dart';
+import 'package:mytodo/control/store/store.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -16,15 +18,21 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   final store = Store<AppState>(
     rootReducer,
-    initialState: AppState(
-        isIntro: true, isLoading: false, theme: "system"), // Initial state
+    initialState:
+        AppState(isIntro: true, theme: "system", language: ""), // Initial state
   );
 
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
   runApp(StoreProvider(store: store, child: const MainApp()));
-  FlutterNativeSplash.remove();
+  // runApp(MultiProvider(providers: [
+  //   ListenableProvider<NotifyListener>(
+  //     create: (_) => NotifyListener(),
+  //   ),
+  // ], child: StoreProvider(store: store, child: const MainApp())));
+
+  // FlutterNativeSplash.remove();
 }
 
 class MainApp extends StatelessWidget {
@@ -33,6 +41,8 @@ class MainApp extends StatelessWidget {
 // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    StoreProvider.of<AppState>(context)
+        .dispatch(AppState(theme: "rice_and_moimoi"));
     return StoreConnector<AppState, String>(
         converter: (store) => store.state.theme ?? "system",
         builder: (context, currentTheme) {

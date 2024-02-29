@@ -31,8 +31,8 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
     {
       "icon": Icons.find_in_page_outlined,
       "selectedIcon": Icons.find_in_page,
-      "label": "Browse Distractions",
-      "route": AppRoutes.distraction
+      "label": "Browse",
+      "route": AppRoutes.browse
     },
     {
       "icon": Icons.group_outlined,

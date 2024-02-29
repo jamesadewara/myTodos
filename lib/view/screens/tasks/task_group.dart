@@ -1,330 +1,219 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:mytodo/control/props.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class TaskGroupScreen extends StatefulWidget {
-  const TaskGroupScreen({
-    super.key,
-  });
+  const TaskGroupScreen({super.key});
 
   @override
   State<TaskGroupScreen> createState() => _TaskGroupScreenState();
 }
 
 class _TaskGroupScreenState extends State<TaskGroupScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const TaskGroupPage();
-  }
-}
-
-class TaskGroupPage extends StatefulWidget {
-  const TaskGroupPage({
-    super.key,
-  });
-
-  @override
-  State<TaskGroupPage> createState() => _TaskGroupPageState();
-}
-
-class _TaskGroupPageState extends State<TaskGroupPage> {
   final _scrollController = ScrollController();
   bool hideAppBar = true;
-  bool isSearchabble = false;
+  bool isSearchable = false;
   final TextEditingController _searchController = TextEditingController();
+
+  List<TaskProp> taskItems = [
+    TaskProp(
+        id: "1", title: "Project Alpha", subtitle: "This is project alpha."),
+    TaskProp(id: "2", title: "Project Beta", subtitle: "This is project beta."),
+    TaskProp(
+        id: "3", title: "Project Gamma", subtitle: "This is project gamma."),
+    TaskProp(
+        id: "4", title: "Project Delta", subtitle: "This is project delta."),
+    TaskProp(
+        id: "5",
+        title: "Project Epsilon",
+        subtitle: "This is project epsilon."),
+    TaskProp(id: "6", title: "Project Zeta", subtitle: "This is project zeta."),
+    TaskProp(id: "7", title: "Project Eta", subtitle: "This is project eta."),
+  ];
+
+  List<TaskProp> filteredTaskItems = [];
+  List<TaskProp> completedTaskItems = [];
 
   @override
   void initState() {
     hideAppBar = true;
-    isSearchabble = false;
+    isSearchable = false;
+    filteredTaskItems = List.from(taskItems);
     super.initState();
+  }
+
+  void _filterTaskItems(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredTaskItems = List.from(taskItems);
+      } else {
+        filteredTaskItems = taskItems
+            .where((task) =>
+                task.title.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          automaticallyImplyLeading: !isSearchabble,
-          title: !isSearchabble
-              ? const Text("Personal Project")
-              : SearchBar(
-                  controller: _searchController,
-                  elevation: MaterialStateProperty.all(0),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        automaticallyImplyLeading: !isSearchable,
+        title: isSearchable
+            ? TextField(
+                onChanged: _filterTaskItems,
+                controller: _searchController,
+                decoration: InputDecoration(
                   hintText: 'Search for apps...',
-                  hintStyle: MaterialStateProperty.all(
-                      const TextStyle(color: Colors.grey)),
-                  leading: const Icon(Icons.search),
-                  trailing: <Widget>[
-                    Visibility(
-                      visible: _searchController.text.isNotEmpty,
-                      child: IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () {
-                          _searchController.clear();
-                        },
-                      ),
-                    )
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      _searchController;
-                    });
-                  },
-                  shape:
-                      MaterialStateProperty.all(const ContinuousRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(0)),
-                  ))),
-          actions: <Widget>[
-            isSearchabble
-                ? IconButton(
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () {
-                      setState(() {
-                        isSearchabble = false;
-                      });
+                      _searchController.clear();
+                      _filterTaskItems('');
                     },
-                  )
-                : Visibility(
-                    visible: !hideAppBar,
-                    child: IconButton(
+                  ),
+                  border: InputBorder.none,
+                ),
+              )
+            : const Text("Personal Project"),
+        actions: <Widget>[
+          isSearchable
+              ? IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    setState(() {
+                      isSearchable = false;
+                      _searchController.clear();
+                      _filterTaskItems('');
+                    });
+                  },
+                )
+              : hideAppBar
+                  ? const Center()
+                  : IconButton(
                       icon: const Icon(Icons.search),
                       onPressed: () {
                         setState(() {
-                          isSearchabble = true;
+                          isSearchable = true;
                         });
                       },
                     ),
-                  )
-          ],
+          PopupMenuButton<String>(
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'rename',
+                child: Text('Rename List'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'sort',
+                child: Text('Sort by'),
+              ),
+              const PopupMenuItem<String>(
+                value: 'delete',
+                child: Text('Delete List'),
+              ),
+              // Add more filters as needed
+            ],
+          )
+        ],
+      ),
+      body: Scrollbar(
+        controller: _scrollController,
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal:
+                    ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
+                        ? 8
+                        : 72,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 16),
+                  Visibility(
+                    visible: !isSearchable,
+                    child: Center(
+                      child: SearchBar(
+                          controller: _searchController,
+                          onChanged: _filterTaskItems,
+                          elevation: MaterialStateProperty.all(0),
+                          hintText: 'Search for tasks...',
+                          hintStyle: MaterialStateProperty.all(
+                              const TextStyle(color: Colors.grey)),
+                          leading: const Icon(Icons.search),
+                          trailing: <Widget>[
+                            IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () {
+                                _searchController.clear();
+                                _filterTaskItems('');
+                              },
+                            )
+                          ],
+                          shape: MaterialStateProperty.all(
+                              const ContinuousRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ))),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    "Results: ${filteredTaskItems.length}",
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "${taskItems.length} Tasks found",
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  const SizedBox(height: 32),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: filteredTaskItems.length,
+                    itemBuilder: (context, index) {
+                      final task = filteredTaskItems[index];
+                      return CheckboxListTile(
+                        value: completedTaskItems.contains(task),
+                        onChanged: (value) {
+                          setState(() {
+                            if (completedTaskItems.contains(task)) {
+                              completedTaskItems.remove(task);
+                            } else {
+                              completedTaskItems.add(task);
+                            }
+                          });
+                        },
+                        title: Text(
+                          task.title,
+                          style: TextStyle(
+                              decoration: completedTaskItems.contains(task)
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none),
+                        ),
+                        subtitle: Text(task.subtitle),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const SizedBox(height: 8);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
-        body: Scrollbar(
-            controller: _scrollController,
-            notificationPredicate: (ScrollNotification notification) {
-              if (_scrollController.offset > 48) {
-                setState(() {
-                  hideAppBar = false;
-                });
-              } else {
-                setState(() {
-                  hideAppBar = true;
-                });
-              }
-
-              return notification.depth == 0;
-            },
-            child: SingleChildScrollView(
-                controller: _scrollController,
-                child: Center(
-                    child: Padding(
-                        padding: EdgeInsets.only(
-                            left: ResponsiveBreakpoints.of(context)
-                                    .between(MOBILE, TABLET)
-                                ? 8
-                                : 72,
-                            right: ResponsiveBreakpoints.of(context)
-                                    .between(MOBILE, TABLET)
-                                ? 8
-                                : 72),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              const SizedBox(height: 16),
-                              Visibility(
-                                visible: !isSearchabble,
-                                child: Center(
-                                  child: SearchBar(
-                                      controller: _searchController,
-                                      constraints:
-                                          ResponsiveBreakpoints.of(context)
-                                                  .between(MOBILE, TABLET)
-                                              ? const BoxConstraints(
-                                                  maxWidth: 280,
-                                                )
-                                              : null,
-                                      elevation: MaterialStateProperty.all(2),
-                                      hintText: 'Search for apps...',
-                                      hintStyle: MaterialStateProperty.all(
-                                          const TextStyle(color: Colors.grey)),
-                                      leading: const Icon(Icons.search),
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _searchController;
-                                        });
-                                      },
-                                      trailing: <Widget>[
-                                        IconButton(
-                                          icon: const Icon(Icons.close),
-                                          onPressed: () {
-                                            _searchController.clear();
-                                          },
-                                        ),
-                                      ],
-                                      shape: MaterialStateProperty.all(
-                                          const ContinuousRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8)),
-                                      ))),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              AutoSizeText(
-                                "Results: 1",
-                                maxLines: 1,
-                                style: Theme.of(context).textTheme.labelLarge,
-                              ),
-                              const SizedBox(height: 8),
-                              AutoSizeText(
-                                "30 Apps found",
-                                maxLines: 1,
-                                style: Theme.of(context).textTheme.bodySmall,
-                              ),
-                              const SizedBox(height: 32),
-                              ListTile(
-                                onTap: () {},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                tileColor:
-                                    Theme.of(context).colorScheme.surface,
-                                leading: const Card(
-                                    color: Colors.lightBlueAccent,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 16,
-                                      ),
-                                    )),
-                                title: const Text("Operation Build App"),
-                                subtitle: const Text(
-                                    "I want to build my very own app..."),
-                              ),
-                              const SizedBox(height: 8),
-                              ListTile(
-                                onTap: () {},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                tileColor:
-                                    Theme.of(context).colorScheme.surface,
-                                leading: const Card(
-                                    color: Colors.lightBlueAccent,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 16,
-                                      ),
-                                    )),
-                                title: const Text("Operation Build App"),
-                                subtitle: const Text(
-                                    "I want to build my very own app..."),
-                              ),
-                              const SizedBox(height: 8),
-                              ListTile(
-                                onTap: () {},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                tileColor:
-                                    Theme.of(context).colorScheme.surface,
-                                leading: const Card(
-                                    color: Colors.lightBlueAccent,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 16,
-                                      ),
-                                    )),
-                                title: const Text("Operation Build App"),
-                                subtitle: const Text(
-                                    "I want to build my very own app..."),
-                              ),
-                              const SizedBox(height: 8),
-                              ListTile(
-                                onTap: () {},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                tileColor:
-                                    Theme.of(context).colorScheme.surface,
-                                leading: const Card(
-                                    color: Colors.lightBlueAccent,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 16,
-                                      ),
-                                    )),
-                                title: const Text("Operation Build App"),
-                                subtitle: const Text(
-                                    "I want to build my very own app..."),
-                              ),
-                              const SizedBox(height: 8),
-                              ListTile(
-                                onTap: () {},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                tileColor:
-                                    Theme.of(context).colorScheme.surface,
-                                leading: const Card(
-                                    color: Colors.lightBlueAccent,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 16,
-                                      ),
-                                    )),
-                                title: const Text("Operation Build App"),
-                                subtitle: const Text(
-                                    "I want to build my very own app..."),
-                              ),
-                              const SizedBox(height: 8),
-                              ListTile(
-                                onTap: () {},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                tileColor:
-                                    Theme.of(context).colorScheme.surface,
-                                leading: const Card(
-                                    color: Colors.lightBlueAccent,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 16,
-                                      ),
-                                    )),
-                                title: const Text("Operation Build App"),
-                                subtitle: const Text(
-                                    "I want to build my very own app..."),
-                              ),
-                              const SizedBox(height: 8),
-                              ListTile(
-                                onTap: () {},
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                tileColor:
-                                    Theme.of(context).colorScheme.surface,
-                                leading: const Card(
-                                    color: Colors.lightBlueAccent,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 16,
-                                      ),
-                                    )),
-                                title: const Text("Operation Build App"),
-                                subtitle: const Text(
-                                    "I want to build my very own app..."),
-                              )
-                            ]))))));
+      ),
+    );
   }
 }

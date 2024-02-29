@@ -33,6 +33,8 @@ dependencies:
       
   redux: ^5.0.0
   flutter_native_splash: ^2.3.10
+  flutter_quill: ^8.3.0
+  provider: ^6.1.1
 
 dev_dependencies:
   flutter_test:

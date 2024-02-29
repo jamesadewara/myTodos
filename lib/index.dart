@@ -6,7 +6,7 @@ export 'package:mytodo/view/screens/settings/language.dart';
 export 'package:mytodo/view/screens/tasks/add_task.dart';
 export 'package:mytodo/view/screens/settings/notification_settings.dart';
 export 'package:mytodo/view/screens/settings/settings.dart';
-export 'package:mytodo/view/screens/home/distraction.dart';
+export 'package:mytodo/view/screens/home/browse.dart';
 export 'package:mytodo/view/screens/home/home.dart';
 export 'package:mytodo/view/screens/home/notification.dart';
 export 'package:mytodo/view/screens/welcome/intro.dart';

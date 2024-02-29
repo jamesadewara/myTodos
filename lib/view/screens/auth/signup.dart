@@ -18,6 +18,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+        NotifyListener listener = context.watch<NotifyListener>();
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -80,8 +81,13 @@ class _SignupScreenState extends State<SignupScreen> {
                                 .pushNamed(AuthRoutes.createPassword);
                             // Validate returns true if the form is valid, or false otherwise.
                             if (_signupFormKey.currentState!.validate()) {
-                              // _emailController.dispose();
-                              // _passwordController.dispose();
+                           
+                              listener.setLoading(true);
+                             
+                              Timer(const Duration(seconds: 2), () {
+                                listener.setLoading(false);
+                              });
+                            
                             }
                           },
                           child: const Padding(
@@ -101,6 +107,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             style: Theme.of(context).textTheme.bodyMedium),
                         TextButton(
                           onPressed: () {
+
                             Navigator.of(context)
                                 .pushReplacementNamed(AuthRoutes.login);
                           },

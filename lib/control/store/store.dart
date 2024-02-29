@@ -1,18 +1,17 @@
-import 'package:mytodo/control/actions.dart';
+import 'package:mytodo/control/store/actions.dart';
 import 'package:redux/redux.dart';
 
-// Define a class to represent your authSdklication state
 class AppState {
-  final bool? isLoading;
   final bool? isIntro;
   final String? theme;
+  final String? language;
 
-  AppState({this.isLoading, this.isIntro, this.theme});
+  AppState({this.isIntro, this.theme, this.language});
 }
 
 // Combine reducers into a root reducer
 final rootReducer = combineReducers<AppState>([
-  TypedReducer<AppState, dynamic>(loadingReducer).call,
   TypedReducer<AppState, dynamic>(introReducer).call,
   TypedReducer<AppState, dynamic>(themeReducer).call,
+  TypedReducer<AppState, dynamic>(languageReducer).call,
 ]);

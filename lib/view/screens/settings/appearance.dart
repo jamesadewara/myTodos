@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:mytodo/control/store.dart';
+import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -86,25 +86,25 @@ class _AppearancePageState extends State<AppearancePage> {
                                     return Column(
                                       children: [
                                         const SizedBox(height: 8),
-                                        ListTile(
-                                            onTap: () {
-                                              AppState(theme: e["id"]);
-                                            },
-                                            tileColor: Theme.of(context)
-                                                .colorScheme
-                                                .surface,
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            title: Text(e["value"]!),
-                                            trailing: Radio(
-                                                value: currentTheme == e["id"],
-                                                groupValue:
-                                                    currentTheme == e["id"],
-                                                onChanged: (value) {
-                                                  print(value);
-                                                  AppState(theme: e["id"]);
-                                                })),
+                                        CheckboxListTile(
+                                          value: currentTheme == e["id"],
+                                          onChanged: (value) {
+                                            print(currentTheme);
+                                            // setState(() {
+                                            //   StoreProvider.of<AppState>(
+                                            //           context)
+                                            //       .dispatch(
+                                            //           AppState(theme: e["id"]));
+                                            // });
+                                          },
+                                          tileColor: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          title: Text(e["value"]!),
+                                        ),
                                       ],
                                     );
                                   }).toList());

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/config.dart';
+import 'package:mytodo/control/notifier_listener.dart';
 import 'package:mytodo/index.dart';
+import 'package:mytodo/view/components/dropdown_modal.dart';
 
 class AppRoutes {
   static const String splash = '/splash';
@@ -11,7 +13,7 @@ class AppRoutes {
   static const String taskGroup = '/task/group';
   static const String addTask = '/task/add';
   static const String editor = '/note_editor';
-  static const String distraction = '/distraction';
+  static const String browse = '/browse';
   static const String settings = '/settings';
   static const String profile = '/settings/profile';
   static const String appLanguages = '/settings/app_languages';
@@ -122,10 +124,10 @@ class RouteGenerator {
             builder: (_) => const BaseApp(
                   child: TextEditor(),
                 ));
-      case AppRoutes.distraction:
+      case AppRoutes.browse:
         return MaterialPageRoute(
             builder: (_) => const BaseApp(
-                  child: BrowseDistractionsScreen(),
+                  child: BrowseTasksScreen(),
                 ));
       case AppRoutes.settings:
         return MaterialPageRoute(
@@ -216,6 +218,11 @@ class _BaseAppState extends State<BaseApp> {
 
   @override
   Widget build(BuildContext context) {
+       bool listener = context.watch<NotifyListener>();
+       listener.isLoading?  showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ProgressModal(message: listener.message);});
     return Scaffold(body: widget.child);
   }
 }
