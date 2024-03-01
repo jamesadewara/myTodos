@@ -1,28 +1,21 @@
-import 'package:mytodo/control/store/store.dart';
+// Define actions for IntroReducer
+class ToggleIntroAction {}
 
-enum IntroActions { logic }
-
-AppState introReducer(AppState state, action) {
-  if (action == IntroActions.logic) {
-    return AppState(isIntro: !state.isIntro!);
-  }
-  return state;
+// Define actions for ThemeReducer
+class UpdateThemeAction {
+  final String theme;
+  UpdateThemeAction(this.theme);
 }
 
-enum ThemeActions { logic }
-
-AppState themeReducer(AppState state, action) {
-  if (action == ThemeActions.logic) {
-    return AppState(theme: state.theme);
-  }
-  return state;
+// Define actions for LanguageReducer
+class UpdateLanguageAction {
+  final String language;
+  UpdateLanguageAction(this.language);
 }
 
-enum LanguageActions { logic }
+// // Define an action to handle state rehydration
+// class RehydrateAction {
+//   final PersistedAppState<AppState> persistedState;
 
-AppState languageReducer(AppState state, action) {
-  if (action == LanguageActions.logic) {
-    return AppState(language: state.language);
-  }
-  return state;
-}
+//   RehydrateAction(this.persistedState);
+// }

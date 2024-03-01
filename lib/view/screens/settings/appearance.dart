@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:mytodo/control/store/actions.dart';
 import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -76,7 +77,7 @@ class _AppearancePageState extends State<AppearancePage> {
                                 ? 8
                                 : 72),
                         child: StoreConnector<AppState, String>(
-                            converter: (store) => store.state.theme ?? "system",
+                            converter: (store) => store.state.theme,
                             builder: (context, currentTheme) {
                               return Column(
                                   mainAxisAlignment:
@@ -89,13 +90,12 @@ class _AppearancePageState extends State<AppearancePage> {
                                         CheckboxListTile(
                                           value: currentTheme == e["id"],
                                           onChanged: (value) {
-                                            print(currentTheme);
-                                            // setState(() {
-                                            //   StoreProvider.of<AppState>(
-                                            //           context)
-                                            //       .dispatch(
-                                            //           AppState(theme: e["id"]));
-                                            // });
+                                            setState(() {
+                                              StoreProvider.of<AppState>(
+                                                      context)
+                                                  .dispatch(UpdateThemeAction(
+                                                      e["id"]!));
+                                            });
                                           },
                                           tileColor: Theme.of(context)
                                               .colorScheme

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:mytodo/control/config.dart';
+import 'package:mytodo/control/store/actions.dart';
+import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -68,59 +72,41 @@ class _LanguagePageState extends State<LanguagePage> {
                                     .between(MOBILE, TABLET)
                                 ? 8
                                 : 72),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              const SizedBox(height: 16),
-                              ListTile(
-                                  tileColor:
-                                      Theme.of(context).colorScheme.surface,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onTap: () {},
-                                  title: const Text("English"),
-                                  subtitle: const Text("English"),
-                                  trailing: Icon(
-                                    Icons.check,
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                  )),
-                              Card(
-                                  child: ListTile(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                onTap: () {},
-                                title: const Text("Francais"),
-                                subtitle: const Text("French"),
-                              )),
-                              Card(
-                                child: ListTile(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onTap: () {},
-                                  title: const Text("Ede Yoruba"),
-                                  subtitle: const Text("Yoruba"),
-                                ),
-                              ),
-                              Card(
-                                child: ListTile(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onTap: () {},
-                                  title: const Text("Igbo"),
-                                  subtitle: const Text("Igbo"),
-                                ),
-                              ),
-                              Card(
-                                child: ListTile(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onTap: () {},
-                                  title: const Text("Hausa"),
-                                  subtitle: const Text("Hausa"),
-                                ),
-                              ),
-                            ]))))));
+                        child: StoreConnector<AppState, String>(
+                            converter: (store) => store.state.language,
+                            builder: (context, currentLanguage) {
+                              return Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: supportedLocales.map((e) {
+                                    return Column(
+                                      children: [
+                                        const SizedBox(height: 8),
+                                        CheckboxListTile(
+                                          value: currentLanguage ==
+                                              e.locale.languageCode,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              StoreProvider.of<AppState>(
+                                                      context)
+                                                  .dispatch(
+                                                      UpdateLanguageAction(e
+                                                          .locale
+                                                          .languageCode));
+                                            });
+                                          },
+                                          tileColor: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          title: Text(e.name),
+                                        ),
+                                      ],
+                                    );
+                                  }).toList());
+                            }))))));
   }
 }

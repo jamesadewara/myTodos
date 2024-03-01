@@ -221,12 +221,12 @@ class _BaseAppState extends State<BaseApp> {
   Widget build(BuildContext context) {
     NotifyListener listener = context.watch<NotifyListener>();
     listener.isLoading
-    ? showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return ProgressModal(message: listener.message);
-        })
-    : null;
+        ? showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ProgressModal(message: listener.message);
+            })
+        : null;
     return Scaffold(body: widget.child);
   }
 }

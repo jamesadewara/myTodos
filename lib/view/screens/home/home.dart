@@ -8,6 +8,7 @@ import 'package:mytodo/view/components/notificator.dart';
 import 'package:mytodo/view/components/profile_img.dart';
 import 'package:mytodo/view/components/progress_card.dart';
 import 'package:mytodo/view/components/task_listtile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -98,6 +99,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               const SizedBox(height: 16),
+                              Text(AppLocalizations.of(context)!.introTitle),
                               ListTile(
                                   leading: SizedBox(
                                     width: 48,

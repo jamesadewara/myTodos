@@ -50,6 +50,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    Brightness currentBrightness = Theme.of(context).brightness;
     return Scaffold(
         body: Row(
           children: [
@@ -60,8 +61,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                   margin: const EdgeInsets.only(top: 16, bottom: 16),
                   width: 72,
                   decoration: BoxDecoration(
-                      color: MediaQuery.of(context).platformBrightness ==
-                              Brightness.light
+                      color: currentBrightness == Brightness.light
                           ? Theme.of(context).primaryColor
                           : Theme.of(context).colorScheme.surface,
                       borderRadius: const BorderRadius.only(
@@ -122,10 +122,9 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
         bottomNavigationBar: Visibility(
           visible: ResponsiveBreakpoints.of(context).between(MOBILE, TABLET),
           child: AnimatedBottomNavigationBar.builder(
-            backgroundColor:
-                MediaQuery.of(context).platformBrightness == Brightness.light
-                    ? Theme.of(context).primaryColor
-                    : Theme.of(context).colorScheme.surface,
+            backgroundColor: currentBrightness == Brightness.light
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).colorScheme.surface,
             itemCount: iconList.length,
             tabBuilder: (int index, bool isActive) {
               return Icon(

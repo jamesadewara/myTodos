@@ -5,21 +5,34 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 // import 'package:firebase_core/firebase_core.dart';
 // import 'firebase_options.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:mytodo/control/config.dart';
 import 'package:mytodo/control/notifier_listener.dart';
+import 'package:mytodo/control/parsers.dart';
+import 'package:mytodo/view/components/theme_identifier.dart';
 import 'package:provider/provider.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/store/store.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // Retrieve previously saved state from SharedPreferences
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final String? savedStateJson = prefs.getString('appState');
+  final initialState = savedStateJson != null
+      ? deserializeState(savedStateJson)
+      : AppState(isIntro: true, theme: "system", language: "en");
+
   final store = Store<AppState>(
     rootReducer,
-    initialState:
-        AppState(isIntro: true, theme: "system", language: ""), // Initial state
+    initialState: initialState,
+    middleware: [saveStateMiddleware],
   );
 
   // await Firebase.initializeApp(
@@ -32,7 +45,7 @@ void main() async {
     ),
   ], child: StoreProvider(store: store, child: const MainApp())));
 
-  // FlutterNativeSplash.remove();
+  FlutterNativeSplash.remove();
 }
 
 class MainApp extends StatelessWidget {
@@ -41,23 +54,39 @@ class MainApp extends StatelessWidget {
 // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    StoreProvider.of<AppState>(context)
-        .dispatch(AppState(theme: "rice_and_moimoi"));
-    return StoreConnector<AppState, String>(
-        converter: (store) => store.state.theme ?? "system",
-        builder: (context, currentTheme) {
+    return StoreConnector<AppState, AppState>(
+        converter: (store) => store.state,
+        builder: (context, currentAppState) {
+          Locale locale;
+          if (currentAppState.language.isNotEmpty &&
+              supportedLocales.any((loc) =>
+                  loc.locale.languageCode == currentAppState.language)) {
+            locale = supportedLocales
+                .firstWhere((loc) =>
+                    loc.locale.languageCode == currentAppState.language)
+                .locale;
+          } else {
+            locale = Localizations.localeOf(context);
+          }
+
           return MaterialApp(
             title: "MyTodo's",
             debugShowCheckedModeBanner: false,
-            themeMode: currentTheme == "system"
-                ? ThemeMode.system
-                : currentTheme == "light"
-                    ? ThemeMode.light
-                    : ThemeMode.dark,
-            theme: AiThemes(name: ThemeIdentifier.daylight).currentTheme(),
-            darkTheme: AiThemes(name: ThemeIdentifier.nightfall).currentTheme(),
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
+            themeMode: identifyTheme(currentAppState.theme),
+            theme: AiThemes(name: ThemeIdentifier.daylight)
+                .currentTheme()
+                .copyWith(brightness: Brightness.light),
+            darkTheme: AiThemes(name: ThemeIdentifier.nightfall)
+                .currentTheme()
+                .copyWith(brightness: Brightness.dark),
+            locale: locale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales:
+                supportedLocales.map((locale) => locale.locale).toList(),
             initialRoute: AppRoutes.intro,
             onGenerateRoute: RouteGenerator.generateRoute,
             builder: (context, child) => ResponsiveBreakpoints.builder(
