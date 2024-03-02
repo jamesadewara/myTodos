@@ -4,11 +4,13 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
+  firebase_auth
   firebase_core
   flutter_localization
   pasteboard
   rive_common
   url_launcher_windows
+  windows_notification
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mytodo/control/props.dart';
+import 'package:mytodo/model/props/task_props.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class TaskGroupScreen extends StatefulWidget {

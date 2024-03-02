@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mytodo/control/notifier_listener.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
@@ -79,25 +78,24 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     const SizedBox(height: 64),
                     Center(
-                      child: FilledButton(
-                          onPressed: () async {
-                            Navigator.of(context)
-                                .pushNamed(AuthRoutes.createPassword);
-                            // Validate returns true if the form is valid, or false otherwise.
-                            if (_signupFormKey.currentState!.validate()) {
-                              listener.setLoading(value: true);
+                        child: FilledButton(
+                      child: const Padding(
+                        padding: EdgeInsets.only(
+                            left: 16, right: 16, top: 8, bottom: 8),
+                        child: Text('Continue'),
+                      ),
+                      onPressed: () async {
+                        // Navigator.of(context)
+                        //     .pushNamed(AuthRoutes.createPassword);
+                        // Validate returns true if the form is valid, or false otherwise.
+                        if (_signupFormKey.currentState!.validate()) {
+                          // listener.setLoading(value: true);
 
-                              Timer(const Duration(seconds: 2), () {
-                                listener.setLoading(value: false);
-                              });
-                            }
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.only(
-                                left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text('Continue'),
-                          )),
-                    ),
+                          // Timer(const Duration(seconds: 2), () {
+                          //   listener.setLoading(value: false);
+                        }
+                      },
+                    )),
                     const SizedBox(
                       height: 32,
                     ),

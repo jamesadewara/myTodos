@@ -27,15 +27,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return linux;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -77,5 +71,25 @@ class DefaultFirebaseOptions {
     projectId: 'mytodo-s-ed185',
     storageBucket: 'mytodo-s-ed185.appspot.com',
     iosBundleId: 'com.aivilah.mytodo.RunnerTests',
+  );
+
+  static const FirebaseOptions linux = FirebaseOptions(
+    apiKey: 'AIzaSyDoz6ZWaRKU7Dp7Viobf9BqU5q-UNQM-Yw',
+    appId: '1:110491325321:android:e28926d9fa3c6b9bdd0758',
+    messagingSenderId: '110491325321',
+    projectId: 'mytodo-s-ed185',
+    storageBucket: 'mytodo-s-ed185.appspot.com',
+    authDomain: 'mytodo-s-ed185.firebaseapp.com',
+    measurementId: 'G-38K6FJT3FG',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDoz6ZWaRKU7Dp7Viobf9BqU5q-UNQM-Yw',
+    appId: '1:110491325321:android:e28926d9fa3c6b9bdd0758',
+    messagingSenderId: '110491325321',
+    projectId: 'mytodo-s-ed185',
+    storageBucket: 'mytodo-s-ed185.appspot.com',
+    authDomain: 'mytodo-s-ed185.firebaseapp.com',
+    measurementId: 'G-38K6FJT3FG',
   );
 }

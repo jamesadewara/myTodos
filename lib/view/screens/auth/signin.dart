@@ -1,7 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
+import 'package:mytodo/model/bloc/authentication_bloc.dart';
+import 'package:mytodo/model/states/auth/authentication_event_state.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +19,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _scrollController = ScrollController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +119,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                     // Validate returns true if the form is valid, or false otherwise.
                                     if (_loginFormKey.currentState!
                                         .validate()) {
-                                      // _emailController.dispose();
-                                      // _passwordController.dispose();
+                                      BlocProvider.of<AuthenticationBloc>(
+                                              context)
+                                          .add(
+                                        SignUpUserRequested(
+                                          _emailController.text.trim(),
+                                          _passwordController.text.trim(),
+                                        ),
+                                      );
                                     }
                                   },
                                   child: const Padding(
