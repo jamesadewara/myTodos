@@ -3,6 +3,7 @@ import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/dropdown_modal.dart';
 import 'package:mytodo/view/components/profile_img.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -67,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
         : Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: const Text("Profile"),
+              title: Text(AppLocalizations.of(context)!.profileTitle),
             ),
             body: Scrollbar(
                 controller: _scrollController,
@@ -106,15 +107,15 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
               shape:
                   const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-              title: const Text('Username:'),
+              title: Text(AppLocalizations.of(context)!.usernameText(":")),
               subtitle: const Text('Adewara James Ayomide'),
               onTap: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return const InputModal(
-                        title: 'Name',
-                        hintText: 'Enter your name',
+                    return InputModal(
+                        title: AppLocalizations.of(context)!.nameText,
+                        hintText: AppLocalizations.of(context)!.nameHint,
                         inputType: TextInputType.name);
                   },
                 );
@@ -122,18 +123,18 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(
             height: 4,
           ),
-          const ListTile(
+          ListTile(
             shape:
                 const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-            title: Text('Email:'),
-            subtitle: Text('jamesadewara1@maigl.com'),
+            title: Text(AppLocalizations.of(context)!.emailText),
+            subtitle: const Text('jamesadewara1@maigl.com'),
           ),
           const SizedBox(
             height: 4,
           ),
-          const ListTile(
-            title: Text('About:'),
-            subtitle: Text('I love programming'),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.aboutText),
+            subtitle: const Text('I love programming'),
           ),
           const SizedBox(
             height: 4,

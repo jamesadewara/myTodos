@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -61,8 +62,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 },
               ),
         title: Text(selectedNotifications.isNotEmpty
-            ? "${selectedNotifications.length} selected"
-            : "Notifications"),
+            ? AppLocalizations.of(context)!
+                .selectedText(selectedNotifications.length)
+            : AppLocalizations.of(context)!.notificationTitle),
         actions: <Widget>[
           Visibility(
             visible: selectedNotifications.isNotEmpty,

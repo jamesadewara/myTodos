@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -45,23 +46,25 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AutoSizeText('Forgotten your password',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!.forgottenPasswordText,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium),
-                    AutoSizeText('Recover it with your E-Mail',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!.recoverWithEmailText,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.displaySmall),
                     const SizedBox(height: 64),
-                    const Text(
-                      'E-mail',
+                    Text(
+                      AppLocalizations.of(context)!.emailText,
                     ),
                     TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       obscureText: false,
                       validator: validateUserEmail,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter your email',
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.emailHint,
                       ),
                     ),
                     const SizedBox(height: 64),
@@ -76,10 +79,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                               // _emailController.dispose();
                             }
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.only(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text('Continue'),
+                            child: Text(
+                                AppLocalizations.of(context)!.continueText),
                           )),
                     ),
                     const SizedBox(

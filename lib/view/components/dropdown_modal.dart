@@ -5,6 +5,7 @@ import 'package:mytodo/control/validators.dart';
 import 'package:mytodo/view/components/file_field.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DropdownModalController {
   final Key? key;
@@ -118,7 +119,8 @@ class _DropdownModalState extends State<DropdownModal> {
                             return const CreateGroupDropdownModal();
                           });
                     },
-                    child: const Text("Add custom group"))
+                    child: Text(
+                        AppLocalizations.of(context)!.createCustomGroupText))
               ],
             ),
             const SizedBox(
@@ -164,7 +166,7 @@ class _ImageUploadDialogState extends State<ImageUploadDialog> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
-      title: const Text('Please choose media to select'),
+      title: Text(AppLocalizations.of(context)!.chooseImageTitle),
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -176,7 +178,7 @@ class _ImageUploadDialogState extends State<ImageUploadDialog> {
               getImage(ImageSource.gallery);
             },
             leading: const Icon(Icons.image),
-            title: const Text('From Gallery'),
+            title: Text(AppLocalizations.of(context)!.galleryText),
           ),
           const SizedBox(
             height: 8,
@@ -188,7 +190,7 @@ class _ImageUploadDialogState extends State<ImageUploadDialog> {
               getImage(ImageSource.camera);
             },
             leading: const Icon(Icons.camera),
-            title: const Text('From Camera'),
+            title: Text(AppLocalizations.of(context)!.cameraText),
           )
         ],
       ),
@@ -223,7 +225,7 @@ class _CreateGroupDropdownModalState extends State<CreateGroupDropdownModal> {
           borderRadius: BorderRadius.circular(8),
         ),
         elevation: 2,
-        title: const Text("Create Custom Task Group"),
+        title: Text(AppLocalizations.of(context)!.createCustomGroupText),
         content: Container(
             width: ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
                 ? null
@@ -247,27 +249,30 @@ class _CreateGroupDropdownModalState extends State<CreateGroupDropdownModal> {
                             TextFormField(
                                 controller: titleController,
                                 keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                  hintText: 'Enter the group title',
+                                decoration: InputDecoration(
+                                  hintText: AppLocalizations.of(context)!
+                                      .groupNameHint,
                                 ),
                                 obscureText: false,
                                 validator: validateField),
                             TextFormField(
                                 controller: subtitleController,
                                 keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                  hintText: 'Enter the group description',
+                                decoration: InputDecoration(
+                                  hintText: AppLocalizations.of(context)!
+                                      .groupDescriptionHint,
                                 ),
                                 obscureText: false,
                                 validator: validateField),
                             FileField(
-                                title: "group image",
+                                title: AppLocalizations.of(context)!.selectText,
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(8)),
                                     color:
                                         Theme.of(context).colorScheme.surface),
-                                hintText: "Choose an Image",
+                                hintText: AppLocalizations.of(context)!
+                                    .groupImageHint,
                                 onTap: () {})
                           ]))),
                   Row(
@@ -285,7 +290,8 @@ class _CreateGroupDropdownModalState extends State<CreateGroupDropdownModal> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text("Cancel")),
+                          child:
+                              Text(AppLocalizations.of(context)!.cancelText)),
                       FilledButton(
                           style: ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(
@@ -295,7 +301,7 @@ class _CreateGroupDropdownModalState extends State<CreateGroupDropdownModal> {
                           onPressed: () {
                             if (_createGroupFormKey.currentState!.validate()) {}
                           },
-                          child: const Text("Create"))
+                          child: Text(AppLocalizations.of(context)!.createText))
                     ],
                   ),
                 ])));
@@ -393,7 +399,8 @@ class _InputModalState extends State<InputModal> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text("Cancel")),
+                          child:
+                              Text(AppLocalizations.of(context)!.cancelText)),
                       FilledButton(
                           style: ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(
@@ -403,7 +410,7 @@ class _InputModalState extends State<InputModal> {
                           onPressed: () {
                             if (_createInputFormKey.currentState!.validate()) {}
                           },
-                          child: const Text("Submit"))
+                          child: Text(AppLocalizations.of(context)!.submitText))
                     ],
                   ),
                 ])));
@@ -458,8 +465,9 @@ class _TaskInputModalState extends State<TaskInputModal> {
                               children: <Widget>[
                             TextFormField(
                                 controller: titleController,
-                                decoration: const InputDecoration(
-                                  hintText: "Enter title",
+                                decoration: InputDecoration(
+                                  hintText:
+                                      AppLocalizations.of(context)!.titleHint,
                                 ),
                                 maxLength: 150,
                                 maxLengthEnforcement:
@@ -469,8 +477,9 @@ class _TaskInputModalState extends State<TaskInputModal> {
                                 validator: validateField),
                             TextFormField(
                                 controller: subtitleController,
-                                decoration: const InputDecoration(
-                                  hintText: "Enter subtitle",
+                                decoration: InputDecoration(
+                                  hintText: AppLocalizations.of(context)!
+                                      .subtitleHint,
                                 ),
                                 maxLength: 250,
                                 maxLengthEnforcement:
@@ -494,7 +503,8 @@ class _TaskInputModalState extends State<TaskInputModal> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text("Cancel")),
+                          child:
+                              Text(AppLocalizations.of(context)!.cancelText)),
                       FilledButton(
                           style: ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(
@@ -505,7 +515,7 @@ class _TaskInputModalState extends State<TaskInputModal> {
                             if (_createAdditionalInputFormKey.currentState!
                                 .validate()) {}
                           },
-                          child: const Text("Submit"))
+                          child: Text(AppLocalizations.of(context)!.submitText))
                     ],
                   ),
                 ])));

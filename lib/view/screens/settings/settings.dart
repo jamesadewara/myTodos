@@ -6,6 +6,7 @@ import 'package:mytodo/view/components/notificator.dart';
 import 'package:mytodo/view/components/profile_img.dart';
 import 'package:mytodo/view/screens/settings/profile.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({
@@ -149,7 +150,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         const SizedBox(
                           height: 48,
                         ),
-                        AutoSizeText("Account",
+                        AutoSizeText(AppLocalizations.of(context)!.accountText,
                             maxLines: 1,
                             style: Theme.of(context)
                                 .textTheme
@@ -175,7 +176,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                   child: Icon(Icons.person),
                                 ),
                               ),
-                              title: const Text("My Profile"),
+                              title: Text(
+                                  AppLocalizations.of(context)!.profileText),
                               titleTextStyle: Theme.of(context)
                                   .textTheme
                                   .labelLarge
@@ -195,7 +197,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: EdgeInsets.all(4),
                               child: Icon(Icons.refresh),
                             )),
-                            title: const Text("Reset Account"),
+                            title: Text(
+                                AppLocalizations.of(context)!.resetAccountText),
                             titleTextStyle: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -218,7 +221,10 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: Icon(Icons.delete_outline),
                               ),
                             ),
-                            title: const Text("Account management"),
+                            title: Text(
+                              AppLocalizations.of(context)!
+                                  .accountManagementTitle,
+                            ),
                             titleTextStyle: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -237,18 +243,21 @@ class _SettingsPageState extends State<SettingsPage> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(8)),
                                 ),
-                                title: const Text('Login Dialog'),
-                                content: const Text(
-                                    'Are you sure you want to logout?'),
+                                title: Text(AppLocalizations.of(context)!
+                                    .loginDialogTitle),
+                                content: Text(AppLocalizations.of(context)!
+                                    .loginDialogSubtitle),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: const Text('Cancel'),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .cancelText),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
                                   ),
                                   TextButton(
-                                    child: const Text('OK'),
+                                    child: Text(
+                                        AppLocalizations.of(context)!.okText),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
@@ -262,7 +271,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: Icon(Icons.logout),
                               ),
                             ),
-                            title: const Text("Logout"),
+                            title:
+                                Text(AppLocalizations.of(context)!.logoutText),
                             titleTextStyle: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -271,7 +281,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         const SizedBox(
                           height: 32,
                         ),
-                        AutoSizeText("Preferences",
+                        AutoSizeText(
+                            AppLocalizations.of(context)!.preferencesText,
                             maxLines: 1,
                             style: Theme.of(context)
                                 .textTheme
@@ -293,7 +304,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: EdgeInsets.all(4),
                               child: Icon(Icons.notifications_none),
                             )),
-                            title: const Text("Notifications"),
+                            title: Text(AppLocalizations.of(context)!
+                                .notificationTitle),
                             titleTextStyle: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -315,7 +327,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               padding: EdgeInsets.all(4),
                               child: Icon(Icons.palette),
                             )),
-                            title: const Text("Appearance"),
+                            title: Text(
+                                AppLocalizations.of(context)!.appearanceTitle),
                             titleTextStyle: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -338,7 +351,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                 child: Icon(Icons.language),
                               ),
                             ),
-                            title: const Text("Language"),
+                            title: Text(
+                                AppLocalizations.of(context)!.languageTitle),
                             titleTextStyle: Theme.of(context)
                                 .textTheme
                                 .labelLarge
@@ -352,7 +366,8 @@ class _SettingsPageState extends State<SettingsPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8)),
                           onTap: () {},
-                          title: const Text("Feedback us"),
+                          title:
+                              Text(AppLocalizations.of(context)!.feedbackTitle),
                           titleTextStyle: Theme.of(context)
                               .textTheme
                               .labelLarge
@@ -368,7 +383,8 @@ class _SettingsPageState extends State<SettingsPage> {
                             onTap: () {
                               showAboutDialog(context: context);
                             },
-                            title: const Text("App Version"),
+                            title: Text(
+                                AppLocalizations.of(context)!.versionTitle),
                             titleTextStyle: Theme.of(context)
                                 .textTheme
                                 .labelLarge

@@ -5,6 +5,7 @@ import 'package:mytodo/control/store/actions.dart';
 import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LanguageScreen extends StatefulWidget {
   const LanguageScreen({
@@ -53,7 +54,7 @@ class _LanguagePageState extends State<LanguagePage> {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: const Text("App Language")),
+            title: Text(AppLocalizations.of(context)!.languageTitle)),
         body: Scrollbar(
             controller: _scrollController,
             notificationPredicate: (ScrollNotification notification) {

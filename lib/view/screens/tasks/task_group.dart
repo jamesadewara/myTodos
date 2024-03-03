@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mytodo/model/props/task_props.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskGroupScreen extends StatefulWidget {
   const TaskGroupScreen({super.key});
@@ -66,7 +67,7 @@ class _TaskGroupScreenState extends State<TaskGroupScreen> {
                 onChanged: _filterTaskItems,
                 controller: _searchController,
                 decoration: InputDecoration(
-                  hintText: 'Search for apps...',
+                  hintText: AppLocalizations.of(context)!.searchTaskText,
                   hintStyle: const TextStyle(color: Colors.grey),
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: IconButton(
@@ -79,7 +80,7 @@ class _TaskGroupScreenState extends State<TaskGroupScreen> {
                   border: InputBorder.none,
                 ),
               )
-            : const Text("Personal Project"),
+            : Text(AppLocalizations.of(context)!.taskProjectTitle),
         actions: <Widget>[
           isSearchable
               ? IconButton(
@@ -145,7 +146,8 @@ class _TaskGroupScreenState extends State<TaskGroupScreen> {
                           controller: _searchController,
                           onChanged: _filterTaskItems,
                           elevation: MaterialStateProperty.all(0),
-                          hintText: 'Search for tasks...',
+                          hintText:
+                              AppLocalizations.of(context)!.searchTaskText,
                           hintStyle: MaterialStateProperty.all(
                               const TextStyle(color: Colors.grey)),
                           leading: const Icon(Icons.search),
@@ -172,7 +174,7 @@ class _TaskGroupScreenState extends State<TaskGroupScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "${taskItems.length} Tasks found",
+                    AppLocalizations.of(context)!.resultText(taskItems.length),
                     maxLines: 1,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),

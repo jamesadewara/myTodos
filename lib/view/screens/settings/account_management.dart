@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AccountManagementScreen extends StatefulWidget {
   const AccountManagementScreen({
@@ -40,11 +41,6 @@ class AccountManagementPage extends StatefulWidget {
 
 class _AccountManagementPageState extends State<AccountManagementPage> {
   final PageController _viewController = PageController();
-  final appBarTitles = [
-    "Account Management",
-    "Deactivate Account",
-    "Delete Account"
-  ];
 
   final int currentView = 0;
 
@@ -55,6 +51,12 @@ class _AccountManagementPageState extends State<AccountManagementPage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBarTitles = [
+      AppLocalizations.of(context)!.accountManagementTitle,
+      AppLocalizations.of(context)!.accountDeactivateTitle,
+      AppLocalizations.of(context)!.accountDeleteTitle,
+    ];
+
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -159,7 +161,8 @@ class _FirstPageViewState extends State<FirstPageView> {
                             children: <Widget>[
                               const SizedBox(height: 16),
                               AutoSizeText(
-                                  "Deactivating or deleting your myTodo's account",
+                                  AppLocalizations.of(context)!
+                                      .accountManagementText("myTodo's"),
                                   maxLines: 2,
                                   style: Theme.of(context)
                                       .textTheme
@@ -167,35 +170,38 @@ class _FirstPageViewState extends State<FirstPageView> {
                                       ?.copyWith(fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
                               AutoSizeText(
-                                  "If you want to temporarily close your account, you can deactivate it. If you want to permanently remove your data from myTodo, you can delete your account.",
+                                  AppLocalizations.of(context)!
+                                      .accountManagementCondition("myTodo's"),
                                   style: Theme.of(context).textTheme.bodyLarge),
                               const SizedBox(height: 24),
                               Card(
-                                  child: ListTile(
-                                leading: Radio(
-                                  value: true,
-                                  onChanged: (bool? value) {},
-                                  groupValue: true,
-                                ),
-                                title: const Text("Deactivate account"),
-                                titleTextStyle: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                                subtitle: const Text(
-                                    "Deactivating your account is reversible, Your profile and tasks won't be shown on myTodo's. You will be able to reactivate your account"),
-                              )),
+                                child: ListTile(
+                                    leading: Radio(
+                                      value: true,
+                                      onChanged: (bool? value) {},
+                                      groupValue: true,
+                                    ),
+                                    title: Text(AppLocalizations.of(context)!
+                                        .accountDeactivateTitle),
+                                    titleTextStyle: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                    subtitle: Text(AppLocalizations.of(context)!
+                                        .accountDeactivateInfo("myTodo's"))),
+                              ),
                               Card(
                                   child: ListTile(
-                                leading: Radio(
-                                  value: true,
-                                  onChanged: (bool? value) {},
-                                  groupValue: false,
-                                ),
-                                title: const Text("Delete account"),
-                                titleTextStyle: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                                subtitle: const Text(
-                                    "Deleting your account is permanent and irreversible. You won't be able to retrieve the files or information from your orders on myTodo's"),
-                              )),
+                                      leading: Radio(
+                                        value: true,
+                                        onChanged: (bool? value) {},
+                                        groupValue: false,
+                                      ),
+                                      title: Text(AppLocalizations.of(context)!
+                                          .accountDeleteTitle),
+                                      titleTextStyle: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                      subtitle: Text(AppLocalizations.of(
+                                              context)!
+                                          .accountDeleteWarning("myTodo's")))),
                               const SizedBox(
                                 height: 48,
                               ),
@@ -266,7 +272,8 @@ class _SecondPageViewState extends State<SecondPageView> {
                             children: <Widget>[
                               const SizedBox(height: 16),
                               AutoSizeText(
-                                  "Interested in deactivating your myTodo's account?",
+                                  AppLocalizations.of(context)!
+                                      .accountDeactivateQuestion("myTodo's"),
                                   maxLines: 2,
                                   style: Theme.of(context)
                                       .textTheme
@@ -274,7 +281,8 @@ class _SecondPageViewState extends State<SecondPageView> {
                                       ?.copyWith(fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
                               AutoSizeText(
-                                  "Here's what you need to know about the process",
+                                  AppLocalizations.of(context)!
+                                      .accountDeactivateFaqsTitle("myTodo's"),
                                   style: Theme.of(context).textTheme.bodyLarge),
                               const SizedBox(height: 8),
                               ListTile(
@@ -282,8 +290,8 @@ class _SecondPageViewState extends State<SecondPageView> {
                                   Icons.circle,
                                   size: 8,
                                 ),
-                                title: const Text(
-                                    "Your profile disappers from myTodo's"),
+                                title: Text(AppLocalizations.of(context)!
+                                    .accountDeactivateFaq1("myTodo's")),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.bodyMedium,
                               ),
@@ -293,8 +301,10 @@ class _SecondPageViewState extends State<SecondPageView> {
                                   Icons.circle,
                                   size: 8,
                                 ),
-                                title: const Text(
-                                    "Any email addresses linked to this account can't be used for future accounts."),
+                                title: Text(
+                                  AppLocalizations.of(context)!
+                                      .accountDeactivateFaq2,
+                                ),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.bodyMedium,
                               ),
@@ -304,14 +314,18 @@ class _SecondPageViewState extends State<SecondPageView> {
                                   Icons.circle,
                                   size: 8,
                                 ),
-                                title: const Text(
-                                    "Closing your account doesn't automatically erase its information."),
+                                title: Text(
+                                  AppLocalizations.of(context)!
+                                      .accountDeactivateFaq3,
+                                ),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.bodyMedium,
                               ),
                               const SizedBox(height: 24),
                               AutoSizeText(
-                                  "Need to reactivte? Just email us at myTodo@myTodo.com",
+                                  AppLocalizations.of(context)!
+                                      .accountDeactivateFaq4(
+                                          "myTodo@myTodo.com"),
                                   maxLines: 2,
                                   style: Theme.of(context)
                                       .textTheme
@@ -330,14 +344,14 @@ class _SecondPageViewState extends State<SecondPageView> {
                                             MaterialStatePropertyAll(
                                                 Colors.white)),
                                     onPressed: widget.changeView,
-                                    child: const Padding(
-                                      padding: EdgeInsets.only(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
                                           left: 16,
                                           right: 16,
                                           top: 8,
                                           bottom: 8),
-                                      child: Text(
-                                          "Continue to account deactivation"),
+                                      child: Text(AppLocalizations.of(context)!
+                                          .accountDeactivateContinue),
                                     )),
                               ),
                               const SizedBox(height: 48),
@@ -387,7 +401,9 @@ class _ThirdPageViewState extends State<ThirdPageView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               const SizedBox(height: 16),
-                              AutoSizeText("I'm leaving because",
+                              AutoSizeText(
+                                  AppLocalizations.of(context)!
+                                      .accountLeavingUsText,
                                   maxLines: 2,
                                   style: Theme.of(context)
                                       .textTheme
@@ -396,13 +412,26 @@ class _ThirdPageViewState extends State<ThirdPageView> {
                               const SizedBox(height: 8),
                               Card(
                                   child: ListTile(
+                                      leading: Radio(
+                                        value: true,
+                                        onChanged: (bool? value) {},
+                                        groupValue: false,
+                                      ),
+                                      title: Text(
+                                        AppLocalizations.of(context)!
+                                            .accountLeavingUsReason1(
+                                                "myTodo's"),
+                                      ))),
+                              const SizedBox(height: 8),
+                              Card(
+                                  child: ListTile(
                                 leading: Radio(
                                   value: true,
                                   onChanged: (bool? value) {},
                                   groupValue: false,
                                 ),
-                                title: const Text(
-                                    "I'm unhappy with myTodo's policies"),
+                                title: Text(AppLocalizations.of(context)!
+                                    .accountLeavingUsReason2("myTodo's")),
                               )),
                               const SizedBox(height: 8),
                               Card(
@@ -412,18 +441,8 @@ class _ThirdPageViewState extends State<ThirdPageView> {
                                   onChanged: (bool? value) {},
                                   groupValue: false,
                                 ),
-                                title: const Text(
-                                    "myTodo's applications is/are to complicated or hard to use"),
-                              )),
-                              const SizedBox(height: 8),
-                              Card(
-                                  child: ListTile(
-                                leading: Radio(
-                                  value: true,
-                                  onChanged: (bool? value) {},
-                                  groupValue: false,
-                                ),
-                                title: const Text("Other"),
+                                title: Text(AppLocalizations.of(context)!
+                                    .accountLeavingUsReasonNull),
                               )),
                               const SizedBox(
                                 height: 48,
@@ -438,13 +457,14 @@ class _ThirdPageViewState extends State<ThirdPageView> {
                                             MaterialStatePropertyAll(
                                                 Colors.white)),
                                     onPressed: widget.changeView,
-                                    child: const Padding(
-                                      padding: EdgeInsets.only(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
                                           left: 16,
                                           right: 16,
                                           top: 8,
                                           bottom: 8),
-                                      child: Text("Delete Account"),
+                                      child: Text(AppLocalizations.of(context)!
+                                          .accountDeleteTitle),
                                     )),
                               ),
                               const SizedBox(height: 48),

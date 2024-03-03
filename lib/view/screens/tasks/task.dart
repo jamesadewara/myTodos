@@ -4,6 +4,7 @@ import 'package:mytodo/view/components/current_task_listtile.dart';
 import 'package:mytodo/view/components/notificator.dart';
 import 'package:mytodo/view/components/time_card.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({
@@ -52,7 +53,7 @@ class _TaskPageState extends State<TaskPage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: const Text("Todays' Tasks"),
+          title: Text(AppLocalizations.of(context)!.todayTaskTitle),
           actions: const <Widget>[
             NotificatorButton(),
           ],

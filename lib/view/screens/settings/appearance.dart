@@ -4,6 +4,7 @@ import 'package:mytodo/control/store/actions.dart';
 import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppearanceScreen extends StatefulWidget {
   const AppearanceScreen({
@@ -41,11 +42,6 @@ class AppearancePage extends StatefulWidget {
 
 class _AppearancePageState extends State<AppearancePage> {
   final _scrollController = ScrollController();
-  final List<Map<String, String>> themeList = [
-    {"id": "system", "value": "System Theme"},
-    {"id": "light", "value": "Light Mode Theme"},
-    {"id": "dark", "value": "Dark Mode Theme"}
-  ];
 
   @override
   void initState() {
@@ -54,10 +50,22 @@ class _AppearancePageState extends State<AppearancePage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> themeList = [
+      {
+        "id": "system",
+        "value": AppLocalizations.of(context)!.appearanceSystemTitle
+      },
+      {
+        "id": "light",
+        "value": AppLocalizations.of(context)!.appearanceLightTitle
+      },
+      {"id": "dark", "value": AppLocalizations.of(context)!.appearanceDarkTitle}
+    ];
+
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: const Text("App Appearance")),
+            title: Text(AppLocalizations.of(context)!.appearanceTitle)),
         body: Scrollbar(
             controller: _scrollController,
             notificationPredicate: (ScrollNotification notification) {

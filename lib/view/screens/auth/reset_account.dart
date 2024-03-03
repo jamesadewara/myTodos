@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResetAccountScreen extends StatefulWidget {
   const ResetAccountScreen({super.key});
@@ -45,41 +46,43 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AutoSizeText('Reset your password',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!.resetPasswordText,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium),
-                    AutoSizeText('Choose your new password',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!.choosePasswordText,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.displaySmall),
                     const SizedBox(height: 64),
-                    const Text(
-                      'New Password',
+                    Text(
+                      AppLocalizations.of(context)!.newPasswordText,
                     ),
                     TextFormField(
                       controller: _passwordController,
                       keyboardType: TextInputType.text,
                       obscureText: true,
                       validator: validateUserPassword,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter your password',
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.passwordHint,
                       ),
                     ),
                     const SizedBox(height: 32),
-                    const Text(
-                      'Confirm Password',
-                    ),
+                    Text(AppLocalizations.of(context)!.confirmPasswordText),
                     TextFormField(
                       controller: _confirmPasswordController,
                       keyboardType: TextInputType.text,
                       obscureText: true,
                       validator: (value) {
                         if (value != _passwordController.text) {
-                          return "password does not match";
+                          return AppLocalizations.of(context)!
+                              .validatePasswordText;
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(
-                        hintText: 'Confirm your Password',
+                      decoration: InputDecoration(
+                        hintText:
+                            AppLocalizations.of(context)!.confirmPasswordHint,
                       ),
                     ),
                     const SizedBox(height: 64),
@@ -91,10 +94,11 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                               // _emailController.dispose();
                             }
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.only(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text('Submit'),
+                            child:
+                                Text(AppLocalizations.of(context)!.submitText),
                           )),
                     ),
                     const SizedBox(

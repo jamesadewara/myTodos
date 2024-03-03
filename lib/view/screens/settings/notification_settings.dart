@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotificationSettingsScreen extends StatefulWidget {
   const NotificationSettingsScreen({
@@ -53,7 +54,8 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
     return Scaffold(
         appBar: AppBar(
             automaticallyImplyLeading: false,
-            title: const Text("Notifications")),
+            title:
+                Text(AppLocalizations.of(context)!.settingsNotificationTitle)),
         body: Scrollbar(
             controller: _scrollController,
             notificationPredicate: (ScrollNotification notification) {
@@ -77,23 +79,14 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               const SizedBox(height: 16),
-                              AutoSizeText("Push notifications",
+                              AutoSizeText(
+                                  AppLocalizations.of(context)!
+                                      .settingsPushNotificationTitle,
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge
                                       ?.copyWith(fontWeight: FontWeight.bold)),
-                              const SizedBox(height: 8),
-                              ListTile(
-                                  tileColor:
-                                      Theme.of(context).colorScheme.surface,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  title: const Text("Inbox messages"),
-                                  trailing: Switch(
-                                    value: true,
-                                    onChanged: (bool value) {},
-                                  )),
                               const SizedBox(height: 8),
                               ListTile(
                                   tileColor:
@@ -106,7 +99,9 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                                     onChanged: (bool value) {},
                                   )),
                               const SizedBox(height: 24),
-                              AutoSizeText("Email notifications",
+                              AutoSizeText(
+                                  AppLocalizations.of(context)!
+                                      .settingsEmailNotificationTitle,
                                   maxLines: 1,
                                   style: Theme.of(context)
                                       .textTheme
@@ -130,7 +125,8 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8)),
                                   onTap: () {},
-                                  title: const Text("Notifications sound"),
+                                  title: Text(AppLocalizations.of(context)!
+                                      .settingsNotificationSoundTitle),
                                   trailing: const Icon(Icons.chevron_right)),
                               const SizedBox(height: 48),
                             ]))))));

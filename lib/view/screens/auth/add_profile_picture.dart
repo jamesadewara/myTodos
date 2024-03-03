@@ -5,6 +5,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/components/dropdown_modal.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddProfilePictureScreen extends StatefulWidget {
   const AddProfilePictureScreen({super.key});
@@ -49,7 +50,7 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         AutoSizeText(
-                          'CHOOSE A PROFILE',
+                          AppLocalizations.of(context)!.chooseProfileText,
                           textAlign: TextAlign.center,
                           maxLines: 1,
                           style: Theme.of(context)
@@ -105,7 +106,7 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
                         ),
                         const SizedBox(height: 32),
                         Text(
-                          'Click to Add Profile Picture',
+                          AppLocalizations.of(context)!.addProfileText,
                           style: Theme.of(context).textTheme.labelLarge,
                         ),
                       ],
@@ -122,10 +123,12 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
                         // Perform any necessary actions upon successful validation
                       }
                     },
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Text('Verify'),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Text(
+                        AppLocalizations.of(context)!.verifyText,
+                      ),
                     ),
                   ),
                 ),

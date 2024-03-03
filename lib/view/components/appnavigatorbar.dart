@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppNavigationBar extends StatefulWidget {
   final Widget child;
@@ -15,32 +16,6 @@ class AppNavigationBar extends StatefulWidget {
 
 class _AppNavigationBarState extends State<AppNavigationBar> {
   late int _appNavIndex;
-  List<Map<String, dynamic>> iconList = [
-    {
-      "icon": Icons.home_outlined,
-      "selectedIcon": Icons.home,
-      "label": "Home",
-      "route": AppRoutes.home
-    },
-    {
-      "icon": Icons.event_outlined,
-      "selectedIcon": Icons.event,
-      "label": "Task",
-      "route": AppRoutes.task
-    },
-    {
-      "icon": Icons.find_in_page_outlined,
-      "selectedIcon": Icons.find_in_page,
-      "label": "Browse",
-      "route": AppRoutes.browse
-    },
-    {
-      "icon": Icons.group_outlined,
-      "selectedIcon": Icons.group,
-      "label": "Settings",
-      "route": AppRoutes.settings
-    },
-  ];
 
   @override
   void initState() {
@@ -50,6 +25,33 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> iconList = [
+      {
+        "icon": Icons.home_outlined,
+        "selectedIcon": Icons.home,
+        "label": AppLocalizations.of(context)!.homeTitle,
+        "route": AppRoutes.home
+      },
+      {
+        "icon": Icons.event_outlined,
+        "selectedIcon": Icons.event,
+        "label": AppLocalizations.of(context)!.taskTitle,
+        "route": AppRoutes.task
+      },
+      {
+        "icon": Icons.find_in_page_outlined,
+        "selectedIcon": Icons.find_in_page,
+        "label": AppLocalizations.of(context)!.browseTitle,
+        "route": AppRoutes.browse
+      },
+      {
+        "icon": Icons.group_outlined,
+        "selectedIcon": Icons.group,
+        "label": AppLocalizations.of(context)!.settingsTitle,
+        "route": AppRoutes.settings
+      },
+    ];
+
     Brightness currentBrightness = Theme.of(context).brightness;
     return Scaffold(
         body: Row(
@@ -108,7 +110,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
               !ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
                   ? Theme.of(context).primaryColor
                   : Colors.white,
-          tooltip: "Add a new task",
+          tooltip: AppLocalizations.of(context)!.addTaskText,
           shape: const CircleBorder(),
           child: const Icon(Icons.add),
           onPressed: () {

@@ -6,6 +6,7 @@ import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -38,15 +39,17 @@ class _SignupScreenState extends State<SignupScreen> {
               size: 120,
             ),
             const SizedBox(height: 10),
-            AutoSizeText('SIGN UP',
+            AutoSizeText(AppLocalizations.of(context)!.signUpText,
                 maxLines: 1,
                 style: Theme.of(context)
                     .textTheme
                     .displaySmall!
                     .copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            AutoSizeText('Welcome to aiVilah',
-                maxLines: 1, style: Theme.of(context).textTheme.bodyMedium),
+            AutoSizeText(
+                AppLocalizations.of(context)!.signUpDescriptionText("myTodo's"),
+                maxLines: 1,
+                style: Theme.of(context).textTheme.bodyMedium),
             const SizedBox(height: 16),
             Padding(
               padding: EdgeInsets.only(
@@ -64,25 +67,22 @@ class _SignupScreenState extends State<SignupScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
-                      'E-mail',
-                    ),
+                    Text(AppLocalizations.of(context)!.emailText),
                     TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       obscureText: false,
                       validator: validateUserEmail,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter your email',
-                      ),
+                      decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.emailHint),
                     ),
                     const SizedBox(height: 64),
                     Center(
                         child: FilledButton(
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.only(
                             left: 16, right: 16, top: 8, bottom: 8),
-                        child: Text('Continue'),
+                        child: Text(AppLocalizations.of(context)!.continueText),
                       ),
                       onPressed: () async {
                         // Navigator.of(context)
@@ -102,7 +102,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AutoSizeText('Already have an account?',
+                        AutoSizeText(
+                            AppLocalizations.of(context)!
+                                .alreadyHaveAnAccountText,
                             maxLines: 1,
                             style: Theme.of(context).textTheme.bodyMedium),
                         TextButton(
@@ -110,7 +112,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             Navigator.of(context)
                                 .pushReplacementNamed(AuthRoutes.login);
                           },
-                          child: AutoSizeText('Login',
+                          child: AutoSizeText(
+                              AppLocalizations.of(context)!.signInText,
                               maxLines: 1,
                               style: Theme.of(context)
                                   .textTheme

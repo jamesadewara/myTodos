@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mytodo/view/components/circular_prorgess.dart';
 import 'package:mytodo/view/components/heading.dart';
 import 'package:mytodo/view/components/notificator.dart';
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   title: Text(
-                                    "Hello!",
+                                    AppLocalizations.of(context)!.welcomeText,
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
@@ -240,8 +241,10 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              const Heading(
-                                  title: "In Progress", subtitle: "6"),
+                              Heading(
+                                  title: AppLocalizations.of(context)!
+                                      .inProgressText,
+                                  subtitle: "6"),
                               const SizedBox(
                                 height: 8,
                               ),
@@ -269,8 +272,10 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 16,
                               ),
-                              const Heading(
-                                  title: "Task Groups", subtitle: "4"),
+                              Heading(
+                                  title: AppLocalizations.of(context)!
+                                      .taskGroupText,
+                                  subtitle: "4"),
                               const SizedBox(
                                 height: 8,
                               ),

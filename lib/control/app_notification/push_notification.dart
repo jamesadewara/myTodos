@@ -4,10 +4,14 @@ import 'package:windows_notification/notification_message.dart';
 import 'package:windows_notification/windows_notification.dart';
 
 class PushNotification {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  late final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
 
-  Future<void> initialize() async {
+  PushNotification() {
+    _initNotifications();
+  }
+
+  Future<void> _initNotifications() async {
+    _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     if (!Platform.isWindows) {
       const AndroidInitializationSettings initializationSettingsAndroid =
           AndroidInitializationSettings('app_icon');
@@ -24,13 +28,14 @@ class PushNotification {
               android: initializationSettingsAndroid,
               iOS: initializationSettingsIos,
               linux: initializationSettingsLinux);
-      await flutterLocalNotificationsPlugin.initialize(
+      await _flutterLocalNotificationsPlugin.initialize(
         initializationSettings,
       );
     }
   }
 
   Future<void> showNotification() async {
+    await _initNotifications(); // Ensure initialization
     if (Platform.isWindows) {
       final winNotifyPlugin = WindowsNotification(
           applicationId:
@@ -53,7 +58,7 @@ class PushNotification {
       );
       const NotificationDetails platformChannelSpecifics =
           NotificationDetails(android: androidPlatformChannelSpecifics);
-      await flutterLocalNotificationsPlugin.show(
+      await _flutterLocalNotificationsPlugin.show(
         0,
         'New Notification',
         'Tap to navigate to a specific page',

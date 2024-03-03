@@ -6,6 +6,7 @@ import 'package:mytodo/view/components/notificator.dart';
 import 'package:mytodo/view/components/pickers.dart';
 import 'package:mytodo/view/components/dropdown_modal.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({
@@ -38,7 +39,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          title: const Text("Add Project"),
+          title: Text(AppLocalizations.of(context)!.addTaskTitle),
           actions: const <Widget>[
             NotificatorButton(),
           ],
@@ -100,16 +101,20 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return const InputModal(
-                                          title: "Edit Project Name",
-                                          hintText: "Enter your project name",
+                                        return InputModal(
+                                          title: AppLocalizations.of(context)!
+                                              .editProjectNameText,
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .editProjectNameHint,
                                           inputType: TextInputType.text,
                                           maxLength: 255,
                                           maxLines: 1,
                                         );
                                       });
                                 },
-                                title: const Text("Project Name"),
+                                title: Text(AppLocalizations.of(context)!
+                                    .projectNameText),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.bodySmall,
                                 subtitle: const Text(
@@ -132,7 +137,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                   Navigator.of(context)
                                       .pushNamed(AppRoutes.editor);
                                 },
-                                title: const Text("Description"),
+                                title: Text(AppLocalizations.of(context)!
+                                    .projectDescriptionText),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.bodySmall,
                                 subtitle: const Text(
@@ -147,7 +153,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 height: 16,
                               ),
                               DropdownField(
-                                  title: "Remind me",
+                                  title: AppLocalizations.of(context)!
+                                      .projectRemindMeText,
                                   subtitle: "",
                                   leading: const Icon(
                                     Icons.alarm,
@@ -163,7 +170,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 height: 16,
                               ),
                               DropdownField(
-                                  title: "Add due date",
+                                  title: AppLocalizations.of(context)!
+                                      .projectAddDueDateText,
                                   subtitle: "",
                                   leading: const Icon(
                                     Icons.calendar_today,
@@ -175,7 +183,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 height: 16,
                               ),
                               DropdownField(
-                                  title: "Repeat",
+                                  title:
+                                      AppLocalizations.of(context)!.repeatText,
                                   subtitle: "",
                                   leading: const Icon(Icons.repeat),
                                   onTap: () {
@@ -232,7 +241,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                             subtitle: "subtitle"));
                                   });
                                 },
-                                child: const Text("Add additional details +"),
+                                child: Text(AppLocalizations.of(context)!
+                                    .additionalAddTaskText("+")),
                               ),
                               const SizedBox(
                                 height: 48,

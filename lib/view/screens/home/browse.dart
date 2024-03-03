@@ -4,6 +4,7 @@ import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/components/appnavigatorbar.dart';
 import 'package:mytodo/view/components/notificator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskModel {
   final String name;
@@ -39,7 +40,7 @@ class _BrowseTasksScreenState extends State<BrowseTasksScreen> {
 }
 
 class BrowseTasksPage extends StatefulWidget {
-  const BrowseTasksPage({Key? key}) : super(key: key);
+  const BrowseTasksPage({super.key});
 
   @override
   State<BrowseTasksPage> createState() => _BrowseTasksPageState();
@@ -60,7 +61,7 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
               title: SearchBar(
                 controller: _searchController,
                 elevation: MaterialStateProperty.all(0),
-                hintText: 'Search for tasks...',
+                hintText: AppLocalizations.of(context)!.searchTaskText,
                 hintStyle: MaterialStateProperty.all(
                     const TextStyle(color: Colors.grey)),
                 leading: const Icon(Icons.search),
@@ -95,123 +96,120 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
                     : 72,
               ),
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const SizedBox(height: 16),
-                    Center(
-                      child: SearchBar(
-                        controller: _searchController,
-                        constraints: ResponsiveBreakpoints.of(context)
-                                .between(MOBILE, TABLET)
-                            ? const BoxConstraints(maxWidth: 280)
-                            : null,
-                        elevation: MaterialStateProperty.all(2),
-                        hintText: 'Search for tasks...',
-                        hintStyle: MaterialStateProperty.all(
-                            const TextStyle(color: Colors.grey)),
-                        leading: const Icon(Icons.search),
-                        trailing: <Widget>[
-                          IconButton(
-                            icon: const Icon(Icons.close),
-                            onPressed: () {
-                              _searchController.clear();
-                            },
-                          ),
-                          const NotificatorButton()
-                        ],
-                        onChanged: (String value) {},
-                        shape: MaterialStateProperty.all(
-                            const ContinuousRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        )),
-                      ),
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 16),
+                  Center(
+                    child: SearchBar(
+                      controller: _searchController,
+                      constraints: ResponsiveBreakpoints.of(context)
+                              .between(MOBILE, TABLET)
+                          ? const BoxConstraints(maxWidth: 280)
+                          : null,
+                      elevation: MaterialStateProperty.all(2),
+                      hintText: AppLocalizations.of(context)!.searchTaskText,
+                      hintStyle: MaterialStateProperty.all(
+                          const TextStyle(color: Colors.grey)),
+                      leading: const Icon(Icons.search),
+                      trailing: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            _searchController.clear();
+                          },
+                        ),
+                        const NotificatorButton()
+                      ],
+                      onChanged: (String value) {},
+                      shape: MaterialStateProperty.all(
+                          const ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      )),
                     ),
-                    const SizedBox(height: 16),
-                    AutoSizeText(
-                      "Results: 0", // Replace with the number of search results
-                      maxLines: 1,
-                      style: Theme.of(context).textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    AutoSizeText(
-                      "30 Tasks found", // Replace with the total number of tasks
-                      maxLines: 1,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: 32),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                          5, // Replace with the number of viewed tasks
-                          (index) {
-                            // Replace with appropriate task details
-                            return Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  width: 120,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      const Card(
-                                          color: Colors.green,
-                                          child: Padding(
-                                            padding: EdgeInsets.all(4),
-                                            child: Icon(Icons.wysiwyg),
-                                          )),
-                                      AutoSizeText(
+                  ),
+                  const SizedBox(height: 16),
+                  AutoSizeText(
+                    AppLocalizations.of(context)!.resultText(0),
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+
+                  const SizedBox(height: 32),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(
+                        5, // Replace with the number of viewed tasks
+                        (index) {
+                          // Replace with appropriate task details
+                          return Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: 120,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Card(
+                                        color: Colors.green,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(4),
+                                          child: Icon(Icons.wysiwyg),
+                                        )),
+                                    ListTile(
+                                      title: AutoSizeText(
                                         "Viewed Task $index",
                                         maxLines: 1,
                                         style: Theme.of(context)
                                             .textTheme
                                             .displaySmall,
                                       ),
-                                      AutoSizeText(
+                                      subtitle: AutoSizeText(
                                         "Description for Viewed Task $index",
                                         maxLines: 3,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium,
                                       ),
-                                    ],
-                                  ),
+                                    )
+                                  ],
                                 ),
                               ),
-                            );
-                          },
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                    const SizedBox(height: 16),
+                  ),
+                  const SizedBox(height: 16),
 
-                    // Display recent tasks using ListTile with vertical scrolling
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: 5, // Replace with the number of recent tasks
-                      itemBuilder: (context, index) {
-                        // Replace with appropriate task details
-                        return ListTile(
-                          title: Text("Recent Task $index"),
-                          leading: Icon(Icons.history),
-                          trailing: IconButton(
-                            icon: Icon(Icons.close),
-                            onPressed: () {},
-                          ),
-                          onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.task);
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                    // Display viewed tasks using horizontal scrolling cards
-                  ]),
+                  // Display recent tasks using ListTile with vertical scrolling
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 5, // Replace with the number of recent tasks
+                    itemBuilder: (context, index) {
+                      // Replace with appropriate task details
+                      return ListTile(
+                        title: Text("Recent Task $index"),
+                        leading: const Icon(Icons.history),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {},
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pushNamed(AppRoutes.task);
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  // Display viewed tasks using horizontal scrolling cards
+                ],
+              ),
             ),
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/route_generator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CurrentTaskListTile extends StatefulWidget {
   final String title;
@@ -70,7 +71,7 @@ class _CurrentTaskListTileState extends State<CurrentTaskListTile> {
                     onPressed: () {
                       Navigator.of(context).pushNamed(AppRoutes.addTask);
                     },
-                    child: const Text("Done"))
+                    child: Text(AppLocalizations.of(context)!.doneText))
               ],
             ),
           ),

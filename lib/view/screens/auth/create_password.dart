@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
   const CreatePasswordScreen({super.key});
@@ -46,32 +47,31 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AutoSizeText('CREATE A PASSWORD',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!.createPasswordText,
                         maxLines: 1,
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium!
                             .copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    AutoSizeText('You are almost there',
+                    AutoSizeText(AppLocalizations.of(context)!.patienceText,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 64),
-                    const Text(
-                      'Password',
-                    ),
+                    Text(AppLocalizations.of(context)!.passwordText),
                     TextFormField(
                       controller: _passwordController,
                       keyboardType: TextInputType.text,
                       obscureText: true,
                       validator: validateUserPassword,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter your password',
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.passwordHint,
                       ),
                     ),
                     const SizedBox(height: 32),
-                    const Text(
-                      'Confirm Password',
+                    Text(
+                      AppLocalizations.of(context)!.confirmPasswordText,
                     ),
                     TextFormField(
                       controller: _confirmPasswordController,
@@ -79,12 +79,14 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       obscureText: true,
                       validator: (value) {
                         if (value != _passwordController.text) {
-                          return "password does not match";
+                          return AppLocalizations.of(context)!
+                              .validatePasswordText;
                         }
                         return null;
                       },
-                      decoration: const InputDecoration(
-                        hintText: 'Confirm your Password',
+                      decoration: InputDecoration(
+                        hintText:
+                            AppLocalizations.of(context)!.confirmPasswordHint,
                       ),
                     ),
                     const SizedBox(height: 64),
@@ -99,10 +101,11 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                               // _emailController.dispose();
                             }
                           },
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text('Continue'),
+                            child: Text(
+                                AppLocalizations.of(context)!.continueText),
                           )),
                     ),
                     const SizedBox(

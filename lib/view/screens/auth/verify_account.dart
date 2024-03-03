@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VerifyAccountScreen extends StatefulWidget {
   const VerifyAccountScreen({super.key});
@@ -45,14 +46,17 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AutoSizeText('VERIFY ACCOUNT',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!.verifyAccountText,
                         maxLines: 1,
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium!
                             .copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    AutoSizeText('Just a click to go',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!
+                            .verifyAccountDescriptionText,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 32),
@@ -74,8 +78,8 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
                       appContext: context,
                     ),
                     const SizedBox(height: 32),
-                    const Text(
-                      'Expires in 58 seconds',
+                    Text(
+                      AppLocalizations.of(context)!.expiresText(7.toString()),
                     ),
                     const SizedBox(height: 64),
                     Center(
@@ -89,10 +93,11 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
                               // _emailController.dispose();
                             }
                           },
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text('Verify'),
+                            child:
+                                Text(AppLocalizations.of(context)!.verifyText),
                           )),
                     ),
                     const SizedBox(

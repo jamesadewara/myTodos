@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpdateProfileAccountScreen extends StatefulWidget {
   const UpdateProfileAccountScreen({super.key});
@@ -47,28 +48,27 @@ class _UpdateProfileAccountScreenState
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AutoSizeText('Update your profile',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!.updateProfileText,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium),
-                    AutoSizeText('Add your profile',
+                    AutoSizeText(AppLocalizations.of(context)!.addProfileText,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.displaySmall),
                     const SizedBox(height: 64),
-                    const Text(
-                      'Username',
-                    ),
+                    Text(AppLocalizations.of(context)!.usernameText("")),
                     TextFormField(
                       controller: _usernameController,
                       maxLength: 255,
                       keyboardType: TextInputType.text,
                       validator: validateUserName,
-                      decoration: const InputDecoration(
-                        hintText: 'Enter a new username',
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.usernameHint,
                       ),
                     ),
                     const SizedBox(height: 32),
-                    const Text(
-                      'About ',
+                    Text(
+                      AppLocalizations.of(context)!.aboutText,
                     ),
                     TextFormField(
                       maxLength: 255,
@@ -76,8 +76,8 @@ class _UpdateProfileAccountScreenState
                       controller: _aboutController,
                       keyboardType: TextInputType.text,
                       validator: validateField,
-                      decoration: const InputDecoration(
-                        hintText: 'describe yourself',
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.aboutHint,
                       ),
                     ),
                     const SizedBox(height: 64),
@@ -90,10 +90,11 @@ class _UpdateProfileAccountScreenState
                               // _emailController.dispose();
                             }
                           },
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text('Submit'),
+                            child:
+                                Text(AppLocalizations.of(context)!.submitText),
                           )),
                     ),
                     const SizedBox(

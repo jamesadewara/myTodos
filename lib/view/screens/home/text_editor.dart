@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TextEditor extends StatefulWidget {
   const TextEditor({
@@ -22,7 +23,7 @@ class _TextEditorState extends State<TextEditor> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Text Editor: Description"),
+          title: Text(AppLocalizations.of(context)!.textEditorTitle),
         ),
         body: Scrollbar(
             controller: _scrollController,

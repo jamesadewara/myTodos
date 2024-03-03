@@ -6,6 +6,7 @@ import 'package:mytodo/control/validators.dart';
 import 'package:mytodo/model/bloc/authentication_bloc.dart';
 import 'package:mytodo/model/states/auth/authentication_event_state.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -51,14 +52,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       size: 120,
                     ),
                     const SizedBox(height: 10),
-                    AutoSizeText('SIGN IN',
+                    AutoSizeText(AppLocalizations.of(context)!.signInText,
                         maxLines: 1,
                         style: Theme.of(context)
                             .textTheme
                             .displaySmall!
                             .copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
-                    AutoSizeText('with your aiVilah account',
+                    AutoSizeText(
+                        AppLocalizations.of(context)!
+                            .signInDescriptionText("myTodo's"),
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 16),
@@ -70,35 +73,33 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            const Text(
-                              'E-mail',
-                            ),
+                            Text(AppLocalizations.of(context)!.emailText),
                             TextFormField(
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               obscureText: false,
                               validator: validateUserEmail,
-                              decoration: const InputDecoration(
-                                hintText: 'Enter your email',
-                              ),
+                              decoration: InputDecoration(
+                                  hintText:
+                                      AppLocalizations.of(context)!.emailHint),
                             ),
                             const SizedBox(height: 32),
-                            const Text(
-                              'Password',
-                            ),
+                            Text(AppLocalizations.of(context)!.passwordText),
                             TextFormField(
                               controller: _passwordController,
                               keyboardType: TextInputType.emailAddress,
                               obscureText: true,
                               validator: validateUserPassword,
-                              decoration: const InputDecoration(
-                                hintText: 'Enter your password',
+                              decoration: InputDecoration(
+                                hintText:
+                                    AppLocalizations.of(context)!.passwordHint,
                               ),
                             ),
                             const SizedBox(height: 8),
                             TextButton(
                               child: Text(
-                                'Forgot password',
+                                AppLocalizations.of(context)!
+                                    .forgottenPasswordText,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -129,10 +130,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       );
                                     }
                                   },
-                                  child: const Padding(
+                                  child: Padding(
                                     padding: EdgeInsets.only(
                                         left: 16, right: 16, top: 8, bottom: 8),
-                                    child: Text('Submit'),
+                                    child: Text(AppLocalizations.of(context)!
+                                    .submitText),
                                   )),
                             )
                             //sign in button
