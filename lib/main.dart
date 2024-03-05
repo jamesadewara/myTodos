@@ -28,7 +28,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 firebaseInit() async {
   await Firebase.initializeApp(
     name: appName,
-    // options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   const fatalError = true;
   // Non-async exceptions
@@ -91,7 +91,7 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await firebaseInit();
+  // await firebaseInit();
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   Store<AppState> store = storeInit(prefs: prefs);
@@ -104,8 +104,8 @@ void main() async {
       child: StoreProvider(
           store: store,
           child: StoreProvider(store: store, child: const MainApp()))));
+  FlutterNativeSplash.remove();
 }
-//  FlutterNativeSplash.remove();
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -129,72 +129,73 @@ class MainApp extends StatelessWidget {
           } else {
             locale = Localizations.localeOf(context);
           }
-          return StreamBuilder<User?>(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                return AnnotatedRegion<SystemUiOverlayStyle>(
-                    value: SystemUiOverlayStyle(
-                        statusBarColor: Colors.transparent,
-                        systemNavigationBarColor: Colors.transparent,
-                        statusBarIconBrightness:
-                            identifyTheme(currentAppState.theme) ==
-                                    ThemeMode.system
-                                ? currentBrightness == Brightness.dark
-                                    ? Brightness.light
-                                    : Brightness.dark
-                                : identifyTheme(currentAppState.theme) ==
-                                        ThemeMode.dark
-                                    ? Brightness.light
-                                    : Brightness.dark,
-                        systemNavigationBarIconBrightness:
-                            identifyTheme(currentAppState.theme) ==
-                                    ThemeMode.system
-                                ? currentBrightness == Brightness.dark
-                                    ? Brightness.light
-                                    : Brightness.dark
-                                : identifyTheme(currentAppState.theme) ==
-                                        ThemeMode.dark
-                                    ? Brightness.light
-                                    : Brightness.dark),
-                    child: MaterialApp.router(
-                      title: "MyTodo's",
-                      debugShowCheckedModeBanner: false,
-                      themeMode: identifyTheme(currentAppState.theme),
-                      theme: CustomThemes(name: ThemeIdentifier.daylight)
-                          .currentTheme()
-                          .copyWith(brightness: Brightness.light),
-                      darkTheme: CustomThemes(name: ThemeIdentifier.nightfall)
-                          .currentTheme()
-                          .copyWith(brightness: Brightness.dark),
-                      locale: locale,
-                      localizationsDelegates: const [
-                        AppLocalizations.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                        GlobalCupertinoLocalizations.delegate,
-                      ],
-                      supportedLocales: supportedLocales
-                          .map((locale) => locale.locale)
-                          .toList(),
-                      routerConfig: !snapshot.hasData
-                          ? AuthRouteGenerator.generateRoute()
-                          : currentAppState.isIntro
-                              ? IntroRouteGenerator.generateRoute()
-                              : AppRouteGenerator.generateRoute(),
-                      builder: (context, child) =>
-                          ResponsiveBreakpoints.builder(
-                        child: child!,
-                        breakpoints: [
-                          const Breakpoint(start: 0, end: 450, name: MOBILE),
-                          const Breakpoint(start: 451, end: 800, name: TABLET),
-                          const Breakpoint(
-                              start: 801, end: 1920, name: DESKTOP),
-                          const Breakpoint(
-                              start: 1921, end: double.infinity, name: '4K'),
-                        ],
-                      ),
-                    ));
-              });
+          // return StreamBuilder<User?>(
+          //     stream: FirebaseAuth.instance.authStateChanges(),
+          //     builder: (context, snapshot) {
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                  statusBarColor: Colors.transparent,
+                  systemNavigationBarColor: Colors.transparent,
+                  statusBarIconBrightness:
+                      identifyTheme(currentAppState.theme) == ThemeMode.system
+                          ? currentBrightness == Brightness.dark
+                              ? Brightness.light
+                              : Brightness.dark
+                          : identifyTheme(currentAppState.theme) ==
+                                  ThemeMode.dark
+                              ? Brightness.light
+                              : Brightness.dark,
+                  systemNavigationBarIconBrightness:
+                      identifyTheme(currentAppState.theme) == ThemeMode.system
+                          ? currentBrightness == Brightness.dark
+                              ? Brightness.light
+                              : Brightness.dark
+                          : identifyTheme(currentAppState.theme) ==
+                                  ThemeMode.dark
+                              ? Brightness.light
+                              : Brightness.dark),
+              child: MaterialApp.router(
+                title: "MyTodo's",
+                debugShowCheckedModeBanner: false,
+                themeMode: identifyTheme(currentAppState.theme),
+                theme: CustomThemes(name: ThemeIdentifier.daylight)
+                    .currentTheme()
+                    .copyWith(brightness: Brightness.light),
+                darkTheme: CustomThemes(name: ThemeIdentifier.nightfall)
+                    .currentTheme()
+                    .copyWith(brightness: Brightness.dark),
+                locale: locale,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales:
+                    supportedLocales.map((locale) => locale.locale).toList(),
+                routerConfig:
+                    // !snapshot.hasData
+                    // ?
+                    // AuthRouteGenerator.generateRoute()
+                    // : currentAppState.isIntro
+                    // ?
+                    IntroRouteGenerator.generateRoute()
+                // :
+                // AppRouteGenerator.generateRoute()
+                ,
+                builder: (context, child) => ResponsiveBreakpoints.builder(
+                  child: child!,
+                  breakpoints: [
+                    const Breakpoint(start: 0, end: 450, name: MOBILE),
+                    const Breakpoint(start: 451, end: 800, name: TABLET),
+                    const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+                    const Breakpoint(
+                        start: 1921, end: double.infinity, name: '4K'),
+                  ],
+                ),
+              ));
         });
+    // }
+    // );
   }
 }

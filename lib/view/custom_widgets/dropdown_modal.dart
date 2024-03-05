@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_list_view/flutter_list_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:mytodo/view/custom_widgets/file_field.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -150,51 +152,68 @@ class _ImageUploadDialogState extends State<ImageUploadDialog> {
 
   // Function to select image from camera or gallery
   Future getImage(ImageSource source) async {
-    var img = await picker.pickImage(source: source);
-
-    setState(() {
-      image = img;
+    setState(() async {
+      image = await picker.pickImage(source: source);
+      // Call the callback function with the selected image
+      widget.onImageSelected(image);
     });
-
-    // Call the callback function with the selected image
-    widget.onImageSelected(img);
   }
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      title: Text(AppLocalizations.of(context)!.chooseImageTitle),
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          ListTile(
-            tileColor: Theme.of(context).colorScheme.surface,
-            onTap: () {
-              Navigator.pop(context);
-              getImage(ImageSource.gallery);
-            },
-            leading: const Icon(Icons.image),
-            title: Text(AppLocalizations.of(context)!.galleryText),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          ListTile(
-            tileColor: Theme.of(context).colorScheme.surface,
-            onTap: () {
-              Navigator.pop(context);
-              getImage(ImageSource.camera);
-            },
-            leading: const Icon(Icons.camera),
-            title: Text(AppLocalizations.of(context)!.cameraText),
-          )
-        ],
-      ),
-    );
+    return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: SizedBox(
+            height: 180,
+            width: 320,
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: AutoSizeText(
+                          AppLocalizations.of(context)!.chooseImageTitle,
+                          style: Theme.of(context).textTheme.displaySmall,
+                          maxLines: 1,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  ListTile(
+                    tileColor: Theme.of(context).colorScheme.surface,
+                    onTap: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.gallery);
+                    },
+                    leading: const Icon(Icons.image),
+                    title: Text(AppLocalizations.of(context)!.galleryText),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  ListTile(
+                    tileColor: Theme.of(context).colorScheme.surface,
+                    onTap: () {
+                      Navigator.pop(context);
+                      getImage(ImageSource.camera);
+                    },
+                    leading: const Icon(Icons.camera),
+                    title: Text(AppLocalizations.of(context)!.cameraText),
+                  )
+                ],
+              ),
+            )));
   }
 }
 
@@ -254,7 +273,9 @@ class _CreateGroupDropdownModalState extends State<CreateGroupDropdownModal> {
                                       .groupNameHint,
                                 ),
                                 obscureText: false,
-                                validator: validateField),
+                                validator: (value) {
+                                  return validateField(value, context: context);
+                                }),
                             TextFormField(
                                 controller: subtitleController,
                                 keyboardType: TextInputType.text,
@@ -263,7 +284,9 @@ class _CreateGroupDropdownModalState extends State<CreateGroupDropdownModal> {
                                       .groupDescriptionHint,
                                 ),
                                 obscureText: false,
-                                validator: validateField),
+                                validator: (value) {
+                                  return validateField(value, context: context);
+                                }),
                             FileField(
                                 title: AppLocalizations.of(context)!.selectText,
                                 decoration: BoxDecoration(
@@ -345,6 +368,7 @@ class _InputModalState extends State<InputModal> {
 
   @override
   Widget build(BuildContext context) {
+    void handleSubmit() {}
     return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -372,17 +396,23 @@ class _InputModalState extends State<InputModal> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                             TextFormField(
-                                controller: valueController,
-                                keyboardType: widget.inputType,
-                                decoration: InputDecoration(
-                                  hintText: widget.hintText,
-                                ),
-                                maxLength: widget.maxLength,
-                                maxLengthEnforcement:
-                                    MaxLengthEnforcement.enforced,
-                                maxLines: widget.maxLines,
-                                obscureText: false,
-                                validator: validateField),
+                              controller: valueController,
+                              keyboardType: widget.inputType,
+                              decoration: InputDecoration(
+                                hintText: widget.hintText,
+                              ),
+                              maxLength: widget.maxLength,
+                              maxLengthEnforcement:
+                                  MaxLengthEnforcement.enforced,
+                              maxLines: widget.maxLines,
+                              obscureText: false,
+                              validator: (value) {
+                                return validateField(value, context: context);
+                              },
+                              onFieldSubmitted: (value) {
+                                handleSubmit();
+                              },
+                            ),
                           ]))),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -397,7 +427,7 @@ class _InputModalState extends State<InputModal> {
                                 MaterialStatePropertyAll(Colors.red),
                           ),
                           onPressed: () {
-                            Navigator.pop(context);
+                            GoRouter.of(context).pop();
                           },
                           child:
                               Text(AppLocalizations.of(context)!.cancelText)),
@@ -408,7 +438,7 @@ class _InputModalState extends State<InputModal> {
                               foregroundColor:
                                   const MaterialStatePropertyAll(Colors.white)),
                           onPressed: () {
-                            if (_createInputFormKey.currentState!.validate()) {}
+                            handleSubmit();
                           },
                           child: Text(AppLocalizations.of(context)!.submitText))
                     ],
@@ -438,6 +468,10 @@ class _TaskInputModalState extends State<TaskInputModal> {
 
   @override
   Widget build(BuildContext context) {
+    void handleSubmit() {
+      if (_createAdditionalInputFormKey.currentState!.validate()) {}
+    }
+
     return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -464,29 +498,41 @@ class _TaskInputModalState extends State<TaskInputModal> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                             TextFormField(
-                                controller: titleController,
-                                decoration: InputDecoration(
-                                  hintText:
-                                      AppLocalizations.of(context)!.titleHint,
-                                ),
-                                maxLength: 150,
-                                maxLengthEnforcement:
-                                    MaxLengthEnforcement.enforced,
-                                maxLines: 1,
-                                obscureText: false,
-                                validator: validateField),
+                              controller: titleController,
+                              decoration: InputDecoration(
+                                hintText:
+                                    AppLocalizations.of(context)!.titleHint,
+                              ),
+                              maxLength: 150,
+                              maxLengthEnforcement:
+                                  MaxLengthEnforcement.enforced,
+                              maxLines: 1,
+                              obscureText: false,
+                              validator: (value) {
+                                return validateField(value, context: context);
+                              },
+                              onFieldSubmitted: (value) {
+                                handleSubmit();
+                              },
+                            ),
                             TextFormField(
-                                controller: subtitleController,
-                                decoration: InputDecoration(
-                                  hintText: AppLocalizations.of(context)!
-                                      .subtitleHint,
-                                ),
-                                maxLength: 250,
-                                maxLengthEnforcement:
-                                    MaxLengthEnforcement.enforced,
-                                maxLines: 1,
-                                obscureText: false,
-                                validator: validateField),
+                              controller: subtitleController,
+                              decoration: InputDecoration(
+                                hintText:
+                                    AppLocalizations.of(context)!.subtitleHint,
+                              ),
+                              maxLength: 250,
+                              maxLengthEnforcement:
+                                  MaxLengthEnforcement.enforced,
+                              maxLines: 1,
+                              obscureText: false,
+                              validator: (value) {
+                                return validateField(value, context: context);
+                              },
+                              onFieldSubmitted: (value) {
+                                handleSubmit();
+                              },
+                            ),
                           ]))),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -512,8 +558,7 @@ class _TaskInputModalState extends State<TaskInputModal> {
                               foregroundColor:
                                   const MaterialStatePropertyAll(Colors.white)),
                           onPressed: () {
-                            if (_createAdditionalInputFormKey.currentState!
-                                .validate()) {}
+                            handleSubmit();
                           },
                           child: Text(AppLocalizations.of(context)!.submitText))
                     ],

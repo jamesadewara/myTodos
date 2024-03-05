@@ -10,7 +10,8 @@ class CustomInputDecorationTheme {
         borderRadius: BorderRadius.circular(theme.radius + 2),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide.none,
+        borderSide:
+            BorderSide(color: theme.background, style: BorderStyle.none),
         borderRadius: BorderRadius.circular(theme.radius),
       ),
       filled: true,

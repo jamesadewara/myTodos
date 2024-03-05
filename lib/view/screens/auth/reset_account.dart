@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,6 +20,10 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void handleSubmit() {
+      if (_resetAccountFormKey.currentState!.validate()) {}
+    }
+
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -29,6 +34,20 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
         controller: _scrollController,
         child: Center(
           child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      size: 48,
+                    )),
+              ],
+            ),
             const SizedBox(height: 50),
             Padding(
               padding: EdgeInsets.only(
@@ -62,7 +81,12 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                       controller: _passwordController,
                       keyboardType: TextInputType.text,
                       obscureText: true,
-                      validator: validateUserPassword,
+                      validator: (value) {
+                        return validateUserPassword(value, context: context);
+                      },
+                      onFieldSubmitted: (value) {
+                        handleSubmit();
+                      },
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!.passwordHint,
                       ),
@@ -74,11 +98,12 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                       keyboardType: TextInputType.text,
                       obscureText: true,
                       validator: (value) {
-                        if (value != _passwordController.text) {
-                          return AppLocalizations.of(context)!
-                              .validatePasswordText;
-                        }
-                        return null;
+                        return validateUserPasswordConfirmation(
+                            value, _passwordController.text,
+                            context: context);
+                      },
+                      onFieldSubmitted: (value) {
+                        handleSubmit();
                       },
                       decoration: InputDecoration(
                         hintText:
@@ -89,10 +114,7 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                     Center(
                       child: FilledButton(
                           onPressed: () async {
-                            // Validate returns true if the form is valid, or false otherwise.
-                            if (_resetAccountFormKey.currentState!.validate()) {
-                              // _emailController.dispose();
-                            }
+                            handleSubmit();
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(

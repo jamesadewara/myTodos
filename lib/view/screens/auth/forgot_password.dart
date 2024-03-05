@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -19,6 +20,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void handleSubmit() {
+      if (_forgotPasswordFormKey.currentState!.validate()) {
+        GoRouter.of(context).pushNamed(AuthRoutes.resetAccount);
+      }
+    }
+
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -29,6 +36,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         controller: _scrollController,
         child: Center(
           child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      size: 48,
+                    )),
+              ],
+            ),
             const SizedBox(height: 50),
             Padding(
               padding: EdgeInsets.only(
@@ -62,7 +83,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       obscureText: false,
-                      validator: validateUserEmail,
+                      onFieldSubmitted: (value) {
+                        handleSubmit();
+                      },
+                      validator: (value) {
+                        return validateUserEmail(value, context: context);
+                      },
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!.emailHint,
                       ),
@@ -71,13 +97,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Center(
                       child: FilledButton(
                           onPressed: () async {
-                            Navigator.of(context)
-                                .pushNamed(AuthRoutes.resetAccount);
-                            // Validate returns true if the form is valid, or false otherwise.
-                            if (_forgotPasswordFormKey.currentState!
-                                .validate()) {
-                              // _emailController.dispose();
-                            }
+                            handleSubmit();
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(

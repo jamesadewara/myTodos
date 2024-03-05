@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,6 +22,10 @@ class _UpdateProfileAccountScreenState
 
   @override
   Widget build(BuildContext context) {
+    void handleSubmit() {
+      if (_updateProfileAccountFormKey.currentState!.validate()) {}
+    }
+
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -31,6 +36,20 @@ class _UpdateProfileAccountScreenState
         controller: _scrollController,
         child: Center(
           child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      size: 48,
+                    )),
+              ],
+            ),
             const SizedBox(height: 50),
             Padding(
               padding: EdgeInsets.only(
@@ -61,7 +80,12 @@ class _UpdateProfileAccountScreenState
                       controller: _usernameController,
                       maxLength: 255,
                       keyboardType: TextInputType.text,
-                      validator: validateUserName,
+                      validator: (value) {
+                        return validateUserName(value, context: context);
+                      },
+                      onFieldSubmitted: (value) {
+                        handleSubmit();
+                      },
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!.usernameHint,
                       ),
@@ -75,7 +99,12 @@ class _UpdateProfileAccountScreenState
                       maxLines: null,
                       controller: _aboutController,
                       keyboardType: TextInputType.text,
-                      validator: validateField,
+                      validator: (value) {
+                        return validateField(value, context: context);
+                      },
+                      onFieldSubmitted: (value) {
+                        handleSubmit();
+                      },
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!.aboutHint,
                       ),
@@ -84,11 +113,7 @@ class _UpdateProfileAccountScreenState
                     Center(
                       child: FilledButton(
                           onPressed: () async {
-                            // Validate returns true if the form is valid, or false otherwise.
-                            if (_updateProfileAccountFormKey.currentState!
-                                .validate()) {
-                              // _emailController.dispose();
-                            }
+                            handleSubmit();
                           },
                           child: Padding(
                             padding: EdgeInsets.only(

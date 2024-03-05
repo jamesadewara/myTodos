@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mytodo/control/notifier_listener.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
-import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,7 +20,12 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    NotifyListener listener = context.watch<NotifyListener>();
+    void handleSubmit() {
+      if (_signupFormKey.currentState!.validate()) {
+        GoRouter.of(context).pushNamed(AuthRoutes.createPassword);
+      }
+    }
+
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -33,6 +36,20 @@ class _SignupScreenState extends State<SignupScreen> {
         controller: _scrollController,
         child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      size: 48,
+                    )),
+              ],
+            ),
             const SizedBox(height: 50),
             const Icon(
               Icons.person_pin,
@@ -72,7 +89,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       obscureText: false,
-                      validator: validateUserEmail,
+                      onFieldSubmitted: (value) {
+                        handleSubmit();
+                      },
+                      validator: (value) {
+                        return validateUserEmail(value, context: context);
+                      },
                       decoration: InputDecoration(
                           hintText: AppLocalizations.of(context)!.emailHint),
                     ),
@@ -80,48 +102,30 @@ class _SignupScreenState extends State<SignupScreen> {
                     Center(
                         child: FilledButton(
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 16, right: 16, top: 8, bottom: 8),
                         child: Text(AppLocalizations.of(context)!.continueText),
                       ),
                       onPressed: () async {
-                        // Navigator.of(context)
-                        //     .pushNamed(AuthRoutes.createPassword);
-                        // Validate returns true if the form is valid, or false otherwise.
-                        if (_signupFormKey.currentState!.validate()) {
-                          // listener.setLoading(value: true);
-
-                          // Timer(const Duration(seconds: 2), () {
-                          //   listener.setLoading(value: false);
-                        }
+                        handleSubmit();
                       },
                     )),
                     const SizedBox(
-                      height: 32,
+                      height: 16,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AutoSizeText(
-                            AppLocalizations.of(context)!
-                                .alreadyHaveAnAccountText,
-                            maxLines: 1,
-                            style: Theme.of(context).textTheme.bodyMedium),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pushReplacementNamed(AuthRoutes.login);
-                          },
-                          child: AutoSizeText(
-                              AppLocalizations.of(context)!.signInText,
-                              maxLines: 1,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(fontWeight: FontWeight.bold)),
-                        ),
-                      ],
-                    ),
+                    ListTile(
+                        title: Text(AppLocalizations.of(context)!
+                            .alreadyHaveAnAccountText),
+                        subtitle: Row(children: [
+                          TextButton(
+                              onPressed: () {
+                                GoRouter.of(context)
+                                    .pushNamed(AuthRoutes.login);
+                              },
+                              child: Text(
+                                  AppLocalizations.of(context)!.signInText)),
+                          const Flexible(child: Center())
+                        ])),
                     const SizedBox(
                       height: 100,
                     ),

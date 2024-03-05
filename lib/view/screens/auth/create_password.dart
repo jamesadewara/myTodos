@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -20,6 +21,12 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void handleSubmit() {
+      if (_createPasswordFormKey.currentState!.validate()) {
+        GoRouter.of(context).pushNamed(AuthRoutes.verifyAccount);
+      }
+    }
+
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -30,6 +37,20 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
         controller: _scrollController,
         child: Center(
           child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      size: 48,
+                    )),
+              ],
+            ),
             const SizedBox(height: 50),
             Padding(
               padding: EdgeInsets.only(
@@ -64,7 +85,12 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       controller: _passwordController,
                       keyboardType: TextInputType.text,
                       obscureText: true,
-                      validator: validateUserPassword,
+                      validator: (value) {
+                        return validateUserPassword(value, context: context);
+                      },
+                      onFieldSubmitted: (value) {
+                        handleSubmit();
+                      },
                       decoration: InputDecoration(
                         hintText: AppLocalizations.of(context)!.passwordHint,
                       ),
@@ -78,11 +104,12 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       keyboardType: TextInputType.text,
                       obscureText: true,
                       validator: (value) {
-                        if (value != _passwordController.text) {
-                          return AppLocalizations.of(context)!
-                              .validatePasswordText;
-                        }
-                        return null;
+                        return validateUserPasswordConfirmation(
+                            value, _passwordController.text,
+                            context: context);
+                      },
+                      onFieldSubmitted: (value) {
+                        handleSubmit();
                       },
                       decoration: InputDecoration(
                         hintText:
@@ -93,16 +120,10 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     Center(
                       child: FilledButton(
                           onPressed: () async {
-                            Navigator.of(context)
-                                .pushNamed(AuthRoutes.verifyAccount);
-                            // Validate returns true if the form is valid, or false otherwise.
-                            if (_createPasswordFormKey.currentState!
-                                .validate()) {
-                              // _emailController.dispose();
-                            }
+                            handleSubmit();
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
                             child: Text(
                                 AppLocalizations.of(context)!.continueText),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:mytodo/control/route_generator.dart';
@@ -35,6 +36,20 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
           child: Center(
             child: Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          GoRouter.of(context).pop();
+                        },
+                        icon: const Icon(
+                          Icons.chevron_left,
+                          size: 48,
+                        )),
+                  ],
+                ),
                 const SizedBox(height: 50),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -117,10 +132,9 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
                 Center(
                   child: FilledButton(
                     onPressed: () async {
-                      Navigator.of(context)
-                          .pushNamed(AuthRoutes.updateProfileAccount);
                       if (_uploadProfileKey.currentState!.validate()) {
-                        // Perform any necessary actions upon successful validation
+                        GoRouter.of(context)
+                            .pushNamed(AuthRoutes.updateProfileAccount);
                       }
                     },
                     child: Padding(

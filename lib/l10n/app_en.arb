@@ -150,6 +150,7 @@
     "signUpText": "SIGN UP",
     "signUpDescriptionText": "Welcome to {value}",
     "alreadyHaveAnAccountText": "Already have an account?",
+    "haveNotAnAccountText": "Haven't yet registered?",
     "updateProfileText": "Update your profile",
     "addProfileText": "Add your profile",
     "usernameHint": "Enter a new username",
@@ -159,6 +160,13 @@
     "errorText": "Error",
     "successText": "Success",
     "pendingText": "Pending",
-    "chooseAppAppearanceText": "Choose your app appearance"
+    "chooseAppAppearanceText": "Choose your app appearance",
+    "validateFieldText": "Please enter at least {value} characters",
+    "validateDropdownFieldText": "Please select an option",
+    "validateUserNameText": "Please enter your username",
+    "validateIsEmptyText": "field must not be empty",
+    "validateAtLeastText": "at least {value} characters",
+    "validateUserEmailText": "Enter a valid email address",
+    "validateUserPasswordText": "please enter at least {value} character"
 
 }

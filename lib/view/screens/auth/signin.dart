@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mytodo/control/config.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/validators.dart';
 import 'package:mytodo/model/bloc/authentication_bloc.dart';
@@ -30,6 +32,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void handleSubmit() {
+      if (_loginFormKey.currentState!.validate()) {
+        BlocProvider.of<AuthenticationBloc>(context).add(
+          SignUpUserRequested(
+            _emailController.text.trim(),
+            _passwordController.text.trim(),
+          ),
+        );
+      }
+    }
+
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -61,12 +74,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 8),
                     AutoSizeText(
                         AppLocalizations.of(context)!
-                            .signInDescriptionText("myTodo's"),
+                            .signInDescriptionText(appName),
                         maxLines: 1,
                         style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 16),
                     Padding(
-                      padding: EdgeInsets.only(left: 12, right: 12),
+                      padding: const EdgeInsets.only(left: 12, right: 12),
                       child: Form(
                         key: _loginFormKey,
                         child: Column(
@@ -78,7 +91,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
                               obscureText: false,
-                              validator: validateUserEmail,
+                              onFieldSubmitted: (value) {
+                                handleSubmit();
+                              },
+                              validator: (value) {
+                                return validateUserEmail(value,
+                                    context: context);
+                              },
                               decoration: InputDecoration(
                                   hintText:
                                       AppLocalizations.of(context)!.emailHint),
@@ -89,7 +108,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _passwordController,
                               keyboardType: TextInputType.emailAddress,
                               obscureText: true,
-                              validator: validateUserPassword,
+                              onFieldSubmitted: (value) {
+                                handleSubmit();
+                              },
+                              validator: (value) {
+                                return validateUserPassword(value,
+                                    context: context);
+                              },
                               decoration: InputDecoration(
                                 hintText:
                                     AppLocalizations.of(context)!.passwordHint,
@@ -109,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         fontWeight: FontWeight.bold),
                               ),
                               onPressed: () {
-                                Navigator.of(context)
+                                GoRouter.of(context)
                                     .pushNamed(AuthRoutes.forgotPassword);
                               },
                             ),
@@ -118,27 +143,31 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: FilledButton(
                                   onPressed: () async {
                                     // Validate returns true if the form is valid, or false otherwise.
-                                    if (_loginFormKey.currentState!
-                                        .validate()) {
-                                      BlocProvider.of<AuthenticationBloc>(
-                                              context)
-                                          .add(
-                                        SignUpUserRequested(
-                                          _emailController.text.trim(),
-                                          _passwordController.text.trim(),
-                                        ),
-                                      );
-                                    }
+                                    handleSubmit();
                                   },
                                   child: Padding(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         left: 16, right: 16, top: 8, bottom: 8),
                                     child: Text(AppLocalizations.of(context)!
-                                    .submitText),
+                                        .submitText),
                                   )),
-                            )
-                            //sign in button
-                            ,
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            ListTile(
+                                title: Text(AppLocalizations.of(context)!
+                                    .haveNotAnAccountText),
+                                subtitle: Row(children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        GoRouter.of(context)
+                                            .pushNamed(AuthRoutes.signup);
+                                      },
+                                      child: Text(AppLocalizations.of(context)!
+                                          .signUpText)),
+                                  const Flexible(child: Center())
+                                ])),
                             const SizedBox(
                               height: 100,
                             ),

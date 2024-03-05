@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:mytodo/control/config.dart';
+import 'package:mytodo/control/store/actions.dart';
+import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/view/components/appearance_component.dart';
+import 'package:mytodo/view/custom_widgets/decorated_card.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:responsive_grid/responsive_grid.dart';
 
-class SelectAppearanceView extends StatefulWidget {
-  const SelectAppearanceView({
+class SelectAppearancePage extends StatefulWidget {
+  const SelectAppearancePage({
     super.key,
   });
 
   @override
-  State<SelectAppearanceView> createState() => _SelectAppearanceViewState();
+  State<SelectAppearancePage> createState() => _SelectAppearancePageState();
 }
 
-class _SelectAppearanceViewState extends State<SelectAppearanceView> {
+class _SelectAppearancePageState extends State<SelectAppearancePage> {
   final _scrollController = ScrollController();
 
   @override
@@ -23,29 +29,24 @@ class _SelectAppearanceViewState extends State<SelectAppearanceView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text(AppLocalizations.of(context)!.chooseAppAppearanceText)),
         body: SafeArea(
-          child: Scrollbar(
-              controller: _scrollController,
-              notificationPredicate: (ScrollNotification notification) {
-                return notification.depth == 0;
-              },
-              child: SingleChildScrollView(
-                  controller: _scrollController,
-                  child: Center(
-                      child: Padding(
-                    padding: EdgeInsets.only(
-                        left: ResponsiveBreakpoints.of(context)
-                                .between(MOBILE, TABLET)
-                            ? 8
-                            : 72,
-                        right: ResponsiveBreakpoints.of(context)
-                                .between(MOBILE, TABLET)
-                            ? 8
-                            : 72),
-                    child: const AppearanceComponent(),
-                  )))),
-        ));
+            child: Expanded(
+      child: ResponsiveStaggeredGridList(
+          desiredItemWidth: 160,
+          children: themeList(context: context).map((e) {
+            return DecoratedCard(
+                value: true,
+                title: e.value,
+                subtitle: "",
+                image: e.image,
+                onChanged: (value) {
+                  setState(() {
+                    StoreProvider.of<AppState>(context)
+                        .dispatch(UpdateThemeAction(e.id));
+                  });
+                },
+                groupValue: true);
+          }).toList()),
+    )));
   }
 }

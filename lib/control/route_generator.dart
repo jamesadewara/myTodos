@@ -20,19 +20,21 @@ class AppRoutes {
 }
 
 class AuthRoutes {
-  static const String signup = '/signup';
-  static const String login = '/login';
-  static const String forgotPassword = '/forgot_password';
-  static const String resetAccount = '/reset_account';
-  static const String createPassword = '/create_password';
-  static const String verifyAccount = '/verify_account';
-  static const String addProfilePicture = '/add_profile_picture';
-  static const String updateProfileAccount = '/update_profile_account';
+  static const String signup = 'signup';
+  static const String login = 'login';
+  static const String forgotPassword = 'forgot_password';
+  static const String resetAccount = 'reset_account';
+  static const String createPassword = 'create_password';
+  static const String verifyAccount = 'verify_account';
+  static const String addProfilePicture = 'add_profile_picture';
+  static const String updateProfileAccount = 'update_profile_account';
 }
 
 class IntroRoutes {
-  static const String splash = '/splash';
-  static const String intro = '/intro';
+  static const String splash = 'splash';
+  static const String onboarding = 'onboarding';
+  static const String selectAppearance = 'select-appearance';
+  static const String selectLanguage = 'select-language';
 }
 
 class IntroRouteGenerator {
@@ -40,7 +42,8 @@ class IntroRouteGenerator {
     return GoRouter(
       routes: <RouteBase>[
         GoRoute(
-          path: IntroRoutes.splash,
+          path: "/",
+          name: IntroRoutes.splash,
           builder: (BuildContext context, GoRouterState state) {
             return const BaseApp(
               child: SplashScreen(),
@@ -48,10 +51,20 @@ class IntroRouteGenerator {
           },
           routes: <RouteBase>[
             GoRoute(
-              path: IntroRoutes.intro,
+              path: IntroRoutes.onboarding,
+              name: IntroRoutes.onboarding,
               builder: (BuildContext context, GoRouterState state) {
                 return const BaseApp(
-                  child: IntroScreen(),
+                  child: OnboardingPage(),
+                );
+              },
+            ),
+            GoRoute(
+              path: IntroRoutes.selectAppearance,
+              name: IntroRoutes.selectAppearance,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: SelectAppearancePage(),
                 );
               },
             ),
@@ -67,7 +80,8 @@ class AuthRouteGenerator {
     return GoRouter(
       routes: <RouteBase>[
         GoRoute(
-          path: AuthRoutes.login,
+          path: "/",
+          name: AuthRoutes.login,
           builder: (BuildContext context, GoRouterState state) {
             return const BaseApp(
               child: LoginScreen(),
@@ -75,15 +89,8 @@ class AuthRouteGenerator {
           },
           routes: <RouteBase>[
             GoRoute(
-              path: AuthRoutes.signup,
-              builder: (BuildContext context, GoRouterState state) {
-                return const BaseApp(
-                  child: SignupScreen(),
-                );
-              },
-            ),
-            GoRoute(
               path: AuthRoutes.forgotPassword,
+              name: AuthRoutes.forgotPassword,
               builder: (BuildContext context, GoRouterState state) {
                 return const BaseApp(
                   child: ForgotPasswordScreen(),
@@ -92,46 +99,61 @@ class AuthRouteGenerator {
             ),
             GoRoute(
               path: AuthRoutes.resetAccount,
+              name: AuthRoutes.resetAccount,
               builder: (BuildContext context, GoRouterState state) {
                 return const BaseApp(
                   child: ResetAccountScreen(),
                 );
               },
             ),
-            GoRoute(
-              path: AuthRoutes.createPassword,
-              builder: (BuildContext context, GoRouterState state) {
-                return const BaseApp(
-                  child: CreatePasswordScreen(),
-                );
-              },
-            ),
-            GoRoute(
-              path: AuthRoutes.verifyAccount,
-              builder: (BuildContext context, GoRouterState state) {
-                return const BaseApp(
-                  child: VerifyAccountScreen(),
-                );
-              },
-            ),
-            GoRoute(
-              path: AuthRoutes.addProfilePicture,
-              builder: (BuildContext context, GoRouterState state) {
-                return const BaseApp(
-                  child: AddProfilePictureScreen(),
-                );
-              },
-            ),
-            GoRoute(
-              path: AuthRoutes.updateProfileAccount,
-              builder: (BuildContext context, GoRouterState state) {
-                return const BaseApp(
-                  child: UpdateProfileAccountScreen(),
-                );
-              },
-            ),
           ],
         ),
+        GoRoute(
+            path: "/${AuthRoutes.signup}",
+            name: AuthRoutes.signup,
+            builder: (BuildContext context, GoRouterState state) {
+              return const BaseApp(
+                child: SignupScreen(),
+              );
+            },
+            routes: <RouteBase>[
+              GoRoute(
+                path: AuthRoutes.createPassword,
+                name: AuthRoutes.createPassword,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const BaseApp(
+                    child: CreatePasswordScreen(),
+                  );
+                },
+              ),
+              GoRoute(
+                path: AuthRoutes.verifyAccount,
+                name: AuthRoutes.verifyAccount,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const BaseApp(
+                    child: VerifyAccountScreen(),
+                  );
+                },
+              ),
+              GoRoute(
+                path: AuthRoutes.addProfilePicture,
+                name: AuthRoutes.addProfilePicture,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const BaseApp(
+                    child: AddProfilePictureScreen(),
+                  );
+                },
+              ),
+              GoRoute(
+                path: AuthRoutes.updateProfileAccount,
+                name: AuthRoutes.updateProfileAccount,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const BaseApp(
+                    child: UpdateProfileAccountScreen(),
+                  );
+                },
+              ),
+            ]),
       ],
     );
   }

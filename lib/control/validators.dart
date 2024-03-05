@@ -1,27 +1,45 @@
-String? validateField(value) {
-  if (value.length < 5) {
-    return 'Please enter at least 4 characters';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+String? validateField(value, {required BuildContext context}) {
+  if (value.length < 4) {
+    return AppLocalizations.of(context)!.validateFieldText("4");
   }
 
   return null;
 }
 
-String? validateDropdownField(value) {
-  if (value.length < 5) {
-    return 'Please select an option';
+String? validateDropdownField(value, {required BuildContext context}) {
+  if (value.length == 0) {
+    return AppLocalizations.of(context)!.validateDropdownFieldText;
   }
 
   return null;
 }
 
-String? validateUserName(value) {
+String? validateUserName(value, {required BuildContext context}) {
   if (value == null || value.isEmpty) {
-    return 'Please enter your username';
+    return AppLocalizations.of(context)!.validateUserNameText;
   }
   return null;
 }
 
-String? validateUserEmail(value) {
+String? validateIsEmpty(String value, {required BuildContext context}) {
+  if (value.isEmpty) {
+    return AppLocalizations.of(context)!.validateIsEmptyText;
+  }
+  return null;
+}
+
+String? validateAtLeast(String value, int nChars,
+    {required BuildContext context}) {
+  if (value.length < nChars) {
+    return AppLocalizations.of(context)!.validateAtLeastText(nChars.toString());
+  }
+  return null;
+}
+
+String? validateUserEmail(value, {required BuildContext context}) {
   const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
       r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
       r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
@@ -32,18 +50,26 @@ String? validateUserEmail(value) {
   final regex = RegExp(pattern);
 
   return value!.isNotEmpty && !regex.hasMatch(value)
-      ? 'Enter a valid email address'
-      : null;
+      ? AppLocalizations.of(context)!.validateUserEmailText
+      : validateIsEmpty(value, context: context);
 }
 
-String? validateUserPassword(value) {
+String? validateUserPassword(value, {required BuildContext context}) {
   if (value.length < 9) {
-    return "please enter at least 8 character";
+    return AppLocalizations.of(context)!.validateUserPasswordText("8");
   }
   return null;
 }
 
-String? validateUrl(value) {
+String? validateUserPasswordConfirmation(value, value2,
+    {required BuildContext context}) {
+  if (value != value2) {
+    return AppLocalizations.of(context)!.validatePasswordText;
+  }
+  return null;
+}
+
+String? noSpacesUrl(value, {required BuildContext context}) {
   String portfolioName =
       value.toString().replaceAll(RegExp(r' '), '_').toLowerCase();
 

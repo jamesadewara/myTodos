@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -19,6 +20,12 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void handleSubmit() {
+      if (_verifyAccountFormKey.currentState!.validate()) {
+        GoRouter.of(context).pushNamed(AuthRoutes.addProfilePicture);
+      }
+    }
+
     return SafeArea(
         child: Scrollbar(
       controller: _scrollController,
@@ -29,6 +36,20 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
         controller: _scrollController,
         child: Center(
           child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      size: 48,
+                    )),
+              ],
+            ),
             const SizedBox(height: 50),
             Padding(
               padding: EdgeInsets.only(
@@ -70,9 +91,10 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
                           borderRadius: BorderRadius.circular(8),
                           fieldHeight: 64,
                           fieldWidth: 64,
+                          selectedColor:
+                              Theme.of(context).colorScheme.background,
                           activeFillColor:
                               Theme.of(context).colorScheme.surface),
-                      backgroundColor: Theme.of(context).colorScheme.surface,
                       enableActiveFill: true,
                       controller: _verifyPinController,
                       appContext: context,
@@ -85,16 +107,10 @@ class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
                     Center(
                       child: FilledButton(
                           onPressed: () async {
-                            Navigator.of(context)
-                                .pushNamed(AuthRoutes.addProfilePicture);
-                            // Validate returns true if the form is valid, or false otherwise.
-                            if (_verifyAccountFormKey.currentState!
-                                .validate()) {
-                              // _emailController.dispose();
-                            }
+                            handleSubmit();
                           },
                           child: Padding(
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
                             child:
                                 Text(AppLocalizations.of(context)!.verifyText),
