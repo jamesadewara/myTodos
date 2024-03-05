@@ -7,8 +7,9 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_auth
   firebase_core
   flutter_localization
-  pasteboard
+  irondash_engine_context
   rive_common
+  super_native_extensions
   url_launcher_windows
   windows_notification
 )

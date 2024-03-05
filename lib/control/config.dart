@@ -2,7 +2,10 @@ import 'dart:ui';
 
 import 'package:mytodo/control/app_locales.dart';
 
-const isLogged = true;
+const appName = "myTodo's";
+const appVersion = "1.0.0";
+
+
 const profileImg =
     "https://adewarajames.pythonanywhere.com/media/thumbnail/img/portfolios/IMG_20221015_140027_135_transcpr.jpg";
 

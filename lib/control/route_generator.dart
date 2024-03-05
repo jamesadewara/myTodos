@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mytodo/control/config.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/index.dart';
 import 'package:mytodo/view/screens/base.dart';
 
 class AppRoutes {
-  static const String splash = '/splash';
-  static const String intro = '/intro';
   static const String home = '/';
   static const String notifications = '/notifications';
   static const String task = '/task';
@@ -32,142 +30,226 @@ class AuthRoutes {
   static const String updateProfileAccount = '/update_profile_account';
 }
 
-class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    if (!isLogged) {
-      switch (settings.name) {
-        case AuthRoutes.signup:
-          return MaterialPageRoute(
-              builder: (_) => const BaseApp(
-                    child: SignupScreen(),
-                  ));
-        case AuthRoutes.login:
-          return MaterialPageRoute(
-              builder: (_) => const BaseApp(
-                    child: LoginScreen(),
-                  ));
-        case AuthRoutes.forgotPassword:
-          return MaterialPageRoute(
-              builder: (_) => const BaseApp(
-                    child: ForgotPasswordScreen(),
-                  ));
-        case AuthRoutes.resetAccount:
-          return MaterialPageRoute(
-              builder: (_) => const BaseApp(
-                    child: ResetAccountScreen(),
-                  ));
-        case AuthRoutes.createPassword:
-          return MaterialPageRoute(
-              builder: (_) => const BaseApp(
-                    child: CreatePasswordScreen(),
-                  ));
-        case AuthRoutes.verifyAccount:
-          return MaterialPageRoute(
-              builder: (_) => const BaseApp(
-                    child: VerifyAccountScreen(),
-                  ));
-        case AuthRoutes.addProfilePicture:
-          return MaterialPageRoute(
-              builder: (_) => const BaseApp(
-                    child: AddProfilePictureScreen(),
-                  ));
-        case AuthRoutes.updateProfileAccount:
-          return MaterialPageRoute(
-              builder: (_) => const BaseApp(
-                    child: UpdateProfileAccountScreen(),
-                  ));
-      }
-    }
+class IntroRoutes {
+  static const String splash = '/splash';
+  static const String intro = '/intro';
+}
 
-    switch (settings.name) {
-      case AppRoutes.splash:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: SplashScreen(),
-                ));
-
-      case AppRoutes.intro:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
+class IntroRouteGenerator {
+  static GoRouter generateRoute() {
+    return GoRouter(
+      routes: <RouteBase>[
+        GoRoute(
+          path: IntroRoutes.splash,
+          builder: (BuildContext context, GoRouterState state) {
+            return const BaseApp(
+              child: SplashScreen(),
+            );
+          },
+          routes: <RouteBase>[
+            GoRoute(
+              path: IntroRoutes.intro,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
                   child: IntroScreen(),
-                ));
-
-      case AppRoutes.home:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: HomeScreen(),
-                ));
-      case AppRoutes.notifications:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: NotificationScreen(),
-                ));
-
-      case AppRoutes.task:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: TaskScreen(),
-                ));
-      case AppRoutes.taskGroup:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: TaskGroupScreen(),
-                ));
-      case AppRoutes.addTask:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: AddTaskScreen(),
-                ));
-      case AppRoutes.editor:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: TextEditor(),
-                ));
-      case AppRoutes.browse:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: BrowseTasksScreen(),
-                ));
-      case AppRoutes.settings:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: SettingsScreen(),
-                ));
-      case AppRoutes.profile:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: ProfileScreen(),
-                ));
-      case AppRoutes.appLanguages:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: LanguageScreen(),
-                ));
-      case AppRoutes.appAppearances:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: AppearanceScreen(),
-                ));
-      case AppRoutes.appNotification:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: NotificationSettingsScreen(),
-                ));
-      case AppRoutes.accountManagement:
-        return MaterialPageRoute(
-            builder: (_) => const BaseApp(
-                  child: AccountManagementScreen(),
-                ));
-
-      default:
-        // If there is no such named route in the switch statement, e.g. /third
-        return _errorRoute();
-    }
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    );
   }
+}
 
-  static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(builder: (_) {
-      return const ErrorPage();
-    });
+class AuthRouteGenerator {
+  static GoRouter generateRoute() {
+    return GoRouter(
+      routes: <RouteBase>[
+        GoRoute(
+          path: AuthRoutes.login,
+          builder: (BuildContext context, GoRouterState state) {
+            return const BaseApp(
+              child: LoginScreen(),
+            );
+          },
+          routes: <RouteBase>[
+            GoRoute(
+              path: AuthRoutes.signup,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: SignupScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: AuthRoutes.forgotPassword,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: ForgotPasswordScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: AuthRoutes.resetAccount,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: ResetAccountScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: AuthRoutes.createPassword,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: CreatePasswordScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: AuthRoutes.verifyAccount,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: VerifyAccountScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: AuthRoutes.addProfilePicture,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: AddProfilePictureScreen(),
+                );
+              },
+            ),
+            GoRoute(
+              path: AuthRoutes.updateProfileAccount,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: UpdateProfileAccountScreen(),
+                );
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class AppRouteGenerator {
+  static GoRouter generateRoute() {
+    return GoRouter(
+      routes: <RouteBase>[
+        GoRoute(
+          path: AppRoutes.home,
+          builder: (BuildContext context, GoRouterState state) {
+            return const BaseApp(
+              child: HomeScreen(),
+            );
+          },
+          routes: <RouteBase>[
+            GoRoute(
+                path: AppRoutes.task,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const BaseApp(
+                    child: TaskScreen(),
+                  );
+                },
+                routes: <RouteBase>[
+                  GoRoute(
+                    path: AppRoutes.taskGroup,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const BaseApp(
+                        child: TaskGroupScreen(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: AppRoutes.addTask,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const BaseApp(
+                        child: AddTaskScreen(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: AppRoutes.editor,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const BaseApp(
+                        child: TextEditor(),
+                      );
+                    },
+                  )
+                ]),
+            GoRoute(
+                path: AppRoutes.settings,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const BaseApp(
+                    child: SettingsScreen(),
+                  );
+                },
+                routes: <RouteBase>[
+                  GoRoute(
+                    path: AppRoutes.profile,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const BaseApp(
+                        child: ProfileScreen(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: AppRoutes.appLanguages,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const BaseApp(
+                        child: LanguageScreen(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: AppRoutes.appAppearances,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const BaseApp(
+                        child: AppearanceScreen(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: AppRoutes.appNotification,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const BaseApp(
+                        child: NotificationSettingsScreen(),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: AppRoutes.accountManagement,
+                    builder: (BuildContext context, GoRouterState state) {
+                      return const BaseApp(
+                        child: AccountManagementScreen(),
+                      );
+                    },
+                  ),
+                ]),
+          ],
+        ),
+        GoRoute(
+          path: AppRoutes.notifications,
+          builder: (BuildContext context, GoRouterState state) {
+            return const BaseApp(
+              child: NotificationScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.notifications,
+          builder: (BuildContext context, GoRouterState state) {
+            return const BaseApp(
+              child: NotificationScreen(),
+            );
+          },
+        ),
+      ],
+    );
   }
 }

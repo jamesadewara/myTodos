@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "110491325321",
-    "project_id": "mytodo-s-ed185",
-    "storage_bucket": "mytodo-s-ed185.appspot.com"
+    "project_number": "137948697829",
+    "project_id": "my-todo-project-4aee5",
+    "storage_bucket": "my-todo-project-4aee5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:110491325321:android:e28926d9fa3c6b9bdd0758",
+        "mobilesdk_app_id": "1:137948697829:android:8b58cfce87de652be8f00c",
         "android_client_info": {
           "package_name": "com.aivilah.mytodo"
         }
@@ -15,26 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDoz6ZWaRKU7Dp7Viobf9BqU5q-UNQM-Yw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:110491325321:android:281b4fb01e253f4edd0758",
-        "android_client_info": {
-          "package_name": "com.example.mytodo"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDoz6ZWaRKU7Dp7Viobf9BqU5q-UNQM-Yw"
+          "current_key": "AIzaSyDkJUlXJhWj1jC8ta79vmeikI3geoQBU7s"
         }
       ],
       "services": {

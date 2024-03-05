@@ -27,9 +27,15 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
-        return linux;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -38,58 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDhpG-fKqM2DQp-9y2QVVGgZJ1LtViCIOA',
-    appId: '1:110491325321:web:ae0cc32a2eb77c0edd0758',
-    messagingSenderId: '110491325321',
-    projectId: 'mytodo-s-ed185',
-    authDomain: 'mytodo-s-ed185.firebaseapp.com',
-    storageBucket: 'mytodo-s-ed185.appspot.com',
-    measurementId: 'G-38K6FJT3FG',
+    apiKey: 'AIzaSyDhX4QlsSK_JJO9ZR-Hc3QgSfw1MwPBCXY',
+    appId: '1:137948697829:web:40645bcb5c7e4b28e8f00c',
+    messagingSenderId: '137948697829',
+    projectId: 'my-todo-project-4aee5',
+    authDomain: 'my-todo-project-4aee5.firebaseapp.com',
+    storageBucket: 'my-todo-project-4aee5.appspot.com',
+    measurementId: 'G-P24QYQ775Z',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDoz6ZWaRKU7Dp7Viobf9BqU5q-UNQM-Yw',
-    appId: '1:110491325321:android:e28926d9fa3c6b9bdd0758',
-    messagingSenderId: '110491325321',
-    projectId: 'mytodo-s-ed185',
-    storageBucket: 'mytodo-s-ed185.appspot.com',
+    apiKey: 'AIzaSyDkJUlXJhWj1jC8ta79vmeikI3geoQBU7s',
+    appId: '1:137948697829:android:8b58cfce87de652be8f00c',
+    messagingSenderId: '137948697829',
+    projectId: 'my-todo-project-4aee5',
+    storageBucket: 'my-todo-project-4aee5.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDk_zS74WRaQ231UiJzJlQODJfeMFOBAAQ',
-    appId: '1:110491325321:ios:5a10fe5a5a0d0760dd0758',
-    messagingSenderId: '110491325321',
-    projectId: 'mytodo-s-ed185',
-    storageBucket: 'mytodo-s-ed185.appspot.com',
+    apiKey: 'AIzaSyCYEkKIBwZ9PpRU2tzYfyT3nF66nnRmr9g',
+    appId: '1:137948697829:ios:92c39514a8cbedbbe8f00c',
+    messagingSenderId: '137948697829',
+    projectId: 'my-todo-project-4aee5',
+    storageBucket: 'my-todo-project-4aee5.appspot.com',
     iosBundleId: 'com.aivilah.mytodo',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDk_zS74WRaQ231UiJzJlQODJfeMFOBAAQ',
-    appId: '1:110491325321:ios:668a31472fa6f637dd0758',
-    messagingSenderId: '110491325321',
-    projectId: 'mytodo-s-ed185',
-    storageBucket: 'mytodo-s-ed185.appspot.com',
+    apiKey: 'AIzaSyCYEkKIBwZ9PpRU2tzYfyT3nF66nnRmr9g',
+    appId: '1:137948697829:ios:a13cb9bed4fa7b2ae8f00c',
+    messagingSenderId: '137948697829',
+    projectId: 'my-todo-project-4aee5',
+    storageBucket: 'my-todo-project-4aee5.appspot.com',
     iosBundleId: 'com.aivilah.mytodo.RunnerTests',
-  );
-
-  static const FirebaseOptions linux = FirebaseOptions(
-    apiKey: 'AIzaSyDoz6ZWaRKU7Dp7Viobf9BqU5q-UNQM-Yw',
-    appId: '1:110491325321:android:e28926d9fa3c6b9bdd0758',
-    messagingSenderId: '110491325321',
-    projectId: 'mytodo-s-ed185',
-    storageBucket: 'mytodo-s-ed185.appspot.com',
-    authDomain: 'mytodo-s-ed185.firebaseapp.com',
-    measurementId: 'G-38K6FJT3FG',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDoz6ZWaRKU7Dp7Viobf9BqU5q-UNQM-Yw',
-    appId: '1:110491325321:android:e28926d9fa3c6b9bdd0758',
-    messagingSenderId: '110491325321',
-    projectId: 'mytodo-s-ed185',
-    storageBucket: 'mytodo-s-ed185.appspot.com',
-    authDomain: 'mytodo-s-ed185.firebaseapp.com',
-    measurementId: 'G-38K6FJT3FG',
   );
 }

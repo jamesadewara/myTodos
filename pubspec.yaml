@@ -22,18 +22,20 @@ dependencies:
   hexcolor: ^3.0.1
   intl: ^0.18.1
   responsive_framework: ^1.1.1
+  responsive_grid: ^2.4.4
   url_launcher: ^6.2.4
   flutter_redux: ^0.10.0
   pin_code_fields: ^8.0.1
   image_picker: ^1.0.7
-  aitheme:
-    git:
-      url: git@github.com:jamesadewara/AiTheme.git
-      ref: main
+  # aitheme:
+  #   git:
+  #     url: git@github.com:jamesadewara/AiTheme.git
+  #     ref: main
       
   redux: ^5.0.0
+  go_router: ^13.2.0
   flutter_native_splash: ^2.3.10
-  flutter_quill: ^8.3.0
+  flutter_quill: ^9.3.0
   provider: ^6.1.1
   flutter_localizations:
     sdk: flutter
@@ -43,12 +45,14 @@ dependencies:
   bloc: ^8.1.3
   flutter_local_notifications: ^16.3.2
   windows_notification: ^1.0.0
+  firebase_crashlytics: ^3.4.16
+  icons_launcher: ^2.1.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_launcher_icons: "^0.13.1"
+  # flutter_launcher_icons: "^0.13.1"
   flutter_lints: ^3.0.1
 
 flutter:
@@ -59,6 +63,11 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/icons/
+    - assets/images/illustrator/
+    - assets/images/bg/
+
+
  
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -92,6 +101,8 @@ flutter:
 # Specify any additional license information
 # license: MIT
 
+
+
 # flutter_native_splash-development.yaml
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen
@@ -108,6 +119,7 @@ flutter_native_splash:
   image_dark: assets/icon.png
   branding_dark: assets/icon.png
 
+
   android_12:
     image: assets/icon.png
     icon_background_color: "#ffffff"
@@ -116,20 +128,37 @@ flutter_native_splash:
 
   web: false
 
-flutter_launcher_icons:
-  android: "launcher_icon"
-  ios: true
+icons_launcher:
   image_path: "assets/icon.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
-  web:
-    generate: true
-    image_path: "assets/icon.png"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
-  windows:
-    generate: true
-    image_path: "assets/icon.png"
-    icon_size: 48 # min:48, max:256, default: 48
-  macos:
-    generate: true
-    image_path: "assets/icon.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+    macos:
+      enable: true
+    windows:
+      enable: true
+    linux:
+      enable: true
+
+# flutter_launcher_icons:
+#   android: "launcher_icon"
+#   ios: true
+#   image_path: "assets/icon.png"
+#   min_sdk_android: 21 # android min sdk min:16, default 21
+#   web:
+#     generate: true
+#     image_path: "assets/icon.png"
+#     background_color: "#hexcode"
+#     theme_color: "#hexcode"
+#   windows:
+#     generate: true
+#     image_path: "assets/icon.png"
+#     icon_size: 48 # min:48, max:256, default: 48
+#   macos:
+#     generate: true
+#     image_path: "assets/icon.png"
+#   linux:
+#     generate: true
+#     image_path: "assets/icon.png"

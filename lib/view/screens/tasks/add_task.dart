@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mytodo/control/route_generator.dart';
-import 'package:mytodo/view/components/notificator.dart';
-import 'package:mytodo/view/components/pickers.dart';
-import 'package:mytodo/view/components/dropdown_modal.dart';
+import 'package:mytodo/view/custom_widgets/notificator.dart';
+import 'package:mytodo/view/custom_widgets/pickers.dart';
+import 'package:mytodo/view/custom_widgets/dropdown_modal.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

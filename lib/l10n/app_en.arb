@@ -155,5 +155,10 @@
     "usernameHint": "Enter a new username",
     "verifyAccountText": "VERIFY ACCOUNT",
     "verifyAccountDescriptionText": "Just a click to go",
-    "expiresText": "Expires in {value} seconds"
+    "expiresText": "Expires in {value} seconds",
+    "errorText": "Error",
+    "successText": "Success",
+    "pendingText": "Pending",
+    "chooseAppAppearanceText": "Choose your app appearance"
+
 }

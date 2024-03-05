@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mytodo/control/store/actions.dart';
 import 'package:mytodo/control/store/store.dart';
-import 'package:mytodo/view/components/appnavigatorbar.dart';
+import 'package:mytodo/view/custom_widgets/appnavigatorbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

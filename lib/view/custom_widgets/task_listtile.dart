@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/route_generator.dart';
-import 'package:mytodo/view/components/circular_prorgess.dart';
+import 'package:mytodo/view/custom_widgets/circular_prorgess.dart';
 
 class TaskListTile extends StatefulWidget {
   final String title;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mytodo/view/components/appnavigatorbar.dart';
-import 'package:mytodo/view/components/dropdown_modal.dart';
-import 'package:mytodo/view/components/profile_img.dart';
+import 'package:mytodo/view/custom_widgets/appnavigatorbar.dart';
+import 'package:mytodo/view/custom_widgets/dropdown_modal.dart';
+import 'package:mytodo/view/custom_widgets/profile_img.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

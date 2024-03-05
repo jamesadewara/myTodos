@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mytodo/view/components/appnavigatorbar.dart';
-import 'package:mytodo/view/components/current_task_listtile.dart';
-import 'package:mytodo/view/components/notificator.dart';
-import 'package:mytodo/view/components/time_card.dart';
+import 'package:mytodo/view/custom_widgets/appnavigatorbar.dart';
+import 'package:mytodo/view/custom_widgets/current_task_listtile.dart';
+import 'package:mytodo/view/custom_widgets/notificator.dart';
+import 'package:mytodo/view/custom_widgets/time_card.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

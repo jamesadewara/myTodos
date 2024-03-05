@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/app_notification/push_notification.dart';
 import 'package:mytodo/model/states/state_management.dart';
-import 'package:mytodo/view/components/dropdown_modal.dart';
+import 'package:mytodo/view/custom_widgets/dropdown_modal.dart';
 import 'package:mytodo/control/notifier_listener.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
