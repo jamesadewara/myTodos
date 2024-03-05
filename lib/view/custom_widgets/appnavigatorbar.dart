@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -87,7 +88,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
                                 onPressed: () => setState(
                                       () {
                                         _appNavIndex = iconList.indexOf(index);
-                                        Navigator.of(context)
+                                        GoRouter.of(context)
                                             .pushReplacementNamed(
                                                 index["route"]);
                                       },
@@ -114,7 +115,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
           shape: const CircleBorder(),
           child: const Icon(Icons.add),
           onPressed: () {
-            Navigator.of(context).pushNamed(AppRoutes.addTask);
+            GoRouter.of(context).pushNamed(AppRoutes.addTask);
           },
         ),
         floatingActionButtonLocation:
@@ -143,7 +144,7 @@ class _AppNavigationBarState extends State<AppNavigationBar> {
             rightCornerRadius: 32,
             onTap: (index) => setState(() {
               _appNavIndex = index;
-              Navigator.of(context)
+              GoRouter.of(context)
                   .pushReplacementNamed(iconList[index]["route"]);
             }),
           ),

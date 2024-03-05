@@ -1,5 +1,8 @@
 // Define actions for IntroReducer
-class ToggleIntroAction {}
+class ToggleIntroAction {
+  final bool action;
+  ToggleIntroAction(this.action);
+}
 
 // Define actions for ThemeReducer
 class UpdateThemeAction {

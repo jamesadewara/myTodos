@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mytodo/control/app_notification/push_notification.dart';
-import 'package:mytodo/model/states/state_management.dart';
-import 'package:mytodo/view/custom_widgets/dropdown_modal.dart';
-import 'package:mytodo/control/notifier_listener.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_redux/flutter_redux.dart';
+// import 'package:mytodo/control/app_notification/windows_notification.dart';
+// import 'package:mytodo/model/states/state_management.dart';
+// import 'package:mytodo/view/custom_widgets/dropdown_modal.dart';
+// import 'package:mytodo/control/notifier_listener.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:mytodo/control/store/actions.dart';
+// import 'package:mytodo/control/store/store.dart';
 
 class BaseApp extends StatefulWidget {
   const BaseApp({
@@ -19,22 +23,11 @@ class BaseApp extends StatefulWidget {
 
 class _BaseAppState extends State<BaseApp> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final PushNotification pushNotification = PushNotification();
+    // final PushNotification pushNotification = PushNotification();
     // String listener = context.watch<NotifyListener>().message;
     // LoadingManagerState loadingState = context.watch<LoadingManagerState>();
-
-    try {
-      pushNotification.showNotification();
-    } catch (e) {
-      e;
-    }
-
+    PushNotification();
     // loadingState.isLoading
     //     ? showDialog(
     //         context: context,
@@ -42,7 +35,7 @@ class _BaseAppState extends State<BaseApp> {
     //           return ProgressModal(message: listener);
     //         })
     //     : null;
-    return Scaffold(body: widget.child);
+    return widget.child;
   }
 }
 

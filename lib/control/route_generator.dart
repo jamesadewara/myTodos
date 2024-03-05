@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/index.dart';
 import 'package:mytodo/view/screens/base.dart';
 
 class AppRoutes {
-  static const String home = '/';
-  static const String notifications = '/notifications';
-  static const String task = '/task';
-  static const String taskGroup = '/task/group';
-  static const String addTask = '/task/add';
-  static const String editor = '/note_editor';
-  static const String browse = '/browse';
-  static const String settings = '/settings';
-  static const String profile = '/settings/profile';
-  static const String appLanguages = '/settings/app_languages';
-  static const String appAppearances = '/settings/app_appearances';
-  static const String appNotification = '/settings/app_notification';
-  static const String accountManagement = '/settings/account_management';
+  static const String home = 'home';
+  static const String notifications = 'notifications';
+  static const String task = 'task';
+  static const String taskGroup = 'task/group';
+  static const String addTask = 'task/add';
+  static const String editor = 'note_editor';
+  static const String browse = 'browse';
+  static const String settings = 'settings';
+  static const String profile = 'settings/profile';
+  static const String appLanguages = 'settings/app_languages';
+  static const String appAppearances = 'settings/app_appearances';
+  static const String appNotification = 'settings/app_notification';
+  static const String accountManagement = 'settings/account_management';
 }
 
 class AuthRoutes {
@@ -38,7 +39,7 @@ class IntroRoutes {
 }
 
 class IntroRouteGenerator {
-  static GoRouter generateRoute() {
+  static GoRouter generateRoute({required AppState appState}) {
     return GoRouter(
       routes: <RouteBase>[
         GoRoute(
@@ -54,7 +55,7 @@ class IntroRouteGenerator {
               path: IntroRoutes.onboarding,
               name: IntroRoutes.onboarding,
               builder: (BuildContext context, GoRouterState state) {
-                return const BaseApp(
+                return BaseApp(
                   child: OnboardingPage(),
                 );
               },
@@ -63,8 +64,20 @@ class IntroRouteGenerator {
               path: IntroRoutes.selectAppearance,
               name: IntroRoutes.selectAppearance,
               builder: (BuildContext context, GoRouterState state) {
-                return const BaseApp(
-                  child: SelectAppearancePage(),
+                return BaseApp(
+                  child: SelectAppearancePage(
+                    appState: appState,
+                    state: state,
+                  ),
+                );
+              },
+            ),
+            GoRoute(
+              path: IntroRoutes.selectLanguage,
+              name: IntroRoutes.selectLanguage,
+              builder: (BuildContext context, GoRouterState state) {
+                return BaseApp(
+                  child: SelectLanguagePage(appState: appState, state: state),
                 );
               },
             ),
@@ -76,7 +89,7 @@ class IntroRouteGenerator {
 }
 
 class AuthRouteGenerator {
-  static GoRouter generateRoute() {
+  static GoRouter generateRoute({required AppState appState}) {
     return GoRouter(
       routes: <RouteBase>[
         GoRoute(
@@ -160,11 +173,12 @@ class AuthRouteGenerator {
 }
 
 class AppRouteGenerator {
-  static GoRouter generateRoute() {
+  static GoRouter generateRoute({required AppState appState}) {
     return GoRouter(
       routes: <RouteBase>[
         GoRoute(
-          path: AppRoutes.home,
+          path: "/",
+          name: AppRoutes.home,
           builder: (BuildContext context, GoRouterState state) {
             return const BaseApp(
               child: HomeScreen(),
@@ -172,7 +186,17 @@ class AppRouteGenerator {
           },
           routes: <RouteBase>[
             GoRoute(
+              path: AppRoutes.notifications,
+              name: AppRoutes.notifications,
+              builder: (BuildContext context, GoRouterState state) {
+                return const BaseApp(
+                  child: NotificationScreen(),
+                );
+              },
+            ),
+            GoRoute(
                 path: AppRoutes.task,
+                name: AppRoutes.task,
                 builder: (BuildContext context, GoRouterState state) {
                   return const BaseApp(
                     child: TaskScreen(),
@@ -181,6 +205,7 @@ class AppRouteGenerator {
                 routes: <RouteBase>[
                   GoRoute(
                     path: AppRoutes.taskGroup,
+                    name: AppRoutes.taskGroup,
                     builder: (BuildContext context, GoRouterState state) {
                       return const BaseApp(
                         child: TaskGroupScreen(),
@@ -189,6 +214,7 @@ class AppRouteGenerator {
                   ),
                   GoRoute(
                     path: AppRoutes.addTask,
+                    name: AppRoutes.addTask,
                     builder: (BuildContext context, GoRouterState state) {
                       return const BaseApp(
                         child: AddTaskScreen(),
@@ -197,6 +223,7 @@ class AppRouteGenerator {
                   ),
                   GoRoute(
                     path: AppRoutes.editor,
+                    name: AppRoutes.editor,
                     builder: (BuildContext context, GoRouterState state) {
                       return const BaseApp(
                         child: TextEditor(),
@@ -205,7 +232,16 @@ class AppRouteGenerator {
                   )
                 ]),
             GoRoute(
+                path: AppRoutes.browse,
+                name: AppRoutes.browse,
+                builder: (BuildContext context, GoRouterState state) {
+                  return const BaseApp(
+                    child: BrowseTasksScreen(),
+                  );
+                }),
+            GoRoute(
                 path: AppRoutes.settings,
+                name: AppRoutes.settings,
                 builder: (BuildContext context, GoRouterState state) {
                   return const BaseApp(
                     child: SettingsScreen(),
@@ -214,6 +250,7 @@ class AppRouteGenerator {
                 routes: <RouteBase>[
                   GoRoute(
                     path: AppRoutes.profile,
+                    name: AppRoutes.profile,
                     builder: (BuildContext context, GoRouterState state) {
                       return const BaseApp(
                         child: ProfileScreen(),
@@ -222,6 +259,7 @@ class AppRouteGenerator {
                   ),
                   GoRoute(
                     path: AppRoutes.appLanguages,
+                    name: AppRoutes.appLanguages,
                     builder: (BuildContext context, GoRouterState state) {
                       return const BaseApp(
                         child: LanguageScreen(),
@@ -230,14 +268,19 @@ class AppRouteGenerator {
                   ),
                   GoRoute(
                     path: AppRoutes.appAppearances,
+                    name: AppRoutes.appAppearances,
                     builder: (BuildContext context, GoRouterState state) {
-                      return const BaseApp(
-                        child: AppearanceScreen(),
+                      return BaseApp(
+                        child: AppearanceScreen(
+                          appState: appState,
+                          state: state,
+                        ),
                       );
                     },
                   ),
                   GoRoute(
                     path: AppRoutes.appNotification,
+                    name: AppRoutes.appNotification,
                     builder: (BuildContext context, GoRouterState state) {
                       return const BaseApp(
                         child: NotificationSettingsScreen(),
@@ -246,6 +289,7 @@ class AppRouteGenerator {
                   ),
                   GoRoute(
                     path: AppRoutes.accountManagement,
+                    name: AppRoutes.accountManagement,
                     builder: (BuildContext context, GoRouterState state) {
                       return const BaseApp(
                         child: AccountManagementScreen(),
@@ -254,22 +298,6 @@ class AppRouteGenerator {
                   ),
                 ]),
           ],
-        ),
-        GoRoute(
-          path: AppRoutes.notifications,
-          builder: (BuildContext context, GoRouterState state) {
-            return const BaseApp(
-              child: NotificationScreen(),
-            );
-          },
-        ),
-        GoRoute(
-          path: AppRoutes.notifications,
-          builder: (BuildContext context, GoRouterState state) {
-            return const BaseApp(
-              child: NotificationScreen(),
-            );
-          },
         ),
       ],
     );

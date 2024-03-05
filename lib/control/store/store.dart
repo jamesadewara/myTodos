@@ -3,9 +3,9 @@ import 'package:mytodo/control/store/reducers.dart';
 import 'package:redux/redux.dart';
 
 class AppState {
-  final bool isIntro;
-  final String theme;
-  final String language;
+  bool isIntro;
+  String theme;
+  String language;
 
   AppState({
     required this.isIntro,

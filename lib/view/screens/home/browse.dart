@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/custom_widgets/appnavigatorbar.dart';
 import 'package:mytodo/view/custom_widgets/notificator.dart';
@@ -201,7 +202,7 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
                           onPressed: () {},
                         ),
                         onTap: () {
-                          Navigator.of(context).pushNamed(AppRoutes.task);
+                          GoRouter.of(context).pushNamed(AppRoutes.task);
                         },
                       );
                     },

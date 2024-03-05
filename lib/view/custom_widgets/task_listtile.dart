@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/custom_widgets/circular_prorgess.dart';
 
 class TaskListTile extends StatefulWidget {
@@ -8,15 +7,16 @@ class TaskListTile extends StatefulWidget {
   final double? value;
   final Icon icon;
   final Color? iconBgColor;
+  final VoidCallback onTap;
 
-  const TaskListTile({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    required this.value,
-    required this.icon,
-    required this.iconBgColor,
-  });
+  const TaskListTile(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.value,
+      required this.icon,
+      required this.iconBgColor,
+      required this.onTap});
 
   @override
   State<TaskListTile> createState() => _TaskListTileState();
@@ -32,9 +32,7 @@ class _TaskListTileState extends State<TaskListTile> {
   Widget build(BuildContext context) {
     return ListTile(
       tileColor: Theme.of(context).colorScheme.surface,
-      onTap: () {
-        Navigator.of(context).pushNamed(AppRoutes.taskGroup);
-      },
+      onTap: widget.onTap,
       leading: Card(
           color: widget.iconBgColor,
           child: Padding(

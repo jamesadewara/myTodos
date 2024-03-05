@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/custom_widgets/appnavigatorbar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -189,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                                                             Colors.white),
                                                   ),
                                                   onPressed: () {
-                                                    Navigator.of(context)
+                                                    GoRouter.of(context)
                                                         .pushNamed(
                                                             AppRoutes.task);
                                                   },
@@ -279,11 +280,15 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 8,
                               ),
-                              const TaskListTile(
+                              TaskListTile(
+                                onTap: () {
+                                  GoRouter.of(context)
+                                      .pushNamed(AppRoutes.taskGroup);
+                                },
                                 title: "Personal Project",
                                 subtitle: "30 Tasks",
                                 value: .7,
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.person,
                                   size: 16,
                                 ),

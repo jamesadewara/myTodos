@@ -11,6 +11,7 @@ export 'package:mytodo/view/screens/home/home.dart';
 export 'package:mytodo/view/screens/home/notification.dart';
 export 'package:mytodo/view/screens/welcome/onboarding.dart';
 export 'package:mytodo/view/screens/welcome/select_appearance.dart';
+export 'package:mytodo/view/screens/welcome/select_language.dart';
 export 'package:mytodo/view/screens/welcome/splash.dart';
 export "package:mytodo/view/screens/tasks/task.dart";
 export 'package:mytodo/view/screens/tasks/task_group.dart';

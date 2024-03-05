@@ -1,36 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/config.dart';
-import 'package:mytodo/control/route_generator.dart';
+import 'package:mytodo/control/store/actions.dart';
 import 'package:mytodo/control/store/store.dart';
-import 'package:mytodo/view/custom_widgets/decorated_card.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:responsive_grid/responsive_grid.dart';
 
-class SelectAppearancePage extends StatefulWidget {
+class SelectLanguagePage extends StatefulWidget {
   final AppState appState;
   final GoRouterState state;
 
-  const SelectAppearancePage({
+  const SelectLanguagePage({
     super.key,
     required this.appState,
     required this.state,
   });
   @override
-  State<SelectAppearancePage> createState() => _SelectAppearancePageState();
+  State<SelectLanguagePage> createState() => _SelectLanguagePageState();
 }
 
-class _SelectAppearancePageState extends State<SelectAppearancePage> {
+class _SelectLanguagePageState extends State<SelectLanguagePage> {
   final _scrollController = ScrollController();
   late AppState selectedAppState;
 
   @override
   void initState() {
-    selectedAppState =
-        AppState(isIntro: false, theme: widget.appState.theme, language: '');
-
+    selectedAppState = widget.state.extra as AppState;
+    selectedAppState.language = widget.appState.language;
     super.initState();
+  }
+
+  void handleSubmit(AppState appState) {
+    setState(() {
+      StoreProvider.of<AppState>(context).dispatch(ToggleIntroAction(false));
+      StoreProvider.of<AppState>(context)
+          .dispatch(UpdateLanguageAction(appState.language));
+      StoreProvider.of<AppState>(context)
+          .dispatch(UpdateThemeAction(appState.theme));
+    });
   }
 
   @override
@@ -51,7 +59,7 @@ class _SelectAppearancePageState extends State<SelectAppearancePage> {
                   )),
             )),
         title: Text(
-          AppLocalizations.of(context)!.appearanceTitle,
+          AppLocalizations.of(context)!.languageTitle,
         ),
         actions: [
           Card(
@@ -60,8 +68,7 @@ class _SelectAppearancePageState extends State<SelectAppearancePage> {
                 padding: const EdgeInsets.all(4),
                 child: IconButton(
                     onPressed: () {
-                      GoRouter.of(context).pushNamed(IntroRoutes.selectLanguage,
-                          extra: selectedAppState);
+                      handleSubmit(selectedAppState);
                     },
                     icon: const Icon(
                       Icons.chevron_right,
@@ -92,28 +99,39 @@ class _SelectAppearancePageState extends State<SelectAppearancePage> {
                   child: Column(
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.chooseAppAppearanceText,
+                        AppLocalizations.of(context)!.chooseAppLanguageText,
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                       const SizedBox(
                         height: 16,
                       ),
-                      ResponsiveStaggeredGridList(
-                        desiredItemWidth: 160,
-                        children: themeList(context: context).map((e) {
-                          return DecoratedCard(
-                              value: e.id == selectedAppState.theme,
-                              title: e.value,
-                              subtitle: "",
-                              image: e.image,
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedAppState.theme = e.id;
-                                });
-                              },
-                              groupValue: true);
-                        }).toList(),
-                      ),
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: supportedLocales.map((e) {
+                            return Column(
+                              children: [
+                                const SizedBox(height: 8),
+                                CheckboxListTile(
+                                  value: e.locale.languageCode ==
+                                      selectedAppState.language,
+                                  onChanged: (value) {
+                                    print(selectedAppState.language);
+                                    print(e.locale.languageCode);
+                                    setState(() {
+                                      selectedAppState.language =
+                                          e.locale.languageCode;
+                                    });
+                                  },
+                                  tileColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  title: Text(e.name),
+                                ),
+                              ],
+                            );
+                          }).toList()),
                       const SizedBox(height: 16),
                     ],
                   ),

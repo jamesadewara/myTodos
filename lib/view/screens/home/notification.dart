@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -58,7 +59,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               )
             : BackButton(
                 onPressed: () {
-                  Navigator.of(context).pop(true);
+                  GoRouter.of(context).pop(true);
                 },
               ),
         title: Text(selectedNotifications.isNotEmpty

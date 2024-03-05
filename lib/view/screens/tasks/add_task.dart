@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/custom_widgets/notificator.dart';
 import 'package:mytodo/view/custom_widgets/pickers.dart';
@@ -134,7 +135,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8)),
                                 onTap: () {
-                                  Navigator.of(context)
+                                  GoRouter.of(context)
                                       .pushNamed(AppRoutes.editor);
                                 },
                                 title: Text(AppLocalizations.of(context)!

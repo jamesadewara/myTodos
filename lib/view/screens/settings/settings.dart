@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/view/custom_widgets/appnavigatorbar.dart';
 import 'package:mytodo/view/custom_widgets/notificator.dart';
@@ -57,6 +58,10 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+            backgroundColor:
+                ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
+                    ? Theme.of(context).scaffoldBackgroundColor
+                    : Colors.transparent,
             automaticallyImplyLeading: false,
             title: hideAppBar ? null : const Text("Adewara James"),
             actions: const [NotificatorButton()]),
@@ -167,7 +172,7 @@ class _SettingsPageState extends State<SettingsPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8)),
                               onTap: () {
-                                Navigator.of(context)
+                                GoRouter.of(context)
                                     .pushNamed(AppRoutes.profile);
                               },
                               leading: const Card(
@@ -212,7 +217,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             onTap: () {
-                              Navigator.of(context)
+                              GoRouter.of(context)
                                   .pushNamed(AppRoutes.accountManagement);
                             },
                             leading: const Card(
@@ -252,14 +257,14 @@ class _SettingsPageState extends State<SettingsPage> {
                                     child: Text(AppLocalizations.of(context)!
                                         .cancelText),
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      GoRouter.of(context).pop();
                                     },
                                   ),
                                   TextButton(
                                     child: Text(
                                         AppLocalizations.of(context)!.okText),
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      GoRouter.of(context).pop();
                                     },
                                   ),
                                 ],
@@ -296,7 +301,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             onTap: () {
-                              Navigator.of(context)
+                              GoRouter.of(context)
                                   .pushNamed(AppRoutes.appNotification);
                             },
                             leading: const Card(
@@ -319,7 +324,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             onTap: () {
-                              Navigator.of(context)
+                              GoRouter.of(context)
                                   .pushNamed(AppRoutes.appAppearances);
                             },
                             leading: const Card(
@@ -342,7 +347,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             onTap: () {
-                              Navigator.of(context)
+                              GoRouter.of(context)
                                   .pushNamed(AppRoutes.appLanguages);
                             },
                             leading: const Card(

@@ -96,14 +96,10 @@ void main() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   Store<AppState> store = storeInit(prefs: prefs);
 
-  // runApp(StoreProvider(
-  //     store: store,
-  //     child: StoreProvider(store: store, child: const MainApp())));
+  runApp(StoreProvider(store: store, child: const MainApp()));
 
-  runApp(providerInit(
-      child: StoreProvider(
-          store: store,
-          child: StoreProvider(store: store, child: const MainApp()))));
+  // runApp(
+  //     providerInit(child: StoreProvider(store: store, child: const MainApp())));
   FlutterNativeSplash.remove();
 }
 
@@ -176,13 +172,13 @@ class MainApp extends StatelessWidget {
                 routerConfig:
                     // !snapshot.hasData
                     // ?
-                    // AuthRouteGenerator.generateRoute()
-                    // : currentAppState.isIntro
-                    // ?
-                    IntroRouteGenerator.generateRoute()
-                // :
-                // AppRouteGenerator.generateRoute()
-                ,
+                    // AuthRouteGenerator.generateRoute(     appState: currentAppState)
+                    // :
+                    currentAppState.isIntro
+                        ? IntroRouteGenerator.generateRoute(
+                            appState: currentAppState)
+                        : AppRouteGenerator.generateRoute(
+                            appState: currentAppState),
                 builder: (context, child) => ResponsiveBreakpoints.builder(
                   child: child!,
                   breakpoints: [

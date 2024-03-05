@@ -161,6 +161,7 @@
     "successText": "Success",
     "pendingText": "Pending",
     "chooseAppAppearanceText": "Choose your app appearance",
+    "chooseAppLanguageText": "Choose your app language",
     "validateFieldText": "Please enter at least {value} characters",
     "validateDropdownFieldText": "Please select an option",
     "validateUserNameText": "Please enter your username",
