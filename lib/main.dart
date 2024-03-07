@@ -8,6 +8,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mytodo/control/app_notification/push_notification.dart';
 import 'package:mytodo/control/notifier_listener.dart';
 import 'package:mytodo/control/theme/deserializer.dart';
 import 'package:mytodo/control/theme/theme.dart';
@@ -95,6 +96,9 @@ void main() async {
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   Store<AppState> store = storeInit(prefs: prefs);
+
+  PushNotification pushNotification = PushNotification();
+  pushNotification.initNotifications();
 
   runApp(StoreProvider(store: store, child: const MainApp()));
 
