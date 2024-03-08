@@ -1,4 +1,5 @@
 // import 'package:firebase_auth/firebase_auth.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -91,6 +92,7 @@ MultiBlocProvider providerInit({required Widget child}) {
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await EasyLocalization.ensureInitialized();
 
   // await firebaseInit();
 
@@ -100,10 +102,20 @@ void main() async {
   PushNotification pushNotification = PushNotification();
   pushNotification.initNotifications();
 
-  runApp(StoreProvider(store: store, child: const MainApp()));
+  runApp(
+      // EasyLocalization(
+      //   supportedLocales:
+      //       supportedLocales.map((locale) => locale.locale).toList(),
+      //   path:
+      //       'assets/translations', // <-- change the path of the translation files
+      //   fallbackLocale: const Locale('en'),
+      //   child:
+      // providerInit(child:
+      StoreProvider(store: store, child: const MainApp())
+      // )
+      // )
+      );
 
-  // runApp(
-  //     providerInit(child: StoreProvider(store: store, child: const MainApp())));
   FlutterNativeSplash.remove();
 }
 
@@ -164,6 +176,9 @@ class MainApp extends StatelessWidget {
                 darkTheme: CustomThemes(name: ThemeIdentifier.nightfall)
                     .currentTheme()
                     .copyWith(brightness: Brightness.dark),
+                // localizationsDelegates: context.localizationDelegates,
+                // supportedLocales: context.supportedLocales,
+                // locale: context.locale,
                 locale: locale,
                 localizationsDelegates: const [
                   AppLocalizations.delegate,
@@ -175,8 +190,8 @@ class MainApp extends StatelessWidget {
                     supportedLocales.map((locale) => locale.locale).toList(),
                 routerConfig:
                     // !snapshot.hasData
-                    // ?
-                    // AuthRouteGenerator.generateRoute(     appState: currentAppState)
+                    // ? AuthRouteGenerator.generateRoute(
+                    // appState: currentAppState)
                     // :
                     currentAppState.isIntro
                         ? IntroRouteGenerator.generateRoute(
@@ -195,7 +210,6 @@ class MainApp extends StatelessWidget {
                 ),
               ));
         });
-    // }
-    // );
+    // });
   }
 }

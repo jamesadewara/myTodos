@@ -47,6 +47,7 @@ dependencies:
   windows_notification: ^1.0.0
   firebase_crashlytics: ^3.4.16
   icons_launcher: ^2.1.7
+  easy_localization: ^3.0.5
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,8 @@ flutter:
     - assets/images/icons/
     - assets/images/illustrator/
     - assets/images/bg/
+    - assets/translations/
+
 
 
  
