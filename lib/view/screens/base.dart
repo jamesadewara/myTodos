@@ -27,8 +27,8 @@ class _BaseAppState extends State<BaseApp> {
     // final PushNotification pushNotification = PushNotification();
     // String listener = context.watch<NotifyListener>().message;
     // LoadingManagerState loadingState = context.watch<LoadingManagerState>();
-    PushNotification pushNotification = PushNotification();
-    pushNotification.showNotification();
+    // PushNotification pushNotification = PushNotification();
+    // pushNotification.showNotification();
     // loadingState.isLoading
     //     ? showDialog(
     //         context: context,

@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/control/props.dart';
 import 'package:mytodo/control/route_generator.dart';
+import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/view/custom_widgets/appnavigatorbar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mytodo/view/custom_widgets/circular_prorgess.dart';
@@ -11,10 +13,19 @@ import 'package:mytodo/view/custom_widgets/profile_img.dart';
 import 'package:mytodo/view/custom_widgets/progress_card.dart';
 import 'package:mytodo/view/custom_widgets/task_listtile.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:easy_localization/easy_localization.dart';
 
 class HomeScreen extends StatefulWidget {
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
   const HomeScreen({
     super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
   });
 
   @override
@@ -29,11 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const AppNavigationBar(
-        currentState: 0,
-        child: SafeArea(
-          child: HomePage(),
-        ));
+    return const HomePage();
   }
 }
 
@@ -113,7 +120,10 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   title: Text(
-                                    AppLocalizations.of(context)!.welcomeText,
+                                    'ertyuikol',
+                                    // context.tr(
+                                    //   'welcomeText',
+                                    // ),
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
@@ -192,7 +202,8 @@ class _HomePageState extends State<HomePage> {
                                                   onPressed: () {
                                                     GoRouter.of(context)
                                                         .pushNamed(
-                                                            AppRoutes.task);
+                                                      AppRoutes.task,
+                                                    );
                                                   },
                                                   child: const Text("Continue"))
                                             ]),

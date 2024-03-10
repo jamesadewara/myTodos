@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/control/props.dart';
 import 'package:mytodo/control/store/store.dart';
 import 'package:mytodo/index.dart';
 import 'package:mytodo/view/screens/base.dart';
@@ -180,8 +181,14 @@ class AppRouteGenerator {
           path: "/",
           name: AppRoutes.home,
           builder: (BuildContext context, GoRouterState state) {
-            return const BaseApp(
-              child: HomeScreen(),
+            return BaseApp(
+              child: HomeScreen(
+                  appState: appState,
+                  state: state,
+                  param: RouteParams(
+                    id: state.pathParameters["id"].toString(),
+                    path: state.pathParameters["path"].toString(),
+                  )),
             );
           },
           routes: <RouteBase>[
@@ -195,7 +202,7 @@ class AppRouteGenerator {
               },
             ),
             GoRoute(
-                path: AppRoutes.task,
+                path: "/${AppRoutes.task}/:id/:path",
                 name: AppRoutes.task,
                 builder: (BuildContext context, GoRouterState state) {
                   return const BaseApp(

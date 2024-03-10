@@ -1,120 +1,53 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
-import 'package:mytodo/control/app_notification/push_notification.dart';
-import 'package:mytodo/control/notifier_listener.dart';
 import 'package:mytodo/control/theme/deserializer.dart';
 import 'package:mytodo/control/theme/theme.dart';
-import 'package:mytodo/model/bloc/authentication_bloc.dart';
-import 'package:provider/provider.dart';
-import 'firebase_options.dart';
+import 'package:mytodo/initializations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:mytodo/control/config.dart';
-import 'package:mytodo/control/parsers.dart';
 import 'package:mytodo/control/theme_identifier.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:mytodo/control/store/store.dart';
-import 'package:redux/redux.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-firebaseInit() async {
-  await Firebase.initializeApp(
-    name: appName,
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  const fatalError = true;
-  // Non-async exceptions
-  FlutterError.onError = (errorDetails) {
-    if (fatalError) {
-      // If you want to record a "fatal" exception
-      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-      // ignore: dead_code
-    } else {
-      // If you want to record a "non-fatal" exception
-      FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
-    }
-  };
-  // Async exceptions
-  PlatformDispatcher.instance.onError = (error, stack) {
-    if (fatalError) {
-      // If you want to record a "fatal" exception
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-      // ignore: dead_code
-    } else {
-      // If you want to record a "non-fatal" exception
-      FirebaseCrashlytics.instance.recordError(error, stack);
-    }
-    return true;
-  };
-}
+// void main() async {
+//   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+//   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+//   await EasyLocalization.ensureInitialized();
 
-Store<AppState> storeInit({required SharedPreferences prefs}) {
-  // Retrieve previously saved state from SharedPreferences
+//   // await firebaseInit();
 
-  final String? savedStateJson = prefs.getString('appState');
-  final initialState = savedStateJson != null
-      ? deserializeState(savedStateJson)
-      : AppState(isIntro: true, theme: "system", language: "en");
+//   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  final store = Store<AppState>(
-    rootReducer,
-    initialState: initialState,
-    middleware: [saveStateMiddleware],
-  );
+//   runApp(EasyLocalization(
+//       supportedLocales: const [Locale('en', 'US')],
+//       // supportedLocales:
+//       //     supportedLocales.map((locale) => locale.locale).toList(),
+//       path: 'assets/translations',
+//       fallbackLocale: const Locale('en', 'US'),
+//       child: providerInit(
+//           child: StoreProvider(
+//               store: storeInit(prefs: prefs), child: const MainApp()))));
 
-  return store;
-}
-
-MultiBlocProvider providerInit({required Widget child}) {
-  return MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthenticationBloc>(
-          create: (BuildContext context) => AuthenticationBloc(),
-        ),
-      ],
-      child: MultiProvider(providers: [
-        ListenableProvider<NotifyListener>(
-          create: (_) => NotifyListener(),
-        ),
-      ], child: child));
-}
+//   FlutterNativeSplash.remove();
+// }
 
 void main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  // await firebaseInit();
-
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  Store<AppState> store = storeInit(prefs: prefs);
 
-  PushNotification pushNotification = PushNotification();
-  pushNotification.initNotifications();
-
-  runApp(
-      // EasyLocalization(
-      //   supportedLocales:
-      //       supportedLocales.map((locale) => locale.locale).toList(),
-      //   path:
-      //       'assets/translations', // <-- change the path of the translation files
-      //   fallbackLocale: const Locale('en'),
-      //   child:
-      // providerInit(child:
-      StoreProvider(store: store, child: const MainApp())
-      // )
-      // )
-      );
+  runApp(EasyLocalization(
+      supportedLocales: const [Locale('en', 'US')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', 'US'),
+      child: providerInit(
+          child: StoreProvider(
+              store: storeInit(prefs: prefs), child: const MainApp()))));
 
   FlutterNativeSplash.remove();
 }
@@ -141,6 +74,9 @@ class MainApp extends StatelessWidget {
           } else {
             locale = Localizations.localeOf(context);
           }
+          context.setLocale(locale);
+
+          print(context.locale.countryCode);
           // return StreamBuilder<User?>(
           //     stream: FirebaseAuth.instance.authStateChanges(),
           //     builder: (context, snapshot) {
@@ -176,28 +112,29 @@ class MainApp extends StatelessWidget {
                 darkTheme: CustomThemes(name: ThemeIdentifier.nightfall)
                     .currentTheme()
                     .copyWith(brightness: Brightness.dark),
-                // localizationsDelegates: context.localizationDelegates,
-                // supportedLocales: context.supportedLocales,
-                // locale: context.locale,
-                locale: locale,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales:
-                    supportedLocales.map((locale) => locale.locale).toList(),
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                // locale: locale,
+                // localizationsDelegates: const [
+                //   AppLocalizations.delegate,
+                //   GlobalMaterialLocalizations.delegate,
+                //   GlobalWidgetsLocalizations.delegate,
+                //   GlobalCupertinoLocalizations.delegate,
+                // ],
+                // supportedLocales:
+                //     supportedLocales.map((locale) => locale.locale).toList(),
                 routerConfig:
                     // !snapshot.hasData
                     // ? AuthRouteGenerator.generateRoute(
                     // appState: currentAppState)
                     // :
-                    currentAppState.isIntro
-                        ? IntroRouteGenerator.generateRoute(
-                            appState: currentAppState)
-                        : AppRouteGenerator.generateRoute(
-                            appState: currentAppState),
+                    // currentAppState.isIntro
+                    // ?
+                    IntroRouteGenerator.generateRoute(
+                        appState: currentAppState),
+                // :
+                // AppRouteGenerator.generateRoute(appState: currentAppState),
                 builder: (context, child) => ResponsiveBreakpoints.builder(
                   child: child!,
                   breakpoints: [

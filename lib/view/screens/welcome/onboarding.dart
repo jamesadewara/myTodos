@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytodo/control/route_generator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -25,7 +25,7 @@ class OnboardingPage extends StatelessWidget {
                       SingleChildScrollView(
                         controller: _scrollController,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Image.asset(
@@ -50,7 +50,7 @@ class OnboardingPage extends StatelessWidget {
                                     padding: const EdgeInsets.only(
                                         left: 32, right: 32),
                                     child: AutoSizeText(
-                                      AppLocalizations.of(context)!.introTitle,
+                                      context.tr('introTitle'),
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
@@ -75,8 +75,7 @@ class OnboardingPage extends StatelessWidget {
                                           : 84,
                                     ),
                                     child: AutoSizeText(
-                                      AppLocalizations.of(context)!
-                                          .introDescription,
+                                      context.tr("introDescription"),
                                       textAlign: TextAlign.center,
                                       style:
                                           Theme.of(context).textTheme.bodyLarge,
@@ -98,7 +97,7 @@ class OnboardingPage extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           child: FilledButton(
                               style: ButtonStyle(
                                   backgroundColor: MaterialStatePropertyAll(
@@ -113,8 +112,7 @@ class OnboardingPage extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 16, right: 16, top: 8, bottom: 8),
-                                child: Text(AppLocalizations.of(context)!
-                                    .exitIntroText),
+                                child: Text(context.tr('exitIntroText')),
                               )),
                         ),
                       ),
