@@ -124,5 +124,8 @@
     "validateIsEmptyText": "field must not be empty",
     "validateAtLeastText": "at least {value} characters",
     "validateUserEmailText": "Enter a valid email address",
-    "validateUserPasswordText": "please enter at least {value} character"
+    "validateUserPasswordText": "please enter at least {value} character",
+    "oopsText": "Oops",
+    "oopsDetailText": "Oops, something went wrong. Please try again or go back to your previous page"
+
 }
