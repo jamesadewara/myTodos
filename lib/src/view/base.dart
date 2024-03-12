@@ -17,10 +17,8 @@ class BaseApp extends StatefulWidget {
 class _BaseAppState extends State<BaseApp> {
   @override
   Widget build(BuildContext context) {
-    // String listener = context.watch<NotifyListener>().message;
-    // LoadingManagerState loadingState = context.watch<LoadingManagerState>();
-    PushNotification pushNotification = PushNotification();
-    pushNotification.showNotification();
+    // PushNotification pushNotification = PushNotification();
+    // pushNotification.showNotification();
     // loadingState.isLoading
     //     ? showDialog(
     //         context: context,

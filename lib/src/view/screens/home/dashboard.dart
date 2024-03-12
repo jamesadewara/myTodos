@@ -14,11 +14,11 @@ import 'package:mytodo/src/view/custom_widgets/progress_card.dart';
 import 'package:mytodo/src/view/custom_widgets/task_listtile.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-class HomeScreen extends StatefulWidget {
+class DashboardScreen extends StatefulWidget {
   final RouteParams param;
   final GoRouterState state;
   final AppState appState;
-  const HomeScreen({
+  const DashboardScreen({
     super.key,
     required this.param,
     required this.state,
@@ -26,37 +26,10 @@ class HomeScreen extends StatefulWidget {
   });
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const AppNavigationBar(
-        currentState: 0,
-        child: SafeArea(
-          child: HomePage(),
-        ));
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({
-    super.key,
-  });
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final _scrollController = ScrollController();
-
+class _DashboardScreenState extends State<DashboardScreen> {
   bool hideAppBar = true;
 
   @override
@@ -67,25 +40,46 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    return AppNavigationBar(
+        currentState: 0,
+        hideAppBar: hideAppBar,
+        automaticallyImplyLeading: false,
+        title: const Text("Adewara James"),
+        child: DashboardPage(
+          onHide: (bool value) {
+            setState(() {
+              hideAppBar = value;
+            });
+          },
+        ));
+  }
+}
+
+class DashboardPage extends StatefulWidget {
+  final Function(bool) onHide;
+
+  const DashboardPage({
+    super.key,
+    required this.onHide,
+  });
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  final _scrollController = ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-        appBar: hideAppBar
-            ? null
-            : AppBar(
-                automaticallyImplyLeading: false,
-                title: const Text("Adewara James"),
-                actions: const <Widget>[NotificatorButton()],
-              ),
         body: Scrollbar(
             controller: _scrollController,
             notificationPredicate: (ScrollNotification notification) {
               if (_scrollController.offset > 48) {
-                setState(() {
-                  hideAppBar = false;
-                });
+                widget.onHide(false);
               } else {
-                setState(() {
-                  hideAppBar = true;
-                });
+                widget.onHide(true);
               }
 
               return notification.depth == 0;
@@ -121,10 +115,9 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   title: Text(
-                                    'ertyuikol',
-                                    // context.tr(
-                                    //   'welcomeText',
-                                    // ),
+                                    context.tr(
+                                      'welcomeText',
+                                    ),
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),

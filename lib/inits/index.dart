@@ -7,7 +7,7 @@ export 'package:mytodo/src/view/screens/tasks/add_task.dart';
 export 'package:mytodo/src/view/screens/settings/notification_settings.dart';
 export 'package:mytodo/src/view/screens/settings/settings.dart';
 export 'package:mytodo/src/view/screens/home/browse.dart';
-export 'package:mytodo/src/view/screens/home/home.dart';
+export 'package:mytodo/src/view/screens/home/dashboard.dart';
 export 'package:mytodo/src/view/screens/home/notification.dart';
 export 'package:mytodo/src/view/screens/welcome/onboarding.dart';
 export 'package:mytodo/src/view/screens/welcome/select_appearance.dart';

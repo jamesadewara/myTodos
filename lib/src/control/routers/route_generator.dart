@@ -42,47 +42,37 @@ class IntroRoutes {
 class IntroRouteGenerator {
   static GoRouter generateRoute({required AppState appState}) {
     return GoRouter(
+      initialLocation: IntroRoutes.splash,
       routes: <RouteBase>[
         GoRoute(
-          path: "/",
-          name: IntroRoutes.splash,
+          path: IntroRoutes.onboarding,
+          name: IntroRoutes.onboarding,
           builder: (BuildContext context, GoRouterState state) {
-            return const BaseApp(
-              child: SplashScreen(),
+            return BaseApp(
+              child: OnboardingPage(),
             );
           },
-          routes: <RouteBase>[
-            GoRoute(
-              path: IntroRoutes.onboarding,
-              name: IntroRoutes.onboarding,
-              builder: (BuildContext context, GoRouterState state) {
-                return BaseApp(
-                  child: OnboardingPage(),
-                );
-              },
-            ),
-            GoRoute(
-              path: IntroRoutes.selectAppearance,
-              name: IntroRoutes.selectAppearance,
-              builder: (BuildContext context, GoRouterState state) {
-                return BaseApp(
-                  child: SelectAppearancePage(
-                    appState: appState,
-                    state: state,
-                  ),
-                );
-              },
-            ),
-            GoRoute(
-              path: IntroRoutes.selectLanguage,
-              name: IntroRoutes.selectLanguage,
-              builder: (BuildContext context, GoRouterState state) {
-                return BaseApp(
-                  child: SelectLanguagePage(appState: appState, state: state),
-                );
-              },
-            ),
-          ],
+        ),
+        GoRoute(
+          path: IntroRoutes.selectAppearance,
+          name: IntroRoutes.selectAppearance,
+          builder: (BuildContext context, GoRouterState state) {
+            return BaseApp(
+              child: SelectAppearancePage(
+                appState: appState,
+                state: state,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: IntroRoutes.selectLanguage,
+          name: IntroRoutes.selectLanguage,
+          builder: (BuildContext context, GoRouterState state) {
+            return BaseApp(
+              child: SelectLanguagePage(appState: appState, state: state),
+            );
+          },
         ),
       ],
     );
@@ -182,7 +172,7 @@ class AppRouteGenerator {
           name: AppRoutes.home,
           builder: (BuildContext context, GoRouterState state) {
             return BaseApp(
-              child: HomeScreen(
+              child: DashboardScreen(
                   appState: appState,
                   state: state,
                   param: RouteParams(

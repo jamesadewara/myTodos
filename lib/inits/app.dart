@@ -19,22 +19,24 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Brightness currentBrightness = Theme.of(context).brightness;
+    // context.deleteSaveLocale();
+    // context.setLocale(const Locale("en", "US"));
 
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         builder: (context, currentAppState) {
-          Locale locale;
-          if (currentAppState.language.isNotEmpty &&
-              supportedLocales.any((loc) =>
-                  loc.locale.languageCode == currentAppState.language)) {
-            locale = supportedLocales
-                .firstWhere((loc) =>
-                    loc.locale.languageCode == currentAppState.language)
-                .locale;
-          } else {
-            locale = Localizations.localeOf(context);
-          }
-          context.setLocale(locale);
+          // Locale locale;
+          // if (currentAppState.language.isNotEmpty &&
+          //     supportedLocales.any((loc) =>
+          //         loc.locale.languageCode == currentAppState.language)) {
+          //   locale = supportedLocales
+          //       .firstWhere((loc) =>
+          //           loc.locale.languageCode == currentAppState.language)
+          //       .locale;
+          // } else {
+          //   locale = Localizations.localeOf(context);
+          // }
+          // context.setLocale(locale);
 
           // return StreamBuilder<User?>(
           //     stream: FirebaseAuth.instance.authStateChanges(),
@@ -71,13 +73,13 @@ class MainApp extends StatelessWidget {
                 darkTheme: CustomThemes(name: ThemeIdentifier.nightfall)
                     .currentTheme()
                     .copyWith(brightness: Brightness.dark),
-                // localizationsDelegates: context.localizationDelegates,
-                localizationsDelegates: const <LocalizationsDelegate<Object>>[
-                  CustomAppLocalizationsDelegate(),
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
+                localizationsDelegates: context.localizationDelegates,
+                // localizationsDelegates: const <LocalizationsDelegate<Object>>[
+                //   CustomAppLocalizationsDelegate(),
+                //   GlobalWidgetsLocalizations.delegate,
+                //   GlobalMaterialLocalizations.delegate,
+                //   GlobalWidgetsLocalizations.delegate,
+                // ],
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
                 routerConfig:
