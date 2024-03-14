@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
-import 'package:mytodo/src/control/constants/app_localization/app_localization_delegates.dart';
 import 'package:mytodo/src/control/constants/theme/deserializer.dart';
 import 'package:mytodo/src/control/constants/theme/theme.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -10,7 +9,6 @@ import 'package:mytodo/src/control/constants/theme/theme_identifier.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/control/constants/store/store.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -82,16 +80,10 @@ class MainApp extends StatelessWidget {
                 // ],
                 supportedLocales: context.supportedLocales,
                 locale: context.locale,
-                routerConfig:
-                    // !snapshot.hasData
-                    // ? AuthRouteGenerator.generateRoute(
-                    // appState: currentAppState)
-                    // :
-                    currentAppState.isIntro
-                        ? IntroRouteGenerator.generateRoute(
-                            appState: currentAppState)
-                        : AppRouteGenerator.generateRoute(
-                            appState: currentAppState),
+                // snapshot.hasData
+                routerConfig: MainRouteGenerator.generateRoute(
+                    appState: currentAppState, isLoggedIn: true),
+
                 builder: (context, child) => ResponsiveBreakpoints.builder(
                   child: child!,
                   breakpoints: [

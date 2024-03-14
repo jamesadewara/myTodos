@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/control/constants/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const ForgotPasswordScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
@@ -26,8 +36,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       }
     }
 
-    return SafeArea(
-        child: Scrollbar(
+    return Scaffold(
+        body: SafeArea(
+            child: Scrollbar(
       controller: _scrollController,
       notificationPredicate: (ScrollNotification notification) {
         return notification.depth == 0;
@@ -67,15 +78,22 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AutoSizeText(context.tr("forgottenPasswordText"),
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.bodyMedium),
-                    AutoSizeText(context.tr("recoverWithEmailText"),
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.displaySmall),
+                    AutoSizeText(
+                      context.tr("forgottenPasswordText"),
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      softWrap: true,
+                    ),
+                    AutoSizeText(
+                      context.tr("recoverWithEmailText"),
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.displaySmall,
+                      softWrap: true,
+                    ),
                     const SizedBox(height: 64),
                     Text(
                       context.tr("emailText"),
+                      softWrap: true,
                     ),
                     TextFormField(
                       controller: _emailController,
@@ -100,7 +118,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text(context.tr("continueText")),
+                            child: Text(
+                              context.tr("continueText"),
+                              softWrap: true,
+                            ),
                           )),
                     ),
                     const SizedBox(
@@ -113,6 +134,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ]),
         ),
       ),
-    ));
+    )));
   }
 }

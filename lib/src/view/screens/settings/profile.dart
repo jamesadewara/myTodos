@@ -1,13 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/view/custom_widgets/appnavigatorbar.dart';
 import 'package:mytodo/src/view/custom_widgets/dropdown_modal.dart';
 import 'package:mytodo/src/view/custom_widgets/profile_img.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
   const ProfileScreen({
     super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
   });
 
   @override
@@ -22,9 +31,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const AppNavigationBar(
+    return AppNavigationBar(
         currentState: 3,
-        child: SafeArea(
+        automaticallyImplyLeading: false,
+        title: Text(
+          context.tr("profileTitle"),
+          softWrap: true,
+        ),
+        child: const SafeArea(
           child: ProfilePage(
             isDesktop: false,
           ),
@@ -65,30 +79,25 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: SingleChildScrollView(
                         controller: _scrollController,
                         child: profileBody(context)))))
-        : Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: Text(context.tr("profileTitle")),
-            ),
-            body: Scrollbar(
+        : Scrollbar(
+            controller: _scrollController,
+            notificationPredicate: (ScrollNotification notification) {
+              return notification.depth == 0;
+            },
+            child: SingleChildScrollView(
                 controller: _scrollController,
-                notificationPredicate: (ScrollNotification notification) {
-                  return notification.depth == 0;
-                },
-                child: SingleChildScrollView(
-                    controller: _scrollController,
-                    child: Center(
-                        child: Padding(
-                            padding: EdgeInsets.only(
-                                left: ResponsiveBreakpoints.of(context)
-                                        .between(MOBILE, TABLET)
-                                    ? 8
-                                    : 72,
-                                right: ResponsiveBreakpoints.of(context)
-                                        .between(MOBILE, TABLET)
-                                    ? 8
-                                    : 72),
-                            child: profileBody(context))))));
+                child: Center(
+                    child: Padding(
+                        padding: EdgeInsets.only(
+                            left: ResponsiveBreakpoints.of(context)
+                                    .between(MOBILE, TABLET)
+                                ? 8
+                                : 72,
+                            right: ResponsiveBreakpoints.of(context)
+                                    .between(MOBILE, TABLET)
+                                ? 8
+                                : 72),
+                        child: profileBody(context)))));
   }
 
   Widget profileBody(BuildContext context) {
@@ -107,9 +116,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
               shape:
                   const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-              title:
-                  Text(context.tr("usernameText", namedArgs: {"value": ":"})),
-              subtitle: const Text('Adewara James Ayomide'),
+              title: Text(
+                context.tr("usernameText", namedArgs: {"value": ":"}),
+                softWrap: true,
+              ),
+              subtitle: const Text(
+                'Adewara James Ayomide',
+                softWrap: true,
+              ),
               onTap: () {
                 showDialog(
                   context: context,
@@ -127,15 +141,27 @@ class _ProfilePageState extends State<ProfilePage> {
           ListTile(
             shape:
                 const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-            title: Text(context.tr("emailText")),
-            subtitle: const Text('jamesadewara1@maigl.com'),
+            title: Text(
+              context.tr("emailText"),
+              softWrap: true,
+            ),
+            subtitle: const Text(
+              'jamesadewara1@maigl.com',
+              softWrap: true,
+            ),
           ),
           const SizedBox(
             height: 4,
           ),
           ListTile(
-            title: Text(context.tr("aboutText")),
-            subtitle: const Text('I love programming'),
+            title: Text(
+              context.tr("aboutText"),
+              softWrap: true,
+            ),
+            subtitle: const Text(
+              'I love programming',
+              softWrap: true,
+            ),
           ),
           const SizedBox(
             height: 4,

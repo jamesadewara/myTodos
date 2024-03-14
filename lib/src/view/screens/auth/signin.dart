@@ -4,6 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytodo/src/control/constants/config.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/control/constants/validators.dart';
 import 'package:mytodo/src/model/bloc/authentication_bloc.dart';
@@ -11,7 +13,15 @@ import 'package:mytodo/src/model/states/auth/authentication_event_state.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const LoginScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -43,8 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
 
-    return SafeArea(
-        child: Scrollbar(
+    return Scaffold(
+        body: SafeArea(
+            child: Scrollbar(
       controller: _scrollController,
       notificationPredicate: (ScrollNotification notification) {
         return notification.depth == 0;
@@ -65,18 +76,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       size: 120,
                     ),
                     const SizedBox(height: 10),
-                    AutoSizeText(context.tr("signInText"),
-                        maxLines: 1,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displaySmall!
-                            .copyWith(fontWeight: FontWeight.bold)),
+                    AutoSizeText(
+                      context.tr("signInText"),
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall!
+                          .copyWith(fontWeight: FontWeight.bold),
+                      softWrap: true,
+                    ),
                     const SizedBox(height: 8),
                     AutoSizeText(
-                        context.tr("signInDescriptionText",
-                            namedArgs: {"value": appName}),
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.bodyMedium),
+                      context.tr("signInDescriptionText",
+                          namedArgs: {"value": appName}),
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      softWrap: true,
+                    ),
                     const SizedBox(height: 16),
                     Padding(
                       padding: const EdgeInsets.only(left: 12, right: 12),
@@ -86,7 +102,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(context.tr("emailText")),
+                            Text(
+                              context.tr("emailText"),
+                              softWrap: true,
+                            ),
                             TextFormField(
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
@@ -102,7 +121,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   hintText: context.tr("emailHint")),
                             ),
                             const SizedBox(height: 32),
-                            Text(context.tr("passwordText")),
+                            Text(
+                              context.tr("passwordText"),
+                              softWrap: true,
+                            ),
                             TextFormField(
                               controller: _passwordController,
                               keyboardType: TextInputType.emailAddress,
@@ -129,6 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color:
                                             Theme.of(context).colorScheme.error,
                                         fontWeight: FontWeight.bold),
+                                softWrap: true,
                               ),
                               onPressed: () {
                                 GoRouter.of(context)
@@ -145,21 +168,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         left: 16, right: 16, top: 8, bottom: 8),
-                                    child: Text(context.tr("submitText")),
+                                    child: Text(
+                                      context.tr("submitText"),
+                                      softWrap: true,
+                                    ),
                                   )),
                             ),
                             const SizedBox(
                               height: 16,
                             ),
                             ListTile(
-                                title: Text(context.tr("haveNotAnAccountText")),
+                                title: Text(
+                                  context.tr("haveNotAnAccountText"),
+                                  softWrap: true,
+                                ),
                                 subtitle: Row(children: [
                                   TextButton(
                                       onPressed: () {
                                         GoRouter.of(context)
                                             .pushNamed(AuthRoutes.signup);
                                       },
-                                      child: Text(context.tr("signUpText"))),
+                                      child: Text(
+                                        context.tr("signUpText"),
+                                        softWrap: true,
+                                      )),
                                   const Flexible(child: Center())
                                 ])),
                             const SizedBox(
@@ -172,6 +204,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ]),
             ),
           )),
-    ));
+    )));
   }
 }

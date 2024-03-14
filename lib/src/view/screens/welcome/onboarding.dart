@@ -58,6 +58,7 @@ class OnboardingPage extends StatelessWidget {
                                           .copyWith(
                                               fontWeight: FontWeight.bold),
                                       maxLines: 2,
+                                      softWrap: true,
                                     ),
                                   ),
                                   const SizedBox(
@@ -80,6 +81,7 @@ class OnboardingPage extends StatelessWidget {
                                       style:
                                           Theme.of(context).textTheme.bodyLarge,
                                       maxLines: 3,
+                                      softWrap: true,
                                     ),
                                   ),
                                   const SizedBox(
@@ -112,7 +114,7 @@ class OnboardingPage extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 16, right: 16, top: 8, bottom: 8),
-                                child: Text(context.tr('exitIntroText')),
+                                child: Text(context.tr('exitIntroText'),softWrap: true,),
                               )),
                         ),
                       ),

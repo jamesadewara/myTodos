@@ -36,9 +36,15 @@ class _CurrentTaskListTileState extends State<CurrentTaskListTile> {
             borderRadius: BorderRadius.circular(8)),
         child: Column(children: [
           ListTile(
-            title: Text(widget.title),
+            title: Text(
+              widget.title,
+              softWrap: true,
+            ),
             titleTextStyle: Theme.of(context).textTheme.labelLarge,
-            subtitle: Text(widget.subtitle),
+            subtitle: Text(
+              widget.subtitle,
+              softWrap: true,
+            ),
             subtitleTextStyle: Theme.of(context)
                 .textTheme
                 .labelLarge
@@ -62,16 +68,22 @@ class _CurrentTaskListTileState extends State<CurrentTaskListTile> {
                   children: [
                     Icon(Icons.history_toggle_off_outlined,
                         color: Theme.of(context).colorScheme.primary),
-                    Text(widget.timestamp,
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary))
+                    Text(
+                      widget.timestamp,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary),
+                      softWrap: true,
+                    )
                   ],
                 ),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pushNamed(AppRoutes.addTask);
                     },
-                    child: Text(context.tr("doneText")))
+                    child: Text(
+                      context.tr("doneText"),
+                      softWrap: true,
+                    ))
               ],
             ),
           ),

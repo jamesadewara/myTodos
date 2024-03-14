@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mytodo/src/control/features/app_notification/push_notification.dart';
+import 'package:mytodo/src/control/features/executor/background_service.dart';
 import 'package:mytodo/src/model/bloc/authentication_bloc.dart';
 import '../firebase_options.dart';
 import 'package:mytodo/src/control/constants/config.dart';
@@ -72,4 +73,11 @@ MultiBlocProvider providerInit({required Widget child}) {
 void pushNotificationInit() {
   PushNotification pushNotification = PushNotification();
   pushNotification.initNotifications();
+}
+
+servicesInit() async {
+  await BackgroundService.initialize(callback: () {
+    // Callback function to execute when background task runs
+    print('Background task callback executed');
+  });
 }

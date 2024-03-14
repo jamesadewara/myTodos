@@ -58,7 +58,10 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                     color: Colors.white,
                   )),
             )),
-        title: Text(context.tr("languageTitle")),
+        title: Text(
+          context.tr("languageTitle"),
+          softWrap: true,
+        ),
         actions: [
           Card(
               color: Theme.of(context).primaryColor,
@@ -99,6 +102,7 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                       Text(
                         context.tr("chooseAppLanguageText"),
                         style: Theme.of(context).textTheme.displaySmall,
+                        softWrap: true,
                       ),
                       const SizedBox(
                         height: 16,
@@ -125,7 +129,10 @@ class _SelectLanguagePageState extends State<SelectLanguagePage> {
                                       Theme.of(context).colorScheme.surface,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8)),
-                                  title: Text(e.name),
+                                  title: Text(
+                                    e.name,
+                                    softWrap: true,
+                                  ),
                                 ),
                               ],
                             );

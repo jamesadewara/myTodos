@@ -3,12 +3,22 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytodo/src/control/constants/config.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/control/constants/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const SignupScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -27,8 +37,9 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     }
 
-    return SafeArea(
-        child: Scrollbar(
+    return Scaffold(
+        body: SafeArea(
+            child: Scrollbar(
       controller: _scrollController,
       notificationPredicate: (ScrollNotification notification) {
         return notification.depth == 0;
@@ -57,18 +68,23 @@ class _SignupScreenState extends State<SignupScreen> {
               size: 120,
             ),
             const SizedBox(height: 10),
-            AutoSizeText(context.tr("signUpText"),
-                maxLines: 1,
-                style: Theme.of(context)
-                    .textTheme
-                    .displaySmall!
-                    .copyWith(fontWeight: FontWeight.bold)),
+            AutoSizeText(
+              context.tr("signUpText"),
+              maxLines: 1,
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall!
+                  .copyWith(fontWeight: FontWeight.bold),
+              softWrap: true,
+            ),
             const SizedBox(height: 8),
             AutoSizeText(
-                context
-                    .tr("signUpDescriptionText", namedArgs: {"value": appName}),
-                maxLines: 1,
-                style: Theme.of(context).textTheme.bodyMedium),
+              context
+                  .tr("signUpDescriptionText", namedArgs: {"value": appName}),
+              maxLines: 1,
+              style: Theme.of(context).textTheme.bodyMedium,
+              softWrap: true,
+            ),
             const SizedBox(height: 16),
             Padding(
               padding: EdgeInsets.only(
@@ -86,7 +102,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(context.tr("emailText")),
+                    Text(
+                      context.tr("emailText"),
+                      softWrap: true,
+                    ),
                     TextFormField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -106,7 +125,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(
                             left: 16, right: 16, top: 8, bottom: 8),
-                        child: Text(context.tr("continueText")),
+                        child: Text(
+                          context.tr("continueText"),
+                          softWrap: true,
+                        ),
                       ),
                       onPressed: () async {
                         handleSubmit();
@@ -116,14 +138,20 @@ class _SignupScreenState extends State<SignupScreen> {
                       height: 16,
                     ),
                     ListTile(
-                        title: Text(context.tr("alreadyHaveAnAccountText")),
+                        title: Text(
+                          context.tr("alreadyHaveAnAccountText"),
+                          softWrap: true,
+                        ),
                         subtitle: Row(children: [
                           TextButton(
                               onPressed: () {
                                 GoRouter.of(context)
                                     .pushNamed(AuthRoutes.login);
                               },
-                              child: Text(context.tr("signInText"))),
+                              child: Text(
+                                context.tr("signInText"),
+                                softWrap: true,
+                              )),
                           const Flexible(child: Center())
                         ])),
                     const SizedBox(
@@ -136,6 +164,6 @@ class _SignupScreenState extends State<SignupScreen> {
           ]),
         ),
       ),
-    ));
+    )));
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mytodo/src/control/constants/config.dart';
+import 'package:mytodo/src/control/constants/store/actions.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/control/constants/store/store.dart';
 import 'package:mytodo/src/view/custom_widgets/decorated_card.dart';
@@ -52,6 +54,7 @@ class _SelectAppearancePageState extends State<SelectAppearancePage> {
             )),
         title: Text(
           context.tr("appearanceTitle"),
+          softWrap: true,
         ),
         actions: [
           Card(
@@ -60,6 +63,8 @@ class _SelectAppearancePageState extends State<SelectAppearancePage> {
                 padding: const EdgeInsets.all(4),
                 child: IconButton(
                     onPressed: () {
+                      StoreProvider.of<AppState>(context)
+                          .dispatch(UpdateThemeAction(selectedAppState.theme));
                       GoRouter.of(context).pushNamed(IntroRoutes.selectLanguage,
                           extra: selectedAppState);
                     },
@@ -94,6 +99,7 @@ class _SelectAppearancePageState extends State<SelectAppearancePage> {
                       Text(
                         context.tr("chooseAppAppearanceText"),
                         style: Theme.of(context).textTheme.displaySmall,
+                        softWrap: true,
                       ),
                       const SizedBox(
                         height: 16,

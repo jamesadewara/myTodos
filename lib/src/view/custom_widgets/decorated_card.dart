@@ -51,12 +51,16 @@ class DecoratedCard extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: AutoSizeText(title),
+              title: AutoSizeText(
+                title,
+                softWrap: true,
+              ),
               subtitle: subtitle.isNotEmpty
                   ? Text(
                       subtitle,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
+                      softWrap: true,
                     )
                   : null,
             )

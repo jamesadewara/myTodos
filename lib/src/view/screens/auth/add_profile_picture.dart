@@ -4,12 +4,22 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/view/custom_widgets/dropdown_modal.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class AddProfilePictureScreen extends StatefulWidget {
-  const AddProfilePictureScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const AddProfilePictureScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<AddProfilePictureScreen> createState() =>
@@ -28,7 +38,8 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Scaffold(
+        body: SafeArea(
       child: Scrollbar(
         controller: _scrollController,
         child: SingleChildScrollView(
@@ -72,6 +83,7 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
                               .textTheme
                               .displayMedium!
                               .copyWith(fontWeight: FontWeight.bold),
+                          softWrap: true,
                         ),
                         const SizedBox(height: 32),
                         GestureDetector(
@@ -120,6 +132,7 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
                         Text(
                           context.tr("addProfileText"),
                           style: Theme.of(context).textTheme.labelLarge,
+                          softWrap: true,
                         ),
                       ],
                     ),
@@ -139,6 +152,7 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
                           horizontal: 16, vertical: 8),
                       child: Text(
                         context.tr("verifyText"),
+                        softWrap: true,
                       ),
                     ),
                   ),
@@ -151,6 +165,6 @@ class _AddProfilePictureScreenState extends State<AddProfilePictureScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

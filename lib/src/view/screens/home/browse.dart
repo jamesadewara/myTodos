@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
 import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/view/custom_widgets/appnavigatorbar.dart';
@@ -9,16 +10,74 @@ import 'package:mytodo/src/view/custom_widgets/notificator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class BrowseTasksScreen extends StatefulWidget {
-  const BrowseTasksScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const BrowseTasksScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<BrowseTasksScreen> createState() => _BrowseTasksScreenState();
 }
 
 class _BrowseTasksScreenState extends State<BrowseTasksScreen> {
+  @override
+  Widget build(BuildContext context) {
+    ScrollController scrollControllerReceiver = ScrollController();
+
+    @override
+    void initState() {
+      super.initState();
+    }
+
+    return AppNavigationBar(
+      currentState: 2,
+      hideAppBar: true,
+      automaticallyImplyLeading: false,
+      title: const Text(
+        "Adewara James",
+        softWrap: true,
+      ),
+      scrollController: scrollControllerReceiver,
+      child: BrowseTasksPage(
+        onScroll: (ScrollController value) {
+          setState(() {
+            scrollControllerReceiver = value;
+          });
+        },
+      ),
+    );
+  }
+}
+
+class BrowseTasksPage extends StatefulWidget {
+  final Function(ScrollController) onScroll;
+  const BrowseTasksPage({
+    super.key,
+    required this.onScroll,
+  });
+
+  @override
+  State<BrowseTasksPage> createState() => _BrowseTasksPageState();
+}
+
+class _BrowseTasksPageState extends State<BrowseTasksPage> {
+  final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
   List<TaskProps> taskList = [
     TaskProps(name: "Task 1", description: "Description for Task 1"),
     TaskProps(name: "Task 2", description: "Description for Task 2"),
+    TaskProps(name: "Task 3", description: "Description for Task 3"),
+    TaskProps(name: "Task 3", description: "Description for Task 3"),
+    TaskProps(name: "Task 3", description: "Description for Task 3"),
+    TaskProps(name: "Task 3", description: "Description for Task 3"),
+    TaskProps(name: "Task 3", description: "Description for Task 3"),
+    TaskProps(name: "Task 3", description: "Description for Task 3"),
+    TaskProps(name: "Task 3", description: "Description for Task 3"),
     TaskProps(name: "Task 3", description: "Description for Task 3"),
     // Add more tasks as needed
   ];
@@ -33,51 +92,20 @@ class _BrowseTasksScreenState extends State<BrowseTasksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AppNavigationBar(
-      currentState: 2,
-      hideAppBar: hideAppBar,
-      automaticallyImplyLeading: false,
-      title: const Text("Adewara James"),
-      child: BrowseTasksPage(
-        onHide: (bool value) {
-          setState(() {
-            hideAppBar = value;
-          });
-        },
-      ),
-    );
-  }
-}
-
-class BrowseTasksPage extends StatefulWidget {
-  final Function(bool) onHide;
-
-  const BrowseTasksPage({
-    super.key,
-    required this.onHide,
-  });
-
-  @override
-  State<BrowseTasksPage> createState() => _BrowseTasksPageState();
-}
-
-class _BrowseTasksPageState extends State<BrowseTasksPage> {
-  final ScrollController _scrollController = ScrollController();
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: [
+    return Stack(children: [
       Scrollbar(
         controller: _scrollController,
         notificationPredicate: (ScrollNotification notification) {
           if (_scrollController.offset > 48) {
-            widget.onHide(false);
+            setState(() {
+              hideAppBar = false;
+            });
           } else {
-            widget.onHide(true);
+            setState(() {
+              hideAppBar = true;
+            });
           }
-
+          widget.onScroll(_scrollController);
           return notification.depth == 0;
         },
         child: SingleChildScrollView(
@@ -97,13 +125,16 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const SizedBox(height: 16),
-                  Center(child: searchBarWidget()),
+                  hideAppBar
+                      ? Center(child: searchBarWidget())
+                      : const Center(),
                   const SizedBox(height: 16),
                   AutoSizeText(
                     context
                         .tr("resultText", namedArgs: {"value": 0.toString()}),
                     maxLines: 1,
                     style: Theme.of(context).textTheme.labelLarge,
+                    softWrap: true,
                   ),
 
                   const SizedBox(height: 32),
@@ -111,7 +142,7 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: List.generate(
-                        5, // Replace with the number of viewed tasks
+                        20, // Replace with the number of viewed tasks
                         (index) {
                           // Replace with appropriate task details
                           return Card(
@@ -137,6 +168,7 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .displaySmall,
+                                        softWrap: true,
                                       ),
                                       subtitle: AutoSizeText(
                                         "Description for Viewed Task $index",
@@ -144,6 +176,7 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium,
+                                        softWrap: true,
                                       ),
                                     )
                                   ],
@@ -161,11 +194,14 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 5, // Replace with the number of recent tasks
+                    itemCount: 20, // Replace with the number of recent tasks
                     itemBuilder: (context, index) {
                       // Replace with appropriate task details
                       return ListTile(
-                        title: Text("Recent Task $index"),
+                        title: Text(
+                          "Recent Task $index",
+                          softWrap: true,
+                        ),
                         leading: const Icon(Icons.history),
                         trailing: IconButton(
                           icon: const Icon(Icons.close),
@@ -185,11 +221,15 @@ class _BrowseTasksPageState extends State<BrowseTasksPage> {
           ),
         ),
       ),
-      Align(
-        alignment: Alignment.topCenter,
-        child: searchBarWidget(),
-      )
-    ]));
+      hideAppBar
+          ? const Center()
+          : Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: searchBarWidget(),
+              ))
+    ]);
   }
 
   Widget searchBarWidget() {

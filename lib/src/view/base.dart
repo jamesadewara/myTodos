@@ -1,8 +1,9 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:mytodo/src/control/features/app_notification/push_notification.dart';
+import 'package:go_router/go_router.dart';
 
-class BaseApp extends StatefulWidget {
+class BaseApp extends StatelessWidget {
   const BaseApp({
     super.key,
     required this.child,
@@ -10,11 +11,6 @@ class BaseApp extends StatefulWidget {
 
   final Widget child;
 
-  @override
-  State<BaseApp> createState() => _BaseAppState();
-}
-
-class _BaseAppState extends State<BaseApp> {
   @override
   Widget build(BuildContext context) {
     // PushNotification pushNotification = PushNotification();
@@ -26,7 +22,7 @@ class _BaseAppState extends State<BaseApp> {
     //           return ProgressModal(message: listener);
     //         })
     //     : null;
-    return widget.child;
+    return child;
   }
 }
 
@@ -40,17 +36,30 @@ class ErrorPage extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.of(context).pop();
+              GoRouter.of(context).pop();
             },
           ),
           title: Text(
             context.tr('oopsText'),
           )),
-      body: Center(
-        child: Text(
-          context.tr('oopsDetailText'),
-          softWrap: true,
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/images/icons/error.png",
+            width: 64,
+            height: 64,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          AutoSizeText(
+            context.tr('oopsDetailText'),
+            style: Theme.of(context).textTheme.headlineMedium,
+            softWrap: true,
+          )
+        ],
       ),
     );
   }

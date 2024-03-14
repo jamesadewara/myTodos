@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/control/constants/validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class CreatePasswordScreen extends StatefulWidget {
-  const CreatePasswordScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const CreatePasswordScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<CreatePasswordScreen> createState() => _CreatePasswordScreenState();
@@ -27,8 +37,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
       }
     }
 
-    return SafeArea(
-        child: Scrollbar(
+    return Scaffold(
+        body: SafeArea(
+            child: Scrollbar(
       controller: _scrollController,
       notificationPredicate: (ScrollNotification notification) {
         return notification.depth == 0;
@@ -68,18 +79,27 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AutoSizeText(context.tr("createPasswordText"),
-                        maxLines: 1,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(fontWeight: FontWeight.bold)),
+                    AutoSizeText(
+                      context.tr("createPasswordText"),
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(fontWeight: FontWeight.bold),
+                      softWrap: true,
+                    ),
                     const SizedBox(height: 4),
-                    AutoSizeText(context.tr("patienceText"),
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.bodyMedium),
+                    AutoSizeText(
+                      context.tr("patienceText"),
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      softWrap: true,
+                    ),
                     const SizedBox(height: 64),
-                    Text(context.tr("passwordText")),
+                    Text(
+                      context.tr("passwordText"),
+                      softWrap: true,
+                    ),
                     TextFormField(
                       controller: _passwordController,
                       keyboardType: TextInputType.text,
@@ -97,6 +117,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     const SizedBox(height: 32),
                     Text(
                       context.tr("confirmPasswordText"),
+                      softWrap: true,
                     ),
                     TextFormField(
                       controller: _confirmPasswordController,
@@ -123,7 +144,10 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text(context.tr("continueText")),
+                            child: Text(
+                              context.tr("continueText"),
+                              softWrap: true,
+                            ),
                           )),
                     ),
                     const SizedBox(
@@ -136,6 +160,6 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
           ]),
         ),
       ),
-    ));
+    )));
   }
 }

@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const NotificationScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<NotificationScreen> createState() => _NotificationScreenState();
@@ -62,10 +72,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   GoRouter.of(context).pop(true);
                 },
               ),
-        title: Text(selectedNotifications.isNotEmpty
-            ? context.tr("selectedText",
-                namedArgs: {"value": selectedNotifications.length.toString()})
-            : context.tr("notificationTitle")),
+        title: Text(
+          selectedNotifications.isNotEmpty
+              ? context.tr("selectedText",
+                  namedArgs: {"value": selectedNotifications.length.toString()})
+              : context.tr("notificationTitle"),
+          softWrap: true,
+        ),
         actions: <Widget>[
           Visibility(
             visible: selectedNotifications.isNotEmpty,
@@ -83,15 +96,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               const PopupMenuItem<String>(
                 value: 'All',
-                child: Text('All'),
+                child: Text(
+                  'All',
+                  softWrap: true,
+                ),
               ),
               const PopupMenuItem<String>(
                 value: 'Payment',
-                child: Text('Payment'),
+                child: Text(
+                  'Payment',
+                  softWrap: true,
+                ),
               ),
               const PopupMenuItem<String>(
                 value: 'Meeting',
-                child: Text('Meeting'),
+                child: Text(
+                  'Meeting',
+                  softWrap: true,
+                ),
               ),
               // Add more filters as needed
             ],
@@ -145,8 +167,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     ),
                   ),
                 ),
-                title: Text(filteredNotificationsList[index]["title"]),
-                subtitle: Text(filteredNotificationsList[index]["subtitle"]),
+                title: Text(
+                  filteredNotificationsList[index]["title"],
+                  softWrap: true,
+                ),
+                subtitle: Text(
+                  filteredNotificationsList[index]["subtitle"],
+                  softWrap: true,
+                ),
                 trailing: selectedNotifications.isNotEmpty
                     ? Checkbox(
                         value: isSelected,

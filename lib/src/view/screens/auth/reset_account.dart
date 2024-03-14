@@ -2,11 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
 import 'package:mytodo/src/control/constants/validators.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class ResetAccountScreen extends StatefulWidget {
-  const ResetAccountScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const ResetAccountScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<ResetAccountScreen> createState() => _ResetAccountScreenState();
@@ -24,8 +34,9 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
       if (_resetAccountFormKey.currentState!.validate()) {}
     }
 
-    return SafeArea(
-        child: Scrollbar(
+    return Scaffold(
+        body: SafeArea(
+            child: Scrollbar(
       controller: _scrollController,
       notificationPredicate: (ScrollNotification notification) {
         return notification.depth == 0;
@@ -65,15 +76,22 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    AutoSizeText(context.tr("resetPasswordText"),
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.bodyMedium),
-                    AutoSizeText(context.tr("choosePasswordText"),
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.displaySmall),
+                    AutoSizeText(
+                      context.tr("resetPasswordText"),
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      softWrap: true,
+                    ),
+                    AutoSizeText(
+                      context.tr("choosePasswordText"),
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.displaySmall,
+                      softWrap: true,
+                    ),
                     const SizedBox(height: 64),
                     Text(
                       context.tr("newPasswordText"),
+                      softWrap: true,
                     ),
                     TextFormField(
                       controller: _passwordController,
@@ -90,7 +108,10 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                       ),
                     ),
                     const SizedBox(height: 32),
-                    Text(context.tr("confirmPasswordText")),
+                    Text(
+                      context.tr("confirmPasswordText"),
+                      softWrap: true,
+                    ),
                     TextFormField(
                       controller: _confirmPasswordController,
                       keyboardType: TextInputType.text,
@@ -116,7 +137,10 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 16, right: 16, top: 8, bottom: 8),
-                            child: Text(context.tr("submitText")),
+                            child: Text(
+                              context.tr("submitText"),
+                              softWrap: true,
+                            ),
                           )),
                     ),
                     const SizedBox(
@@ -129,6 +153,6 @@ class _ResetAccountScreenState extends State<ResetAccountScreen> {
           ]),
         ),
       ),
-    ));
+    )));
   }
 }

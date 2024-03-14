@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mytodo/src/control/constants/config.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/view/custom_widgets/appnavigatorbar.dart';
 import 'package:mytodo/src/view/custom_widgets/profile_img.dart';
 import 'package:mytodo/src/view/screens/settings/profile.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
   const SettingsScreen({
     super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
   });
 
   @override
@@ -28,7 +37,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return AppNavigationBar(
         currentState: 3,
-        title: const Text("Adewara James"),
+        title: const Text(
+          "Adewara James",
+          softWrap: true,
+        ),
         hideBackground:
             ResponsiveBreakpoints.of(context).between(MOBILE, TABLET),
         hideAppBar: hideAppBar,
@@ -61,22 +73,21 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Scrollbar(
-            controller: _scrollController,
-            interactive: true,
-            notificationPredicate: (ScrollNotification notification) {
-              if (_scrollController.offset > 48) {
-                widget.onHide(false);
-              } else {
-                widget.onHide(true);
-              }
+    return Scrollbar(
+        controller: _scrollController,
+        interactive: true,
+        notificationPredicate: (ScrollNotification notification) {
+          if (_scrollController.offset > 48) {
+            widget.onHide(false);
+          } else {
+            widget.onHide(true);
+          }
 
-              return notification.depth == 0;
-            },
-            child: ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
-                ? settingsView()
-                : desktopSettingsView()));
+          return notification.depth == 0;
+        },
+        child: ResponsiveBreakpoints.of(context).between(MOBILE, TABLET)
+            ? settingsView()
+            : desktopSettingsView());
   }
 
   Widget desktopSettingsView() {
@@ -124,10 +135,12 @@ class _SettingsPageState extends State<SettingsPage> {
                               .textTheme
                               .bodyLarge
                               ?.copyWith(fontWeight: FontWeight.bold),
+                          softWrap: true,
                         ),
                         subtitle: Text(
                           "Adewara James",
                           style: Theme.of(context).textTheme.bodySmall,
+                          softWrap: true,
                         ),
                       ),
                     )),
@@ -153,12 +166,15 @@ class _SettingsPageState extends State<SettingsPage> {
                               const SizedBox(
                                 height: 32,
                               ),
-                              AutoSizeText(index.title,
-                                  maxLines: 1,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(fontWeight: FontWeight.bold)),
+                              AutoSizeText(
+                                index.title,
+                                maxLines: 1,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                                softWrap: true,
+                              ),
                               const SizedBox(
                                 height: 4,
                               ),
@@ -170,27 +186,57 @@ class _SettingsPageState extends State<SettingsPage> {
                                         ? ResponsiveBreakpoints.of(context)
                                             .between(MOBILE, TABLET)
                                         : true,
-                                    child: ListTile(
-                                        tileColor: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8)),
-                                        onTap: subIndex.goRoute,
-                                        leading: Card(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(4),
-                                            child: Icon(subIndex.icon),
-                                          ),
-                                        ),
-                                        title: Text(subIndex.title),
-                                        titleTextStyle: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.bold),
-                                        trailing: Icon(subIndex.trailingIcon)),
+                                    child: subIndex.id == "about"
+                                        ? AboutListTile(
+                                            icon: Icon(
+                                              subIndex.icon,
+                                            ),
+                                            applicationIcon: Image.asset(
+                                              "assets/icon.png",
+                                              width: 62,
+                                              height: 62,
+                                            ),
+                                            applicationName: appName,
+                                            applicationVersion: appVersion,
+                                            applicationLegalese: appLegalese,
+                                            aboutBoxChildren: const [
+                                              Text(
+                                                "Thanks for usage",
+                                                softWrap: true,
+                                              )
+                                            ],
+                                            child: Text(
+                                              subIndex.title,
+                                              softWrap: true,
+                                            ),
+                                          )
+                                        : ListTile(
+                                            tileColor: Theme.of(context)
+                                                .colorScheme
+                                                .surface,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            onTap: subIndex.goRoute,
+                                            leading: Card(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4),
+                                                child: Icon(subIndex.icon),
+                                              ),
+                                            ),
+                                            title: Text(
+                                              subIndex.title,
+                                              softWrap: true,
+                                            ),
+                                            titleTextStyle: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                            trailing:
+                                                Icon(subIndex.trailingIcon)),
                                   ),
                                   const SizedBox(
                                     height: 12,

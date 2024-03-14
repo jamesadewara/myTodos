@@ -9,6 +9,7 @@ import 'package:mytodo/src/view/components/login_dialog.dart';
 const appName = "myTodo's";
 const appSite = "myTodo's";
 const appVersion = "1.0.0";
+const appLegalese = "copyright 2024 ceoCompany";
 
 List<AppLocale> supportedLocales = [
   AppLocale(locale: const Locale('en', 'US'), name: "English"),
@@ -131,8 +132,9 @@ List<SettingsTitleRouteProps> settingsList({required BuildContext context}) => [
             goRoute: () {},
             trailingIcon: Icons.chevron_right),
         SettingsRouteProps(
+            id: "about",
             icon: Icons.help,
-            title: context.tr("versionTitle"),
+            title: context.tr("aboutAppTitle"),
             subtitle: "1.0.0",
             goRoute: () {
               showAboutDialog(context: context);

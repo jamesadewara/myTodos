@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 
 class TextEditor extends StatefulWidget {
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
   const TextEditor({
     super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
   });
 
   @override
@@ -23,7 +32,10 @@ class _TextEditorState extends State<TextEditor> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(context.tr("textEditorTitle")),
+          title: Text(
+            context.tr("textEditorTitle"),
+            softWrap: true,
+          ),
         ),
         body: Scrollbar(
             controller: _scrollController,

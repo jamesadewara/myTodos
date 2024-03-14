@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/model/props/task_props.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class TaskGroupScreen extends StatefulWidget {
-  const TaskGroupScreen({super.key});
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
+  const TaskGroupScreen({
+    super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
+  });
 
   @override
   State<TaskGroupScreen> createState() => _TaskGroupScreenState();

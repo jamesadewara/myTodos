@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mytodo/src/control/routers/props.dart';
 import 'package:mytodo/src/control/routers/route_generator.dart';
 import 'package:mytodo/src/view/custom_widgets/notificator.dart';
 import 'package:mytodo/src/view/custom_widgets/pickers.dart';
 import 'package:mytodo/src/view/custom_widgets/dropdown_modal.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:mytodo/src/control/constants/store/store.dart';
 
 class AddTaskScreen extends StatefulWidget {
+  final RouteParams param;
+  final GoRouterState state;
+  final AppState appState;
   const AddTaskScreen({
     super.key,
+    required this.param,
+    required this.state,
+    required this.appState,
   });
 
   @override
@@ -39,7 +47,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          title: Text(context.tr("addTaskTitle")),
+          title: Text(
+            context.tr("addTaskTitle"),
+            softWrap: true,
+          ),
           actions: const <Widget>[
             NotificatorButton(),
           ],
@@ -112,11 +123,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                         );
                                       });
                                 },
-                                title: Text(context.tr("projectNameText")),
+                                title: Text(
+                                  context.tr("projectNameText"),
+                                  softWrap: true,
+                                ),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.bodySmall,
                                 subtitle: const Text(
                                   "Grocery Shopping App",
+                                  softWrap: true,
                                 ),
                                 subtitleTextStyle: Theme.of(context)
                                     .textTheme
@@ -135,12 +150,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                   GoRouter.of(context)
                                       .pushNamed(AppRoutes.editor);
                                 },
-                                title:
-                                    Text(context.tr("projectDescriptionText")),
+                                title: Text(
+                                  context.tr("projectDescriptionText"),
+                                  softWrap: true,
+                                ),
                                 titleTextStyle:
                                     Theme.of(context).textTheme.bodySmall,
                                 subtitle: const Text(
                                   "This software caters to super shops, presenting a centralized hub where they can effectively showcase and deliver thier entire product range. Customers gain access to a convienient all-in-one solution for thier day-to-day shopping necessities",
+                                  softWrap: true,
                                 ),
                                 subtitleTextStyle: Theme.of(context)
                                     .textTheme
@@ -175,7 +193,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                   onTap: () {
                                     selectDate(context);
                                   }),
-                              SizedBox(
+                              const SizedBox(
                                 height: 16,
                               ),
                               DropdownField(
@@ -193,7 +211,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                   return Column(children: [
                                     ListTile(
                                       trailing: IconButton(
-                                        icon: Icon(Icons.close),
+                                        icon: const Icon(Icons.close),
                                         onPressed: () {},
                                       ),
                                       tileColor:
@@ -201,11 +219,15 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8)),
-                                      title: Text(e.title),
+                                      title: Text(
+                                        e.title,
+                                        softWrap: true,
+                                      ),
                                       titleTextStyle:
                                           Theme.of(context).textTheme.bodySmall,
                                       subtitle: Text(
                                         e.subtitle,
+                                        softWrap: true,
                                       ),
                                       subtitleTextStyle: Theme.of(context)
                                           .textTheme
@@ -236,8 +258,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                             subtitle: "subtitle"));
                                   });
                                 },
-                                child: Text(context.tr("additionalAddTaskText",
-                                    namedArgs: {"value": "+"})),
+                                child: Text(
+                                  context.tr("additionalAddTaskText",
+                                      namedArgs: {"value": "+"}),
+                                  softWrap: true,
+                                ),
                               ),
                               const SizedBox(
                                 height: 48,
