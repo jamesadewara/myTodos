@@ -11,7 +11,7 @@ import 'package:url_strategy/url_strategy.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  // await firebaseInit();
+  await firebaseInit();
   // await servicesInit();
 
   final SharedPreferences prefs = await SharedPreferences.getInstance();
