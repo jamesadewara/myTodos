@@ -291,6 +291,39 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                             iconBgColor: Colors.orangeAccent,
                           ),
+  const SizedBox(
+                            height: 8,
+                          ),
+                           TaskListTile(
+                            onTap: () {
+                              GoRouter.of(context)
+                                  .pushNamed(AppRoutes.taskGroup);
+                            },
+                            title: "Office Project",
+                            subtitle: "30 Tasks",
+                            value: .7,
+                            icon: const Icon(
+                              Icons.person,
+                              size: 16,
+                            ),
+                            iconBgColor: Colors.orangeAccent,
+                          ),const SizedBox(
+                            height: 8,
+                          ),
+                           TaskListTile(
+                            onTap: () {
+                              GoRouter.of(context)
+                                  .pushNamed(AppRoutes.taskGroup);
+                            },
+                            title: "Buisness Project",
+                            subtitle: "30 Tasks",
+                            value: .7,
+                            icon: const Icon(
+                              Icons.person,
+                              size: 16,
+                            ),
+                            iconBgColor: Colors.orangeAccent,
+                          ),
                           const SizedBox(
                             height: 48,
                           ),

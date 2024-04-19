@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '137948697829',
     projectId: 'my-todo-project-4aee5',
     storageBucket: 'my-todo-project-4aee5.appspot.com',
-    iosBundleId: 'com.aivilah.mytodo',
+    iosBundleId: 'com.team.mytodo',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,6 +76,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '137948697829',
     projectId: 'my-todo-project-4aee5',
     storageBucket: 'my-todo-project-4aee5.appspot.com',
-    iosBundleId: 'com.aivilah.mytodo.RunnerTests',
+    iosBundleId: 'com.team.mytodo.RunnerTests',
   );
 }

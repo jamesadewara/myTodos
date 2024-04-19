@@ -43,17 +43,17 @@ class MainRouteGenerator {
   static GoRouter generateRoute(
       {required AppState appState, required isLoggedIn}) {
     return GoRouter(
-      redirect: (context, state) {
-        if (appState.isIntro) {
-          return "/${IntroRoutes.onboarding}";
-        } else {
-          if (isLoggedIn) {
-            return null;
-          } else {
-            return "/${AuthRoutes.login}";
-          }
-        }
-      },
+     // redirect: (context, state) {
+   //     if (appState.isIntro) {
+    //      return "/${IntroRoutes.onboarding}";
+    //    } else {
+    //      if (isLoggedIn) {
+    //        return null;
+    //      } else {
+    //        return "/${AuthRoutes.login}";
+      //    }
+        //}
+      //},
       initialLocation: "/${AppRoutes.home}",
       routes: <RouteBase>[
         // WELCOME ROUTE

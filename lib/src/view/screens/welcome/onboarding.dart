@@ -107,7 +107,7 @@ class OnboardingPage extends StatelessWidget {
                                   foregroundColor:
                                       const MaterialStatePropertyAll(
                                           Colors.white)),
-                              onPressed: () async {
+                              onPressed: ()  {
                                 GoRouter.of(context)
                                     .pushNamed(IntroRoutes.selectAppearance);
                               },

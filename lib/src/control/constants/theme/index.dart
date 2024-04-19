@@ -12,4 +12,4 @@ export 'package:mytodo/src/control/constants/theme/theme_component/icon_theme.da
 export 'package:mytodo/src/control/constants/theme/theme_component/bottom_navigation_theme.dart';
 export 'package:mytodo/src/control/constants/theme/theme_component/appbar_theme.dart';
 export 'package:mytodo/src/control/constants/theme/theme_component/color_theme.dart';
-export 'package:mytodo/src/control/constants/theme/theme_component/text_theme.dart';
+//export 'package:mytodo/src/control/constants/theme/theme_component/text_theme.dart';

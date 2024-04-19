@@ -52,14 +52,14 @@
 		<key>CFBundleURLTypes</key>
 		<array>
 			<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>mytodo.aivilah.com</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-			<string>appscheme</string>
-			</array>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLName</key>
+				<string>mytodo.team.com</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>appscheme</string>
+				</array>
 			</dict>
 		</array>
 	</dict>
